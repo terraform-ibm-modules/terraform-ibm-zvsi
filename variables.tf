@@ -35,3 +35,15 @@ variable "resource_tags" {
   description = "Optional list of tags to be added to created resources"
   default     = []
 }
+
+ variable "name" {
+   description = "A unique name for the zOS VSI to be created" 
+   type        = string
+   default     = "wazi-terra"
+}
+
+ variable "resource_group_id" {
+   description = "The resource group to deploy the architecture into"
+   type        = string
+   default     = "Default"
+}
