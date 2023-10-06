@@ -55,19 +55,16 @@ variable "override_json_string" {
    "cos": [],
    "enable_transit_gateway": false,
    "transit_gateway_global": false,
-   "key_management": {},
+   "key_management": {
+        "keys": [
+        ],
+        "name": null,
+        "resource_group": null,
+        "use_hs_crypto": false,
+        "use_data": false
+   },
    "network_cidr": "10.0.0.0/8",
    "resource_groups": [
-      {
-         "create": false,
-         "name": "service-rg",
-         "use_prefix": true
-      },
-      {
-         "create": false,
-         "name": "management-rg",
-         "use_prefix": true
-      },
       {
          "create": true,
          "name": "workload-rg",
@@ -141,7 +138,7 @@ variable "override_json_string" {
    "vpn_gateways": [],
    "vsi": [
       {
-         "boot_volume_encryption_key_name": "",
+         "boot_volume_encryption_key_name": null,
          "image_name": "ibm-zos-2-5-s390x-dev-test-wazi-4",
          "machine_type": "mz2-2x16",
          "name": "workload-server",
