@@ -11,7 +11,6 @@ variable "ibmcloud_api_key" {
 variable "prefix" {
   description = "A unique identifier for resources. Must begin with a lowercase letter and end with a lowerccase letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters."
   type        = string
-  default     = "ketaki"
   validation {
     error_message = "Prefix must begin with a lowercase letter and contain only lowercase letters, numbers, and - characters. Prefixes must end with a lowercase letter or number and be 16 or fewer characters."
     condition     = can(regex("^([a-z]|[a-z][-a-z0-9]*[a-z0-9])$", var.prefix)) && length(var.prefix) <= 16
@@ -21,12 +20,10 @@ variable "prefix" {
 variable "region" {
   description = "Region where VPC will be created. To find your VPC region, use `ibmcloud is regions` command to find available regions."
   type        = string
-  default     = "br-sao"
 }
 variable "ssh_public_key" {
   description = "A public SSH Key for VSI creation which does not already exist in the deployment region. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended) - See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys. To use an existing key, enter a value for the variable 'existing_ssh_key_name' instead."
   type        = string
-  default     = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDIuoyXdQkgUs9cIaLw5GGVDQD356VqbGh0CbEf1vc6eEmJ6i7puJ8Xu+pPL+pNXaB/gxbF3HnPYoRDqLGMl5brV/phBOpq1wLzqRhtbVOaxpRJBreBJxv++vKoFw7wlZTogukHYm6ARfMTMgdYqce75UN6isqrZA0RbhpbDoryddCWhKWiCkAXhGfnpC0pC7SghLmFmUyMZw2iB606hnr8f/VplotaQUpOG7P9hy3JO9UZsMxE5LDyEQuPZ/H69IFcWJjR1BHTMq8aHje9bXvgxEwx3ShJ+4Nt4IU4hU9XBQ6vA/4cOP+EJcaHtmopqy9hauo/4cS7zW1ps67z1xzRrw+qi2Cb6MnqgkU/NwsnxDGuvvL/DsXgMJUnGEgNEU8zTI+j39RZG2jRGAfdQ1D4ZPTA45eGMjunHcQLFm8fBWcfrFu0negW5REw3nj8mNh+56ZFYrbpMZpSrMOQogdbfvU0RKvwhk+mDSAzdlvYQy/r6U/Tlj3MxCgDMrga+WU= root@akshay-x86"
   validation {
     error_message = "Public SSH Key must be a valid ssh rsa public key."
     condition     = var.ssh_public_key == null || can(regex("ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?", var.ssh_public_key))
@@ -306,13 +303,13 @@ variable "override_json_string" {
                   "name": "vsi-zone-1",
                   "public_gateway": false
                },
-                    {
-                        "acl_name": "workload-acl",
-                        "cidr": "10.40.20.0/24",
-                        "name": "vpe-zone-1",
-                        "public_gateway": false
-                    }
-                ],
+               {
+                  "acl_name": "workload-acl",
+                  "cidr": "10.40.20.0/24",
+                  "name": "vpe-zone-1",
+                  "public_gateway": false
+               }
+             ],
                 "zone-2": [
                     {
                         "acl_name": "workload-acl",
@@ -352,7 +349,7 @@ variable "override_json_string" {
             "zone-2": [],
             "zone-3": []
          }
-      }
+     }
    ],
    "vpn_gateways": [
       {
@@ -361,12 +358,6 @@ variable "override_json_string" {
             "resource_group": "management-rg",
             "subnet_name": "vpn-zone-1",
             "vpc_name": "management"
-        }
-   ],
-   "ssh_keys": [
-        {
-          "name": "ssh-key",
-          "public_key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC6LlqQiX1YF0TJVe/tP+RTwlkch59c95fjJ2c2aYiNHtFcjJ8Q9PTs0aAA55WJP/16b1cGYpdf1cB+I+lcMQPdVZwpIUDxi7oj35dWI1cIWrgczDgpZdHZowTgUacyWkc6Bb5Nb9LdvTXn91W/XXV5PjWXzGIo0W2XS1bcIQo3Ipm7OUUsap9UnVadma9vMsCMzDcqwuEgohp2oXrqrKnfL3cnSWWfqjjp/6jkjE4b23io7ml0Ig2xgNsH0LQEMhO8CzVVW5IfZZ1L/sRKlbGkCNyvMEdgq6SGu5V8ezndpMbF3rVJeL+7RT4pzYtVupOSV8p4YagqBgqmda+TNSQEmIlbKDpo8waJP/ru2R9frZ16vz+re9svjxX4Jp9VzmiOCK4IHQm2dxi4gkzMjdCDcZR5/rkolOc5hZs0WhodZJMl8z9ujIdiF2hblwnx5crn1dkIsg7FH6Gt0Pi6UG8EnMVxf7U4cu5BJBpVm03y9nTJXbiVpkkFT5yDDp59SFc= ketakipatil@Ketakis-MacBook-Pro.local"
         }
    ],
    "vsi": [
