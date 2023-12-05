@@ -21,6 +21,8 @@ module "landing-zone" {
   region                              = var.region
   ibmcloud_api_key                    = var.ibmcloud_api_key 
   ssh_public_key                      = var.ssh_public_key
-  override_json_string                = var.override_json_string
+#  override_json_string                = var.override_json_string
+  override                            = var.override
 }
+
 

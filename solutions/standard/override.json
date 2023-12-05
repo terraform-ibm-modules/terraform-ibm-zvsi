@@ -1,66 +1,280 @@
 {
-   "atracker": {
-      "collector_bucket_name": "",
-      "receive_global_events": false,
-      "resource_group": "",
-      "add_route": false
-   },
+     "access_groups": [],
+    "appid": {
+      "keys": [
+        "slz-appid-key"
+      ],
+      "name": "slz-appid",
+      "resource_group": "slz-service-rg",
+      "use_appid": true,
+      "use_data": false
+    },
+    "atracker": {
+      "collector_bucket_name": "atracker-bucket",
+      "receive_global_events": true,
+      "resource_group": "slz-service-rg",
+      "add_route": true
+    },
+    "cos": [
+      {
+        "access_tags": [],
+        "buckets": [
+          {
+            "access_tags": [],
+            "endpoint_type": "public",
+            "force_delete": true,
+            "kms_key": "slz-atracker-key",
+            "name": "atracker-bucket",
+            "storage_class": "standard"
+          }
+        ],
+        "keys": [
+          {
+            "name": "cos-bind-key",
+            "role": "Writer",
+            "enable_HMAC": false
+          }
+        ],
+        "name": "atracker-cos",
+        "plan": "standard",
+        "random_suffix": true,
+        "resource_group": "slz-service-rg",
+        "use_data": false
+      },
+      {
+        "access_tags": [],
+        "buckets": [
+          {
+            "access_tags": [],
+            "endpoint_type": "public",
+            "force_delete": true,
+            "kms_key": "slz-key",
+            "name": "management-bucket",
+            "storage_class": "standard"
+          },
+          {
+            "access_tags": [],
+            "endpoint_type": "public",
+            "force_delete": true,
+            "kms_key": "slz-key",
+            "name": "workload-bucket",
+            "storage_class": "standard"
+          }
+        ],
+        "keys": [],
+        "name": "cos",
+        "plan": "standard",
+        "random_suffix": true,
+        "resource_group": "slz-service-rg",
+        "use_data": false
+      }
+    ],
+    "iam_account_settings": {
+      "enable": false
+    },
+    "key_management": {
+      "access_tags": [],
+      "keys": [
+        {
+          "key_ring": "slz-slz-ring",
+          "name": "slz-key",
+          "root_key": true
+        },
+        {
+          "key_ring": "slz-slz-ring",
+          "name": "slz-atracker-key",
+          "root_key": true
+        },
+        {
+          "key_ring": "slz-slz-ring",
+          "name": "slz-vsi-volume-key",
+          "root_key": true
+        }
+      ],
+      "name": "slz-kms",
+      "resource_group": "slz-service-rg",
+      "use_hs_crypto": false
+    },
+    "resource_groups": [
+      {
+        "create": true,
+        "name": "slz-service-rg",
+        "use_prefix": true
+      },
+      {
+        "create": true,
+        "name": "slz-management-rg",
+        "use_prefix": true
+      },
+      {
+        "create": true,
+        "name": "slz-workload-rg",
+        "use_prefix": true
+      }
+    ],
    "clusters": [],
-   "cos": [],
    "enable_transit_gateway": true,
    "transit_gateway_global": false,
-   "key_management": {
-        "keys": [
-            {
-                "key_ring": "slz-slz-ring",
-                "name": "slz-slz-key",
-                "root_key": true
-            },
-            {
-                "key_ring": "slz-slz-ring",
-                "name": "slz-atracker-key",
-                "root_key": true
-            },
-            {
-                "key_ring": "slz-slz-ring",
-                "name": "slz-vsi-volume-key",
-                "root_key": true
-            }
-	],
-        "name": "slz-keys",
-        "resource_group": "service-rg",
-        "use_hs_crypto": false,
-        "use_data": false
-   },
-   "network_cidr": "10.0.0.0/8",
-   "resource_groups": [
-      {
-         "create": true,
-         "name": "workload-rg",
-         "use_prefix": true
-      },
-       {
-         "create": true,
-         "name": "management-rg",
-         "use_prefix": true
-      },
-      {
-         "create": true,
-         "name": "service-rg",
-         "use_prefix": true
-      }
-   ],
    "security_groups": [],
    "transit_gateway_connections": [
-     "management",
-        "workload"
+     "management","workload"
    ],
-   "transit_gateway_resource_group": "service-rg",
-   "virtual_private_endpoints": [],
+   "transit_gateway_resource_group": "slz-service-rg",
+   "virtual_private_endpoints": [
+         {
+            "service_name": "cos",
+            "service_type": "cloud-object-storage",
+            "resource_group": "slz-service-rg",
+            "vpcs": [
+                {
+                    "name": "management",
+                    "subnets": [
+                        "vpe-zone-1"
+                    ]
+                },
+                {
+                    "name": "workload",
+                    "subnets": [
+                        "vpe-zone-1",
+                        "vpe-zone-2"
+                    ]
+                }
+            ]
+        }
+   ],
+   "secrets_manager": {
+      "access_tags": [],
+      "kms_key_name": null,
+      "name": "Secret-Manager-New",
+      "resource_group": "slz-management-rg",
+      "use_secrets_manager": true
+    },
    "vpcs": [
-      {
-         "default_security_group_rules": [],
-         "clean_default_sg_acl": true,
+      {  
+	 "default_security_group_name": "bastion-sg",
+         "default_security_group_rules": [
+	   {
+                  "direction": "inbound",
+                  "name": "allow-ibm-inbound",
+                  "remote": "0.0.0.0/0",
+                  "tcp": {
+                            "port_max": 22,
+                            "port_min": 22
+                        }
+	   },
+	   {
+                  "direction": "inbound",
+                  "name": "allow-ibm-inbound-1",
+                  "remote": "0.0.0.0/0",
+                  "icmp": {
+                            "type": 8
+                        }
+            },
+	    {
+                  "direction": "outbound",
+                  "name": "allow-all-outbound",
+                  "remote": "0.0.0.0/0",
+                  "tcp": {
+                            "port_max": 22,
+                            "port_min": 22
+                        }
+           }
+	 ],
+         "clean_default_sg_acl": false,
+         "flow_logs_bucket_name": null,
+         "network_acls": [
+            {
+               "add_cluster_rules": false,
+               "name": "management-acl",
+               "rules": [
+                  {
+                     "action": "allow",
+                     "destination": "10.0.0.0/8",
+                     "direction": "inbound",
+                     "name": "allow-ibm-inbound",
+                     "source": "161.26.0.0/16"
+                  },
+                  {
+                     "action": "allow",
+                     "destination": "10.0.0.0/8",
+                     "direction": "inbound",
+                     "name": "allow-all-network-inbound",
+                     "source": "10.0.0.0/8"
+                  },
+                  {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
+                     "direction": "outbound",
+                     "name": "allow-all-outbound",
+                     "source": "0.0.0.0/0"
+                  }
+               ]
+            }
+         ],
+         "prefix": "management",
+         "resource_group": "slz-management-rg",
+         "subnets": {
+            "zone-1": [
+               {
+                  "acl_name": "management-acl",
+                  "cidr": "10.10.10.0/24",
+                  "name": "bastion-zone-1",
+                  "public_gateway": true
+               },
+   	       {
+                  "acl_name": "management-acl",
+                  "cidr": "10.10.20.0/24",
+                  "name": "vpn-zone-1",
+                  "public_gateway": true
+               },
+               {
+                  "acl_name": "management-acl",
+                  "cidr": "10.10.30.0/24",
+                  "name": "vpe-zone-1",
+                  "public_gateway": true
+               }
+            ],
+            "zone-2": [],
+            "zone-3": []
+         },
+         "use_public_gateways": {
+            "zone-1": false,
+            "zone-2": false,
+            "zone-3": false
+         },
+         "address_prefixes": {
+            "zone-1": [],
+            "zone-2": [],
+            "zone-3": []
+         }
+      },
+    {
+         "default_security_group_name": "workload-sg",
+         "default_security_group_rules": [
+		 {
+                  "direction": "inbound",
+                  "name": "allow-ibm-inbound",
+                  "remote": "0.0.0.0/0",
+                  "tcp": {
+                            "port_max": 22,
+                            "port_min": 22
+                        }
+		 },
+		 {
+                  "direction": "inbound",
+                  "name": "allow-ibm-inbound-1",
+                  "remote": "0.0.0.0/0",
+                  "icmp": {
+                            "type": 8
+                        }
+            },
+	    {
+                  "direction": "outbound",
+                  "name": "allow-all-outbound",
+                  "remote": "0.0.0.0/0"
+            }  
+	 ],
+         "clean_default_sg_acl": false,
          "flow_logs_bucket_name": null,
          "network_acls": [
             {
@@ -92,7 +306,7 @@
             }
          ],
          "prefix": "workload",
-         "resource_group": "workload-rg",
+         "resource_group": "slz-workload-rg",
          "subnets": {
             "zone-1": [
                {
@@ -100,66 +314,28 @@
                   "cidr": "10.40.10.0/24",
                   "name": "vsi-zone-1",
                   "public_gateway": false
-               }
-            ],
-            "zone-2": [],
-            "zone-3": []
-         },
-         "use_public_gateways": {
-            "zone-1": false,
-            "zone-2": false,
-            "zone-3": false
-         },
-         "address_prefixes": {
-            "zone-1": [],
-            "zone-2": [],
-            "zone-3": []
-         }
-      },
-      {
-         "default_security_group_rules": [],
-         "clean_default_sg_acl": true,
-         "flow_logs_bucket_name": null,
-         "network_acls": [
-            {
-               "add_cluster_rules": false,
-               "name": "management-acl",
-               "rules": [
-                  {
-                     "action": "allow",
-                     "destination": "10.0.0.0/8",
-                     "direction": "inbound",
-                     "name": "allow-ibm-inbound",
-                     "source": "161.26.0.0/16"
-                  },
-                  {
-                     "action": "allow",
-                     "destination": "10.0.0.0/8",
-                     "direction": "inbound",
-                     "name": "allow-all-network-inbound",
-                     "source": "10.0.0.0/8"
-                  },
-                  {
-                     "action": "allow",
-                     "destination": "0.0.0.0/0",
-                     "direction": "outbound",
-                  "source": "0.0.0.0/0"
-                  }
-               ]
-            }
-         ],
-         "prefix": "management",
-         "resource_group": "management-rg",
-         "subnets": {
-            "zone-1": [
-               {
-                  "acl_name": "management-acl",
-                  "cidr": "10.40.10.0/24",
-                  "name": "vsi-zone-1",
+               },
+               {  
+                  "acl_name": "workload-acl",
+                  "cidr": "10.40.20.0/24",
+                  "name": "vpe-zone-1",
                   "public_gateway": false
                }
             ],
-            "zone-2": [],
+            "zone-2": [
+               {
+                  "acl_name": "workload-acl",
+                  "cidr": "10.50.10.0/24",
+                  "name": "vpn-zone-2",
+                  "public_gateway": false
+               },
+               {
+                  "acl_name": "workload-acl",
+                  "cidr": "10.50.20.0/24",
+                  "name": "vpe-zone-2",
+                  "public_gateway": false
+               }
+            ],
             "zone-3": []
          },
          "use_public_gateways": {
@@ -174,39 +350,104 @@
          }
       }
    ],
-   "vpn_gateways": [],
-   "ssh_keys": [
-        {
-          "name": "ssh-ketaki",
-          "public_key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC6LlqQiX1YF0TJVe/tP+RTwlkch59c95fjJ2c2aYiNHtFcjJ8Q9PTs0aAA55WJP/16b1cGYpdf1cB+I+lcMQPdVZwpIUDxi7oj35dWI1cIWrgczDgpZdHZowTgUacyWkc6Bb5Nb9LdvTXn91W/XXV5PjWXzGIo0W2XS1bcIQo3Ipm7OUUsap9UnVadma9vMsCMzDcqwuEgohp2oXrqrKnfL3cnSWWfqjjp/6jkjE4b23io7ml0Ig2xgNsH0LQEMhO8CzVVW5IfZZ1L/sRKlbGkCNyvMEdgq6SGu5V8ezndpMbF3rVJeL+7RT4pzYtVupOSV8p4YagqBgqmda+TNSQEmIlbKDpo8waJP/ru2R9frZ16vz+re9svjxX4Jp9VzmiOCK4IHQm2dxi4gkzMjdCDcZR5/rkolOc5hZs0WhodZJMl8z9ujIdiF2hblwnx5crn1dkIsg7FH6Gt0Pi6UG8EnMVxf7U4cu5BJBpVm03y9nTJXbiVpkkFT5yDDp59SFc= ketakipatil@Ketakis-MacBook-Pro.local"
+   "vpn_gateways": [
+    {
+            "name": "gateway-workload",
+            "connections": [],
+            "resource_group": "slz-workload-rg",
+            "subnet_name": "vpn-zone-2",
+            "vpc_name": "workload"
         }
    ],
    "vsi": [
+    {
+         "boot_volume_encryption_key_name": null,
+         "image_name": "ibm-ubuntu-22-04-3-minimal-amd64-1",
+         "machine_type": "cx2-2x4",
+         "name": "bastion-vsi",
+         "resource_group": "slz-management-rg",
+         "security_group": {
+            "name": "bastion-security-group",
+            "rules": [
+                 {
+                  "direction": "inbound",
+                  "name": "allow-ibm-inbound-1",
+                  "source": "",
+                  "tcp": {
+                            "port_max": 22,
+                            "port_min": 22
+                        } 
+               },    
+	       {
+                  "direction": "outbound",
+                  "name": "allow-all-outbound",
+                  "source": "",
+                  "tcp": {
+                            "port_max": 80,
+                            "port_min": 80
+                        }
+               },
+	        {
+                  "direction": "outbound",
+                  "name": "allow-all-outbound-1",
+                  "source": "",
+                  "tcp": {
+                            "port_max": 443,
+                            "port_min": 443
+                        }
+               },
+	        {
+                  "direction": "outbound",
+                  "name": "allow-all-outbound-2",
+                  "source": "",
+                  "tcp": {
+                            "port_max": 53,
+                            "port_min": 53
+                        }
+               },
+	        {
+                  "direction": "outbound",
+                  "name": "allow-all-outbound-3",
+                  "source": "",
+                  "udp": {
+                            "port_max": 53,
+                            "port_min": 53
+                        }
+               }
+	    ],
+                "vpc_name": "management"
+         },
+         "ssh_keys": [
+            "ssh-key"
+         ],
+         "subnet_names": [
+            "bastion-zone-1"
+         ],
+         "vpc_name": "management",
+         "vsi_per_subnet": 1,
+         "enable_floating_ip": true
+      },
       {
          "boot_volume_encryption_key_name": null,
          "image_name": "ibm-zos-2-5-s390x-dev-test-wazi-4",
          "machine_type": "mz2-2x16",
          "name": "workload-server",
-         "resource_group": "workload-rg",
+         "resource_group": "slz-workload-rg",
          "security_group": {
             "name": "workload",
             "rules": [
-               {
-                  "direction": "inbound",
-                  "name": "allow-ibm-inbound",
-                  "source": "161.26.0.0/16"
-               },
-               {
-                  "direction": "inbound",
-                  "name": "allow-vpc-inbound",
-                  "source": "10.0.0.0/8"
-               },
-               {
-                  "direction": "outbound",
-                  "name": "allow-all-outbound",
-                  "source": "0.0.0.0/0"
-               }
-            ]
+                  {
+              "direction": "inbound",
+              "name": "allow-all-inbound",
+              "source": "0.0.0.0/0"
+            },
+            {
+              "direction": "outbound",
+              "name": "allow-all-outbound",
+              "source": "0.0.0.0/0"
+            }
+                ],
+                "vpc_name": "workload"
          },
          "ssh_keys": [
             "ssh-key"
@@ -217,42 +458,7 @@
          "vpc_name": "workload",
          "vsi_per_subnet": 1,
          "enable_floating_ip": false
-      },
-      {
-         "boot_volume_encryption_key_name": null,
-         "image_name": "ibm-zos-2-5-s390x-dev-test-wazi-4",
-         "machine_type": "mz2-2x16",
-         "name": "management-server",
-         "resource_group": "management-rg",
-         "security_group": {
-            "name": "management",
-            "rules": [
-               {
-                  "direction": "inbound",
-                  "name": "allow-ibm-inbound",
-                  "source": "161.26.0.0/16"
-               },
-               {
-                  "direction": "inbound",
-                  "name": "allow-vpc-inbound",
-                  "source": "10.0.0.0/8"
-               },
-               {
-                  "direction": "outbound",
-                  "name": "allow-all-outbound",
-                  "source": "0.0.0.0/0"
-               }
-            ]
-         },
-         "ssh_keys": [
-            "ssh-key"
-         ],
-         "subnet_names": [
-            "vsi-zone-1"
-         ],
-         "vpc_name": "management",
-         "vsi_per_subnet": 1,
-         "enable_floating_ip": false
-      }
-   ]
+    }
+   ],
+   "wait_till": "IngressReady"
 }
