@@ -142,8 +142,8 @@
 	   ]
 	   },
 	   {
-                   "name": "vpe-management-sg",
-           "vpc_name": "management",
+                   "name": "vpe-edge-sg",
+           "vpc_name": "edge",
 	   "resource_group": "slz-management-rg",
            "rules": [
                   {
@@ -168,7 +168,7 @@
            }
    ],	   
    "transit_gateway_connections": [
-     "management","workload"
+     "edge","workload"
    ],
    "transit_gateway_resource_group": "slz-service-rg",
    "virtual_private_endpoints": [
@@ -178,17 +178,16 @@
             "resource_group": "slz-service-rg",
             "vpcs": [
                 {
-                    "name": "management",
+                    "name": "edge",
                     "subnets": [
                         "vpe-zone-1"
                     ],
-		    "security_group_name": "vpe-management-sg"
+		    "security_group_name": "vpe-edge-sg"
                 },
                 {
                     "name": "workload",
                     "subnets": [
-                        "vpe-zone-1",
-                        "vpe-zone-2"
+                        "vpe-zone-1"
                     ],
 		    "security_group_name": "vpe-workload-sg"
                 }
@@ -198,9 +197,9 @@
    "secrets_manager": {
       "access_tags": [],
       "kms_key_name": null,
-      "name": "Secret-Manager-New",
-      "resource_group": "slz-management-rg",
-      "use_secrets_manager": true
+      "name": null,
+      "resource_group": null,
+      "use_secrets_manager": false
     },
    "vpcs": [
       {  
@@ -236,9 +235,63 @@
          "clean_default_sg_acl": false,
          "flow_logs_bucket_name": null,
          "network_acls": [
-            {
+	 {
                "add_cluster_rules": false,
-               "name": "management-acl",
+               "name": "bastion-subnet-acl",
+               "rules": [
+                  {
+                     "action": "allow",
+                     "destination": "10.0.0.0/8",
+                     "direction": "inbound",
+                     "name": "allow-ibm-inbound",
+                     "source": "161.26.0.0/16"
+                  },
+                  {
+                     "action": "allow",
+                     "destination": "10.0.0.0/8",
+                     "direction": "inbound",
+                     "name": "allow-all-network-inbound",
+                     "source": "10.0.0.0/8"
+                  },
+                  {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
+                     "direction": "outbound",
+                     "name": "allow-all-outbound",
+                     "source": "0.0.0.0/0"
+                  }
+               ]
+            },
+	    {
+               "add_cluster_rules": false,
+               "name": "client-to-site-subnet-acl",
+               "rules": [
+                  {
+                     "action": "allow",
+                     "destination": "10.0.0.0/8",
+                     "direction": "inbound",
+                     "name": "allow-ibm-inbound",
+                     "source": "161.26.0.0/16"
+                  },
+                  {
+                     "action": "allow",
+                     "destination": "10.0.0.0/8",
+                     "direction": "inbound",
+                     "name": "allow-all-network-inbound",
+                     "source": "10.0.0.0/8"
+                  },
+                  {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
+                     "direction": "outbound",
+                     "name": "allow-all-outbound",
+                     "source": "0.0.0.0/0"
+                  }
+               ]
+            },
+	    {
+               "add_cluster_rules": false,
+               "name": "vpe-subnet-acl",
                "rules": [
                   {
                      "action": "allow",
@@ -263,25 +316,25 @@
                   }
                ]
             }
-         ],
-         "prefix": "management",
+	 ],
+         "prefix": "edge",
          "resource_group": "slz-management-rg",
          "subnets": {
             "zone-1": [
                {
-                  "acl_name": "management-acl",
+                  "acl_name": "bastion-subnet-acl",
                   "cidr": "10.10.10.0/24",
                   "name": "bastion-zone-1",
                   "public_gateway": true
                },
    	       {
-                  "acl_name": "management-acl",
+                  "acl_name": "client-to-site-subnet-acl",
                   "cidr": "10.10.20.0/24",
                   "name": "vpn-zone-1",
                   "public_gateway": true
                },
                {
-                  "acl_name": "management-acl",
+                  "acl_name": "vpe-subnet-acl",
                   "cidr": "10.10.30.0/24",
                   "name": "vpe-zone-1",
                   "public_gateway": true
@@ -330,9 +383,63 @@
          "clean_default_sg_acl": false,
          "flow_logs_bucket_name": null,
          "network_acls": [
-            {
+	 {
                "add_cluster_rules": false,
-               "name": "workload-acl",
+               "name": "waas-subnet-acl",
+               "rules": [
+                  {
+                     "action": "allow",
+                     "destination": "10.0.0.0/8",
+                     "direction": "inbound",
+                     "name": "allow-ibm-inbound",
+                     "source": "161.26.0.0/16"
+                  },
+                  {
+                     "action": "allow",
+                     "destination": "10.0.0.0/8",
+                     "direction": "inbound",
+                     "name": "allow-all-network-inbound",
+                     "source": "10.0.0.0/8"
+                  },
+                  {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
+                     "direction": "outbound",
+                     "name": "allow-all-outbound",
+                     "source": "0.0.0.0/0"
+                  }
+               ]
+            },
+	    {
+               "add_cluster_rules": false,
+               "name": "vpe-subnet-acl",
+               "rules": [
+                  {
+                     "action": "allow",
+                     "destination": "10.0.0.0/8",
+                     "direction": "inbound",
+                     "name": "allow-ibm-inbound",
+                     "source": "161.26.0.0/16"
+                  },
+                  {
+                     "action": "allow",
+                     "destination": "10.0.0.0/8",
+                     "direction": "inbound",
+                     "name": "allow-all-network-inbound",
+                     "source": "10.0.0.0/8"
+                  },
+                  {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
+                     "direction": "outbound",
+                     "name": "allow-all-outbound",
+                     "source": "0.0.0.0/0"
+                  }
+               ]
+            },
+	    {
+               "add_cluster_rules": false,
+               "name": "site-to-site-subnet-acl",
                "rules": [
                   {
                      "action": "allow",
@@ -357,38 +464,31 @@
                   }
                ]
             }
-         ],
+	 ],
          "prefix": "workload",
          "resource_group": "slz-workload-rg",
          "subnets": {
             "zone-1": [
                {
-                  "acl_name": "workload-acl",
+                  "acl_name": "waas-subnet-acl",
                   "cidr": "10.40.10.0/24",
                   "name": "vsi-zone-1",
                   "public_gateway": false
                },
                {  
-                  "acl_name": "workload-acl",
+                  "acl_name": "vpe-subnet-acl",
                   "cidr": "10.40.20.0/24",
                   "name": "vpe-zone-1",
                   "public_gateway": false
-               }
-            ],
-            "zone-2": [
-               {
-                  "acl_name": "workload-acl",
-                  "cidr": "10.50.10.0/24",
-                  "name": "vpn-zone-2",
-                  "public_gateway": false
                },
-               {
-                  "acl_name": "workload-acl",
-                  "cidr": "10.50.20.0/24",
-                  "name": "vpe-zone-2",
+	       {
+                  "acl_name": "site-to-site-subnet-acl",
+                  "cidr": "10.40.30.0/24",
+                  "name": "vpn-zone-1",
                   "public_gateway": false
                }
             ],
+            "zone-2": [],
             "zone-3": []
          },
          "use_public_gateways": {
@@ -408,7 +508,7 @@
             "name": "gateway-workload",
             "connections": [],
             "resource_group": "slz-workload-rg",
-            "subnet_name": "vpn-zone-2",
+            "subnet_name": "vpn-zone-1",
             "vpc_name": "workload"
         }
    ],
@@ -468,7 +568,7 @@
                         }
                }
 	    ],
-                "vpc_name": "management"
+                "vpc_name": "edge"
          },
          "ssh_keys": [
             "ssh-key"
@@ -476,14 +576,14 @@
          "subnet_names": [
             "bastion-zone-1"
          ],
-         "vpc_name": "management",
+         "vpc_name": "edge",
          "vsi_per_subnet": 1,
-         "enable_floating_ip": true
+         "enable_floating_ip": false
       },
       {
          "boot_volume_encryption_key_name": null,
          "image_name": "ibm-zos-2-5-s390x-dev-test-wazi-4",
-         "machine_type": "mz2-2x16",
+         "machine_type": "mz2o-2x16",
          "name": "workload-server",
          "resource_group": "slz-workload-rg",
          "security_group": {
