@@ -99,7 +99,15 @@ variable "vpn_server_routes" {
   default = {
     "vpc-10" = {
       destination = "10.0.0.0/8"
-      action      = "deliver"
+      action      = "translate"
+    }
+    "route-vpn-2-services" = {
+      destination = "166.9.0.0/16"
+      action      = "translate"
+    }
+    "route-vpn-2-dns" = {
+      destination = "161.26.0.0/24"
+      action      = "translate"
     }
   }
 }

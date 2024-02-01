@@ -203,7 +203,7 @@
     },
    "vpcs": [
       {  
-	 "default_security_group_name": "bastion-sg",
+	 "default_security_group_name": "client-to-site-sg",
          "default_security_group_rules": [
 	   {
                   "direction": "inbound",
@@ -223,6 +223,15 @@
                         }
             },
 	    {
+                  "direction": "inbound",
+                  "name": "allow-ibm-inbound-2",
+                  "remote": "0.0.0.0/0",
+                     "udp": {
+                            "port_max": 443,
+                            "port_min": 443
+                        }
+            },
+	    {
                   "direction": "outbound",
                   "name": "allow-all-outbound",
                   "remote": "0.0.0.0/0",
@@ -230,7 +239,15 @@
                             "port_max": 22,
                             "port_min": 22
                         }
-           }
+           },
+	   {
+                  "direction": "outbound",
+                  "name": "allow-ibm-outbound-1",
+                  "remote": "0.0.0.0/0",
+                  "icmp": {
+                            "type": 8
+                        }
+            }
 	 ],
          "clean_default_sg_acl": false,
          "flow_logs_bucket_name": null,
@@ -253,12 +270,58 @@
                      "name": "allow-all-network-inbound",
                      "source": "10.0.0.0/8"
                   },
+		  {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
+                     "direction": "inbound",
+                     "name": "allow-all-network-inbound-1",
+                     "source": "0.0.0.0/0",
+                     "icmp": {
+                            "type": 8
+                        }
+                  },
+                  {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
+                     "direction": "inbound",
+                     "name": "allow-all-network-inbound-2",
+                     "source": "0.0.0.0/0",
+                     "udp": {
+			     "source_port_max": 65535,
+			     "source_port_min": 1,
+			     "port_max": 65535,
+                             "port_min": 1
+                        }
+                  },
                   {
                      "action": "allow",
                      "destination": "0.0.0.0/0",
                      "direction": "outbound",
                      "name": "allow-all-outbound",
                      "source": "0.0.0.0/0"
+                  },
+                   {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
+                     "direction": "outbound",
+                     "name": "allow-all-network-outbound-1",
+                     "source": "0.0.0.0/0",
+                     "icmp": {
+                            "type": 8
+                        }
+                  },
+                    {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
+                     "direction": "outbound",
+                     "name": "allow-all-network-outbound-2",
+                     "source": "0.0.0.0/0",
+                     "tcp": {
+                            "source_port_max": 22,
+                            "source_port_min": 22,
+			    "port_max": 65535,
+                            "port_min": 1
+                        }
                   }
                ]
             },
@@ -283,9 +346,64 @@
                   {
                      "action": "allow",
                      "destination": "0.0.0.0/0",
+                     "direction": "inbound",
+                     "name": "allow-all-inbound",
+                     "source": "0.0.0.0/0",
+                     "udp": {
+			    "source_port_max": 65535,
+			    "source_port_min": 1,
+                            "port_max": 443,
+                            "port_min": 443
+                        }
+		  },
+		  {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
                      "direction": "outbound",
-                     "name": "allow-all-outbound",
-                     "source": "0.0.0.0/0"
+                     "name": "allow-all-network-outbound",
+                     "source": "0.0.0.0/0",
+                     "udp": {
+			    "source_port_max": 22,
+                            "source_port_min": 22,
+			    "port_max": 65535,
+                            "port_min": 1
+                        }
+                  },
+                  {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
+                     "direction": "outbound",
+                     "name": "allow-all-network-outbound-1",
+                     "source": "0.0.0.0/0",
+                     "icmp": {
+                            "type": 8
+                        }
+                  },
+                  {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
+                     "direction": "outbound",
+                     "name": "allow-all-network-outbound-2",
+                     "source": "0.0.0.0/0",
+                     "tcp": {
+			    "source_port_max": 65535,
+                            "source_port_min": 1, 
+                            "port_max": 22,
+                            "port_min": 22
+                        }
+                  },
+		  {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
+                     "direction": "outbound",
+                     "name": "allow-all-network-outbound-3",
+                     "source": "0.0.0.0/0",
+                     "tcp": {
+                            "source_port_max": 10443,
+                            "source_port_min": 10443,
+                            "port_max": 65535,
+                            "port_min": 1
+                        }
                   }
                ]
             },
@@ -325,19 +443,19 @@
                   "acl_name": "bastion-subnet-acl",
                   "cidr": "10.10.10.0/24",
                   "name": "bastion-zone-1",
-                  "public_gateway": true
+                  "public_gateway": false
+               },
+	       {
+                  "acl_name": "vpe-subnet-acl",
+                  "cidr": "10.10.20.0/24",
+                  "name": "vpe-zone-1",
+                  "public_gateway": false
                },
    	       {
                   "acl_name": "client-to-site-subnet-acl",
-                  "cidr": "10.10.20.0/24",
-                  "name": "vpn-zone-1",
-                  "public_gateway": true
-               },
-               {
-                  "acl_name": "vpe-subnet-acl",
                   "cidr": "10.10.30.0/24",
-                  "name": "vpe-zone-1",
-                  "public_gateway": true
+                  "name": "vpn-zone-1",
+                  "public_gateway": false
                }
             ],
             "zone-2": [],
@@ -373,12 +491,7 @@
                   "icmp": {
                             "type": 8
                         }
-            },
-	    {
-                  "direction": "outbound",
-                  "name": "allow-all-outbound",
-                  "remote": "0.0.0.0/0"
-            }  
+            }
 	 ],
          "clean_default_sg_acl": false,
          "flow_logs_bucket_name": null,
@@ -401,12 +514,51 @@
                      "name": "allow-all-network-inbound",
                      "source": "10.0.0.0/8"
                   },
-                  {
+		  {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
+                     "direction": "inbound",
+                     "name": "allow-all-network-inbound-1",
+                     "source": "0.0.0.0/0",
+                     "udp": {
+			     "port_max": 65535,
+			     "port_min": 1
+                        }
+                  },
+		  {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
+                     "direction": "inbound",
+                     "name": "allow-all-network-inbound-2",
+                     "source": "0.0.0.0/0",
+                     "tcp": {
+                            "source_port_max": 10443,
+                            "source_port_min": 10443,
+                            "port_max": 65535,
+                            "port_min": 1
+                        }
+                  },
+		  {
                      "action": "allow",
                      "destination": "0.0.0.0/0",
                      "direction": "outbound",
-                     "name": "allow-all-outbound",
-                     "source": "0.0.0.0/0"
+                     "name": "allow-all-network-outbound-1",
+                     "source": "0.0.0.0/0",
+                     "icmp": {
+			     "type": 8,
+			     "code": 0
+                        }
+                  },
+		   {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
+                     "direction": "outbound",
+                     "name": "allow-all-network-outbound-2",
+                     "source": "0.0.0.0/0",
+                     "udp": {
+			     "port_max": 65535,
+                             "port_min": 1
+                        }
                   }
                ]
             },
@@ -525,25 +677,54 @@
                  {
                   "direction": "inbound",
                   "name": "allow-ibm-inbound-1",
-                  "source": "",
+		  "source_type": "CIDR",
+                  "source": "10.0.0.0/8",
                   "tcp": {
                             "port_max": 22,
                             "port_min": 22
                         } 
                },    
 	       {
+                  "direction": "inbound",
+                  "name": "allow-all-inbound",
+                  "source": "0.0.0.0/0",
+                  "udp": {
+                            "port_max": 1194,
+                            "port_min": 1194
+                        }
+               },
+	       {
+                  "direction": "inbound",
+                  "name": "allow-all-inbound-1",
+                  "source": "0.0.0.0/0",
+                  "icmp": {
+                            "type": 8,
+			    "code": 0
+                        }
+               },
+	       {
+                  "direction": "outbound",
+                  "name": "allow-ibm-outbound-1",
+                  "destination_type": "CIDR",
+                  "source": "10.0.0.0/8",
+                  "tcp": {
+                            "port_max": 22,
+                            "port_min": 22
+                        }
+               },
+	       {
                   "direction": "outbound",
                   "name": "allow-all-outbound",
-                  "source": "",
-                  "tcp": {
-                            "port_max": 80,
-                            "port_min": 80
+                  "source": "0.0.0.0/0",
+                  "icmp": { 
+                            "type": 8,
+			    "code": 0
                         }
                },
 	        {
                   "direction": "outbound",
                   "name": "allow-all-outbound-1",
-                  "source": "",
+                  "source": "0.0.0.0/0",
                   "tcp": {
                             "port_max": 443,
                             "port_min": 443
@@ -552,7 +733,7 @@
 	        {
                   "direction": "outbound",
                   "name": "allow-all-outbound-2",
-                  "source": "",
+                  "source": "0.0.0.0/0",
                   "tcp": {
                             "port_max": 53,
                             "port_min": 53
@@ -561,7 +742,7 @@
 	        {
                   "direction": "outbound",
                   "name": "allow-all-outbound-3",
-                  "source": "",
+                  "source": "0.0.0.0/0",
                   "udp": {
                             "port_max": 53,
                             "port_min": 53
@@ -589,10 +770,41 @@
          "security_group": {
             "name": "workload",
             "rules": [
-                  {
+            {
               "direction": "inbound",
               "name": "allow-all-inbound",
-              "source": "0.0.0.0/0"
+              "source": "0.0.0.0/0",
+	      "tcp": {
+                       "port_max": 22,
+                       "port_min": 22
+                        }
+            },
+	    {
+              "direction": "inbound",
+              "name": "allow-all-inbound-1",
+              "source": "0.0.0.0/0",
+              "tcp": {
+                       "port_max": 992,
+                       "port_min": 992
+                        }
+            },
+	    {
+              "direction": "inbound",
+              "name": "allow-all-inbound-2",
+              "source": "0.0.0.0/0",
+              "tcp": {
+                       "port_max": 10443,
+                       "port_min": 10443
+                        }
+            },
+	    {
+                  "direction": "inbound",
+                  "name": "allow-ibm-inbound-1",
+                  "source": "0.0.0.0/0",
+                  "icmp": {
+                            "type": 8,
+			    "code": 0
+                        }
             },
             {
               "direction": "outbound",
