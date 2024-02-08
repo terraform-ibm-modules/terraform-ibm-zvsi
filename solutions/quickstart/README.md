@@ -4,7 +4,7 @@
 
 This pattern deploys the following infrastructure:
 
-- An edge VPC with Wazi as a Service VSI with Floating IP.
+- Workload VPC with Wazi as a Service VSI with Floating IP.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ### Requirements
