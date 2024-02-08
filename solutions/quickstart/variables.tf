@@ -11,7 +11,7 @@ variable "ibmcloud_api_key" {
 variable "prefix" {
   description = "A unique identifier for resources. Must begin with a lowercase letter and end with a lowerccase letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters."
   type        = string
-  default     = "z-vsi-qs"
+  default     = "ketaki-q-start"
 
   validation {
     error_message = "Prefix must begin with a lowercase letter and contain only lowercase letters, numbers, and - characters. Prefixes must end with a lowercase letter or number and be 16 or fewer characters."
@@ -102,6 +102,68 @@ variable "override_json_string" {
                   {
                      "action": "allow",
                      "destination": "0.0.0.0/0",
+                     "direction": "inbound",
+                     "name": "allow-all-network-inbound-1",
+                     "source": "0.0.0.0/0",
+                     "icmp": {
+                            "type": 8
+                        }
+                  },
+                  {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
+                     "direction": "inbound",
+                     "name": "allow-all-network-inbound-2",
+                     "source": "0.0.0.0/0",
+                     "udp": {
+			    "source_port_max": 65535,
+			    "source_port_min": 1,
+                            "port_max": 443,
+                            "port_min": 443
+                        }
+		  },
+                  {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
+                     "direction": "inbound",
+                     "name": "allow-all-network-inbound-3",
+                     "source": "0.0.0.0/0",
+                     "tcp": {
+                            "source_port_max": 65535,
+                            "source_port_min": 1,
+                            "port_max": 992,
+                            "port_min": 992
+                        }
+                  },
+                  {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
+                     "direction": "inbound",
+                     "name": "allow-all-network-inbound-4",
+                     "source": "0.0.0.0/0",
+                     "tcp": {
+                            "source_port_max": 65535,
+                            "source_port_min": 1,
+                            "port_max": 22,
+                            "port_min": 22
+                        }
+                  },
+                  {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
+                     "direction": "inbound",
+                     "name": "allow-all-network-inbound-5",
+                     "source": "0.0.0.0/0",
+                     "tcp": {
+                            "source_port_max": 65535,
+                            "source_port_min": 1,
+                            "port_max": 10443,
+                            "port_min": 10443
+                        }
+                  },
+                  {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
                      "direction": "outbound",
                      "name": "allow-all-outbound",
                      "source": "0.0.0.0/0"
@@ -139,8 +201,8 @@ variable "override_json_string" {
    "vsi": [
       {
          "boot_volume_encryption_key_name": null,
-         "image_name": "ibm-zos-2-5-s390x-dev-test-wazi-4",
-         "machine_type": "mz2-2x16",
+         "image_name": "ibm-zos-2-5-s390x-dev-test-wazi-6",
+         "machine_type": "mz2o-2x16",
          "name": "workload-server",
          "resource_group": "workload-rg",
          "security_group": {
@@ -157,10 +219,46 @@ variable "override_json_string" {
                   "source": "10.0.0.0/8"
                },
                {
-                  "direction": "outbound",
-                  "name": "allow-all-outbound",
-                  "source": "0.0.0.0/0"
-               }
+                  "direction": "inbound",
+                  "name": "allow-all-inbound",
+                  "source": "0.0.0.0/0",
+	          "tcp": {
+                           "port_max": 22,
+                           "port_min": 22
+                         }
+              },
+	      {
+                  "direction": "inbound",
+                  "name": "allow-all-inbound-1",
+                  "source": "0.0.0.0/0",
+                  "tcp": {
+                           "port_max": 992,
+                           "port_min": 992
+                         } 
+              },
+              {
+                  "direction": "inbound",
+                  "name": "allow-all-inbound-2",
+                  "source": "0.0.0.0/0",
+                  "tcp": {
+                           "port_max": 10443,
+                           "port_min": 10443
+                         }
+              },
+              {
+                  "direction": "inbound",
+                  "name": "allow-all-inbound-3",
+                  "source": "0.0.0.0/0",
+                  "icmp": {
+                           "type": 8,
+                           "code": 0
+                         }
+              },
+              {
+                 "direction": "outbound",
+                 "name": "allow-all-outbound",
+                 "source": "0.0.0.0/0"
+              }
             ]
          },
          "ssh_keys": [
