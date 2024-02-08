@@ -1,0 +1,163 @@
+{
+	"products": [
+		{
+			"label": "deploy-arch-ibm-wazi-vsi",
+			"name": "Wazi as a service VSI on VPC Landing zone",
+			"product_kind": "solution",
+			"tags": [
+				"virtualservers",
+				"ibm_created",
+				"target_terraform",
+				"terraform",
+				"reference_architecture",
+				"solution"
+			],
+			"keywords": [
+				"vpc",
+				"slz",
+				"IaC",
+				"infrastructure as code",
+				"terraform",
+				"solution",
+				"vsi",
+				"virtual server instance"
+			  ],
+			  "short_description": "Creates a secure infrastructure with virtual servers to run your workloads on a VPC network",
+			  "long_description": "The VSI on VPC landing zone provides secure and customizable compute resources for running your applications and services. It creates secure and compliant Virtual Server Instances (VSI) on top of an existing Virtual Private Cloud (VPC) network.",		
+			"offering_icon_url": "https://globalcatalog.cloud.ibm.com/api/v1/1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc/artifacts/solution.svg",
+			"provider_name": "IBM",
+			"flavors": [
+				{
+					"label": "Standard",
+					"name": "standard",
+					"usage": "Add an example of the use of the module in the following code block.\n\nUse real values instead of \"var.\u003cvar_name\u003e\" or other placeholder values\nunless real values don't help users know what to change.\n--\u003e",
+					"working_directory": "solutions/standard",
+					"licenses": [
+						{
+							"id": "LICENSE",
+							"name": "LICENSE",
+							"type": "text/plain",
+							"description": "LICENSE"
+						}
+					],
+					"compliance": {},
+					"iam_permissions": [
+						{
+							"service_name": "is.vpc",
+							"role_crns": [
+								"crn:v1:bluemix:public:iam::::role:Operator"
+							]
+						}
+					],
+					"architecture": {
+					    "descriptions": "",
+						"diagrams":{
+							"caption": "VSI on VPC landing zone - Standard variation",
+							"url": "https://raw.githubusercontent.com/terraform-ibm-zvsi/blob/standard_quickstart/reference-architecture/Standard-variation.svg",
+							"type": "image/svg+xml"
+						}
+					},
+					"configuration": [
+						{
+							"key": "ibmcloud_api_key",
+							"type": "password",
+							"description": "The IBM Cloud platform API key needed to deploy IAM enabled resources.",
+							"required": true
+						},
+						{
+							"custom_config": {
+							  "grouping": "deployment",
+							  "original_grouping": "deployment",
+							  "type": "json_editor"
+							},
+							"key": "override_json_string"
+						},
+						{
+							"key": "prefix",
+							"type": "string",
+							"default_value": "__NOT_SET__",
+							"description": "A unique identifier for resources. Must begin with a lowercase letter and end with a lowerccase letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters.",
+							"required": true
+						},
+						{
+							"key": "region",
+							"type": "string",
+							"default_value": "__NOT_SET__",
+							"description": "Region where VPC will be created. To find your VPC region, use `ibmcloud is regions` command to find available regions.",
+							"required": true
+						},
+						{
+							"key": "ssh_public_key",
+							"type": "string",
+							"default_value": "__NOT_SET__",
+							"description": "A public SSH Key for VSI creation which does not already exist in the deployment region. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended) - See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys. To use an existing key, enter a value for the variable 'existing_ssh_key_name' instead.",
+							"required": true
+						}
+					],
+					"install_type": "fullstack"
+				},
+				{
+					"label": "Quickstart",
+					"name": "quickstart",
+					"working_directory": "solutions/quickstart",
+					"compliance": {},
+					"iam_permissions": [
+						{
+							"service_name": "is.vpc",
+							"role_crns": [
+								"crn:v1:bluemix:public:iam::::role:Operator"
+							]
+						}
+					],
+					"release_notes_url": {},
+					"architecture": {
+					    "descriptions": "",
+						"diagrams":{
+							"caption": "VSI on VPC landing zone - QuickStart variation",
+							"url": "https://raw.githubusercontent.com/terraform-ibm-zvsi/blob/standard_quickstart/reference-architecture/QuickStart.svg",
+							"type": "image/svg+xml"
+						}
+					},
+					"configuration": [
+						{
+							"key": "ibmcloud_api_key",
+							"type": "password",
+							"description": "The IBM Cloud platform API key needed to deploy IAM enabled resources.",
+							"required": true
+						},
+						{
+							"custom_config": {
+							  "grouping": "deployment",
+							  "original_grouping": "deployment",
+							  "type": "json_editor"
+							},
+							"key": "override_json_string"
+						},
+						{
+							"key": "prefix",
+							"type": "string",
+							"default_value": "__NOT_SET__",
+							"description": "A unique identifier for resources. Must begin with a lowercase letter and end with a lowerccase letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters.",
+							"required": true
+						},
+						{
+							"key": "region",
+							"type": "string",
+							"default_value": "__NOT_SET__",
+							"description": "Region where VPC will be created. To find your VPC region, use `ibmcloud is regions` command to find available regions.",
+							"required": true
+						},
+						{
+							"key": "ssh_key",
+							"type": "string",
+							"default_value": "__NOT_SET__",
+							"description": "A public SSH Key for VSI creation which does not already exist in the deployment region. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended) - See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys.",
+							"required": true
+						}
+					],
+					"install_type": "fullstack"
+				}
+			]
+		}
+	]
+}
