@@ -1,6 +1,6 @@
 # VSI on VPC landing zone (QuickStart pattern)
 
-![Architecture diagram for the QuickStart variation of VSI on VPC landing zone](https://raw.githubusercontent.com/terraform-ibm-zvsi/blob/standard_quickstart/reference-architecture/QuickStart.svg)
+![Architecture diagram for the QuickStart variation of VSI on VPC landing zone](https://raw.githubusercontent.com/terraform-ibm-zvsi/blob/init-quick-start/reference-architecture/Quickstart-variation.svg)
 
 This pattern deploys the following infrastructure:
 
