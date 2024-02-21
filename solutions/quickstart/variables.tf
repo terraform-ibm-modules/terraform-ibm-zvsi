@@ -34,6 +34,15 @@ variable "ssh_key" {
   }
 }
 
+variable "machine_type" {
+  description = "machine type with specified profile size" 
+  type = string
+}
+
+locals{
+   machine_type = var.machine_type
+}
+
 variable "resource_tags" {
   type        = list(string)
   description = "Optional list of tags to be added to created resources"
@@ -202,7 +211,6 @@ variable "override_json_string" {
       {
          "boot_volume_encryption_key_name": null,
          "image_name": "ibm-zos-2-5-s390x-dev-test-wazi-6",
-         "machine_type": "mz2o-2x16",
          "name": "workload-server",
          "resource_group": "workload-rg",
          "security_group": {
@@ -264,6 +272,7 @@ variable "override_json_string" {
          "ssh_keys": [
             "ssh-key"
          ],
+	 "machine_type": "${local.machine_type}",
          "subnet_names": [
             "vsi-zone-1"
          ],
