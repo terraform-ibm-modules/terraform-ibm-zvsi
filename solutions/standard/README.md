@@ -1,6 +1,6 @@
 <!-- BEGIN MODULE HOOK -->
 
-![Architecture diagram for the Standard variation of VSI on VPC landing zone](https://raw.githubusercontent.com/terraform-ibm-zvsi/blob/init-standard-variation-v1/reference-architecture/Standard-variation.svg)
+![Architecture diagram for the Standard variation of VSI on VPC landing zone](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-zvsi/init-standard-variation-v1/reference-architecture/Standard-variation.svg)
 
 This pattern deploys the following infrastructure:
 
