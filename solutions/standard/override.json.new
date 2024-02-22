@@ -117,7 +117,7 @@
    "transit_gateway_global": false,
    "security_groups": [
 	   {
-		   "name": "vpe-workload-sg",
+	    "name": "vpe-workload-sg",
            "vpc_name": "workload",
 	   "resource_group": "slz-workload-rg",
 	   "rules": [
@@ -141,37 +141,12 @@
             }
 	   ]
 	   },
-	   {
-           "name": "vpe-edge-sg",
-           "vpc_name": "edge",
-	   "resource_group": "slz-management-rg",
-           "rules": [
+          {
+            "name": "site-to-site-sg",
+            "vpc_name": "workload",
+	     "resource_group": "slz-workload-rg",
+            "rules": [
                   {
-                  "direction": "inbound",
-                  "name": "allow-ibm-inbound",
-                  "source": "0.0.0.0/0",
-                  "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-           },
-            {
-                  "direction": "outbound",
-                  "name": "allow-all-outbound",
-                  "source": "0.0.0.0/0",
-                  "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-            }
-           ]
-           },
-	   {
-	   "name": "client-to-site-sg",
-           "vpc_name": "edge",
-           "resource_group": "slz-management-rg",
-           "rules": [
-		   {
                   "direction": "inbound",
                   "name": "allow-ibm-inbound",
                   "source": "0.0.0.0/0",
@@ -234,12 +209,37 @@
                             "port_min": 10443
                         }
            }
- 	  ]
-          },
-	  {
-            "name": "site-to-site-sg",
-            "vpc_name": "workload",
-	     "resource_group": "slz-workload-rg",
+         ]
+         },
+	   {
+           "name": "vpe-edge-sg",
+           "vpc_name": "edge",
+	   "resource_group": "slz-management-rg",
+           "rules": [
+                  {
+                  "direction": "inbound",
+                  "name": "allow-ibm-inbound",
+                  "source": "0.0.0.0/0",
+                  "tcp": {
+                            "port_max": 22,
+                            "port_min": 22
+                        }
+           },
+            {
+                  "direction": "outbound",
+                  "name": "allow-all-outbound",
+                  "source": "0.0.0.0/0",
+                  "tcp": {
+                            "port_max": 22,
+                            "port_min": 22
+                        }
+            }
+           ]
+           },
+           {
+            "name": "client-to-site-sg",
+            "vpc_name": "edge",
+	    "resource_group": "slz-management-rg",
             "rules": [
                   {
                   "direction": "inbound",
@@ -359,7 +359,7 @@
                   "name": "allow-ibm-inbound-1",
                   "remote": "0.0.0.0/0",
                   "icmp": {
-                            "type": 8
+                              "type": 8
                         }
             },
 	    {
@@ -385,7 +385,7 @@
                   "name": "allow-ibm-outbound-1",
                   "remote": "0.0.0.0/0",
                   "icmp": {
-                            "type": 8
+                              "type": 8
                         }
             },
 	    {
@@ -435,7 +435,7 @@
                      "name": "allow-all-network-inbound-1",
                      "source": "0.0.0.0/0",
                      "icmp": {
-                            "type": 8
+			     "type": 0
                         }
                   },
                   {
@@ -448,10 +448,10 @@
 			     "source_port_max": 65535,
 			     "source_port_min": 1,
 			     "port_max": 65535,
-                             "port_min": 1
+                           "port_min": 1
                         }
                   },
-		  {
+                  {
                      "action": "allow",
                      "destination": "0.0.0.0/0",
                      "direction": "outbound",
@@ -465,10 +465,10 @@
                      "name": "allow-all-network-outbound-1",
                      "source": "0.0.0.0/0",
                      "icmp": {
-                            "type": 8
+			     "type": 0
                         }
                   },
-                  {
+                    {
                      "action": "allow",
                      "destination": "0.0.0.0/0",
                      "direction": "outbound",
@@ -477,12 +477,51 @@
                      "tcp": {
                             "source_port_max": 22,
                             "source_port_min": 22,
-			    "port_max": 65535,
+			      "port_max": 65535,
                             "port_min": 1
+                        }
+                  },
+		   {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
+                     "direction": "outbound",
+                     "name": "allow-all-network-outbound-3",
+                     "source": "0.0.0.0/0",
+                     "tcp": {
+                            "source_port_max": 10443,
+                            "source_port_min": 10443,
+                            "port_max": 65535,
+                            "port_min": 1
+                        }
+		   },
+                   {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
+                     "direction": "outbound",
+                     "name": "allow-all-network-outbound-4",
+                     "source": "0.0.0.0/0",
+                     "tcp": {
+                            "source_port_max": 992,
+                            "source_port_min": 992,
+                            "port_max": 65535,
+                            "port_min": 1
+                        }
+                  },
+                  {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
+                     "direction": "outbound",
+                     "name": "allow-all-network-outbound-5",
+                     "source": "0.0.0.0/0",
+                     "udp": {
+			     "source_port_max": 65535,
+			     "source_port_min": 1,
+			     "port_max": 65535,
+                             "port_min": 1
                         }
                   }
                ]
-	    },
+            },
 	    {
                "add_cluster_rules": false,
                "name": "client-to-site-subnet-acl",
@@ -510,34 +549,31 @@
                      "udp": {
 			    "source_port_max": 65535,
 			    "source_port_min": 1,
-                            "port_max": 443,
-                            "port_min": 443
+                          "port_max": 443,
+                          "port_min": 443
                         }
 		  },
-		  {
+                  {
                      "action": "allow",
                      "destination": "0.0.0.0/0",
                      "direction": "inbound",
                      "name": "allow-all-inbound-1",
                      "source": "0.0.0.0/0",
-                     "tcp": {
-                            "source_port_max": 65535,
-                            "source_port_min": 1,
-                            "port_max": 10443,
-                            "port_min": 10443
+                     "icmp": {
+			    "type": 8     
                         }
-                  },
+		  },
 		  {
                      "action": "allow",
                      "destination": "0.0.0.0/0",
-                     "direction": "inbound",
-                     "name": "allow-all-inbound-2",
+                     "direction": "outbound",
+                     "name": "allow-all-network-outbound",
                      "source": "0.0.0.0/0",
-                     "tcp": {
-                            "source_port_max": 65535,
-                            "source_port_min": 1,
-                            "port_max": 992,
-                            "port_min": 992
+                     "udp": {
+			    "source_port_max": 22,
+                          "source_port_min": 22,
+			    "port_max": 65535,
+                          "port_min": 1
                         }
                   },
                   {
@@ -547,20 +583,20 @@
                      "name": "allow-all-network-outbound-1",
                      "source": "0.0.0.0/0",
                      "icmp": {
-                            "type": 8
+                             "type": 8
                         }
                   },
-                  {
+		  {
                      "action": "allow",
                      "destination": "0.0.0.0/0",
                      "direction": "outbound",
                      "name": "allow-all-network-outbound-2",
                      "source": "0.0.0.0/0",
                      "tcp": {
-			    "source_port_max": 65535,
-                            "source_port_min": 1, 
-                            "port_max": 22,
-                            "port_min": 22
+                            "source_port_max": 10443,
+                            "source_port_min": 10443,
+                            "port_max": 65535,
+                            "port_min": 1
                         }
                   },
 		  {
@@ -570,10 +606,10 @@
                      "name": "allow-all-network-outbound-3",
                      "source": "0.0.0.0/0",
                      "tcp": {
-                            "source_port_max": 65535,
-                            "source_port_min": 1,
-                            "port_max": 10443,
-                            "port_min": 10443
+                            "source_port_max": 992,
+                            "source_port_min": 992,
+                            "port_max": 65535,
+                            "port_min": 1
                         }
                   },
 		  {
@@ -587,10 +623,10 @@
                             "source_port_min": 443,
                             "port_max": 65535,
                             "port_min": 1
-			 }
-                   }
-                 ]
-	    },    
+                        }
+                  }
+               ]
+            },
 	    {
                "add_cluster_rules": false,
                "name": "vpe-subnet-acl",
@@ -622,7 +658,7 @@
          "prefix": "edge",
          "resource_group": "slz-management-rg",
          "subnets": {
-            "zone-1": [
+	     "zone-1": [
                {
                   "acl_name": "client-to-site-subnet-acl",
                   "cidr": "10.10.10.0/24",
@@ -630,18 +666,18 @@
                   "public_gateway": false
                },
 	       {
-                  "acl_name": "bastion-subnet-acl",
-                  "cidr": "10.10.20.0/24",
-                  "name": "bastion-zone-1",
-                  "public_gateway": false
-               },
-	       {
                   "acl_name": "vpe-subnet-acl",
-                  "cidr": "10.10.30.0/24",
+                  "cidr": "10.10.20.0/24",
                   "name": "vpe-zone-1",
                   "public_gateway": false
+               },
+   	       {
+                  "acl_name": "bastion-subnet-acl",
+                  "cidr": "10.10.30.0/24",
+                  "name": "bastion-zone-1",
+                  "public_gateway": false
                }
-            ],
+            ],	 
             "zone-2": [],
             "zone-3": []
          },
@@ -673,7 +709,6 @@
                   "name": "allow-ibm-inbound-1",
                   "remote": "0.0.0.0/0",
                   "icmp": {
-                            "type": 8
                         }
             },
 	    {
@@ -723,10 +758,8 @@
                      "name": "allow-all-network-inbound-1",
                      "source": "0.0.0.0/0",
                      "udp": {
-			     "source_port_max": 65535,
-                            "source_port_min": 1,
-			     "port_max": 443,
-			     "port_min": 443
+			     "port_max": 65535,
+			     "port_min": 1
                         }
                   },
 		  {
@@ -749,8 +782,6 @@
                      "name": "allow-all-network-inbound-3",
                      "source": "0.0.0.0/0",
                      "icmp": {
-                             "type": 8,
-                             "code": 0
                         }
                   },
 		  {
@@ -766,7 +797,7 @@
                             "port_min": 22
                         }
                   },
-		  {
+                  {
                      "action": "allow",
                      "destination": "0.0.0.0/0",
                      "direction": "inbound",
@@ -783,11 +814,57 @@
                      "action": "allow",
                      "destination": "0.0.0.0/0",
                      "direction": "outbound",
-                     "name": "allow-all-network-outbound",
+                     "name": "allow-all-network-outbound-1",
+                     "source": "0.0.0.0/0",
+                     "icmp": {
+                        }
+                  },
+		   {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
+                     "direction": "outbound",
+                     "name": "allow-all-network-outbound-2",
+                     "source": "0.0.0.0/0",
+                     "udp": {
+			     "port_max": 65535,
+                             "port_min": 1
+                        }
+                  },
+                  {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
+                     "direction": "outbound",
+                     "name": "allow-all-network-outbound-3",
                      "source": "0.0.0.0/0",
                      "tcp": {
-                            "source_port_max": 65535,
-                            "source_port_min": 1,
+			     "source_port_max": 22,
+                            "source_port_min": 22,
+                            "port_max": 65535,
+                            "port_min": 1
+                        }
+                  },
+                  {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
+                     "direction": "outbound",
+                     "name": "allow-all-network-outbound-4",
+                     "source": "0.0.0.0/0",
+                     "tcp": {
+	         	    "source_port_max": 992,
+                            "source_port_min": 992,
+                            "port_max": 65535,
+                            "port_min": 1
+                        }
+                  },
+                  {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
+                     "direction": "outbound",
+                     "name": "allow-all-network-outbound-5",
+                     "source": "0.0.0.0/0",
+                     "tcp": {
+			     "source_port_max": 10443,
+                            "source_port_min": 10443,
                             "port_max": 65535,
                             "port_min": 1
                         }
@@ -899,7 +976,7 @@
    "vsi": [
     {
          "boot_volume_encryption_key_name": null,
-         "image_name": "ibm-ubuntu-22-04-3-minimal-amd64-1",
+         "image_name": "ibm-ubuntu-22-04-3-minimal-amd64-2",
          "machine_type": "cx2-2x4",
          "name": "bastion-vsi",
          "resource_group": "slz-management-rg",
@@ -909,8 +986,7 @@
                  {
                   "direction": "inbound",
                   "name": "allow-ibm-inbound-1",
-		  "source_type": "CIDR",
-                  "source": "10.0.0.0/8",
+                  "source": "10.0.0.0/20",
                   "tcp": {
                             "port_max": 22,
                             "port_min": 22
@@ -936,16 +1012,6 @@
                },
 	       {
                   "direction": "outbound",
-                  "name": "allow-ibm-outbound-1",
-                  "destination_type": "CIDR",
-                  "source": "10.0.0.0/8",
-                  "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-               },
-	       {
-                  "direction": "outbound",
                   "name": "allow-all-outbound",
                   "source": "0.0.0.0/0",
                   "icmp": { 
@@ -953,42 +1019,24 @@
 			    "code": 0
                         }
                },
-	        {
+	       {
                   "direction": "outbound",
                   "name": "allow-all-outbound-1",
                   "source": "0.0.0.0/0",
                   "tcp": {
-                            "port_max": 443,
-                            "port_min": 443
-                        }
-               },
-	        {
+                            "port_max": 10443,
+                            "port_min": 10443
+                         }
+            },
+            {
                   "direction": "outbound",
                   "name": "allow-all-outbound-2",
                   "source": "0.0.0.0/0",
                   "tcp": {
-                            "port_max": 53,
-                            "port_min": 53
-                        }
-               },
-	        {
-                  "direction": "outbound",
-                  "name": "allow-all-outbound-3",
-                  "source": "0.0.0.0/0",
-                  "udp": {
-                            "port_max": 53,
-                            "port_min": 53
-                        }
-               },
-	       {
-                  "direction": "outbound",
-                  "name": "allow-all-outbound-4",
-                  "source": "0.0.0.0/0",
-		  "tcp": {
-                            "port_max": 65535,
-                            "port_min": 1
-                        }
-               }
+                            "port_max": 992,
+                            "port_min": 992
+                         }
+            }
 	    ],
                 "vpc_name": "edge"
          },
@@ -1006,10 +1054,10 @@
          "boot_volume_encryption_key_name": null,
          "image_name": "ibm-zos-2-5-s390x-dev-test-wazi-6",
          "machine_type": "mz2o-2x16",
-         "name": "workload-server",
+         "name": "waas-server",
          "resource_group": "slz-workload-rg",
          "security_group": {
-            "name": "workload",
+            "name": "waas-security-group",
             "rules": [
             {
               "direction": "inbound",
@@ -1039,12 +1087,21 @@
                         }
             },
 	    {
-                  "direction": "inbound",
-                  "name": "allow-ibm-inbound-1",
-                  "source": "0.0.0.0/0",
-                  "icmp": {
-                            "type": 8,
-			    "code": 0
+              "direction": "inbound",
+              "name": "allow-ibm-inbound-1",
+              "source": "0.0.0.0/0",
+              "icmp": {
+                        "type": 8,
+    			"code": 0
+                        }
+            },
+            {
+              "direction": "inbound",
+              "name": "allow-ibm-inbound-2",
+              "source": "0.0.0.0/0",
+              "udp": {
+                       "port_max": 443,
+                       "port_min": 443
                         }
             },
             {

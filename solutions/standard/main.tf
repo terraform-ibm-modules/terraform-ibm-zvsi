@@ -25,11 +25,11 @@ locals {
 module "landing-zone" {
   source  = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
   version = "4.13.0"
-  prefix                              = var.prefix
-  region                              = var.region
-#  ibmcloud_api_key                    = var.ibmcloud_api_key 
-  ssh_public_key                      = var.ssh_public_key
-  override                            = var.override
+  prefix  = var.prefix
+  region  = var.region
+  #  ibmcloud_api_key                    = var.ibmcloud_api_key 
+  ssh_public_key = var.ssh_public_key
+  override       = var.override
 }
 
 ########################################################################################################################
@@ -39,9 +39,9 @@ module "landing-zone" {
 module "resource_group" {
   source  = "terraform-ibm-modules/resource-group/ibm"
   version = "1.0.6"
-#   if an existing resource group is not set (null) create a new one using prefix
+  #   if an existing resource group is not set (null) create a new one using prefix
   existing_resource_group_name = "${var.prefix}-slz-management-rg"
-  depends_on = [module.landing-zone]
+  depends_on                   = [module.landing-zone]
 }
 
 ########################################################################################################################
@@ -117,16 +117,21 @@ module "client_to_site_vpn" {
   server_cert_crn               = module.secrets_manager_private_certificate.secret_crn
   vpn_gateway_name              = "${var.prefix}-c2s-vpn"
   resource_group_id             = module.resource_group.resource_group_id
-  subnet_ids                    = slice([for subnet in data.ibm_is_vpc.vpc_test.subnets : subnet["id"]], 0, 1)
+  subnet_ids                    = [data.ibm_is_subnet.vpc_test.id]
   create_policy                 = var.create_policy
   vpn_client_access_group_users = var.vpn_client_access_group_users
   access_group_name             = "${var.prefix}-${var.access_group_name}"
   secrets_manager_id            = local.sm_guid
   vpn_server_routes             = var.vpn_server_routes
-  depends_on = [module.landing-zone]
+  depends_on                    = [module.landing-zone]
 }
 
 data "ibm_is_vpc" "vpc_test" {
-   name = "${var.prefix}-edge-vpc"
-   depends_on = [module.landing-zone]
+  name       = "${var.prefix}-edge-vpc"
+  depends_on = [module.landing-zone]
+}
+
+data "ibm_is_subnet" "vpc_test" {
+  name       = "${var.prefix}-edge-vpn-zone-1"
+  depends_on = [module.landing-zone]
 }
