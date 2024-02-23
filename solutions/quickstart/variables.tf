@@ -35,7 +35,7 @@ variable "ssh_key" {
 }
 
 variable "machine_type" {
-  description = "machine type with specified profile size" 
+  description = "machine type with specified profile size with greater than 2GB" 
   type = string
 }
 
