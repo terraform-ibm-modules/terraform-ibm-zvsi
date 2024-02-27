@@ -29,11 +29,11 @@ You can customize your environment with VSI on VPC IBM Secure Landing Zone by us
 
 ### Customizing by using the override.json file
 
-The second route is to use the `override.json` to create a fully customized environment based on the starting template. By default, each pattern's `override.json` is set to contain the default environment configuration. You can use the `override.json` in the respective pattern directory by setting the template input `override` variable to `true`. Each value in `override.json` corresponds directly to a variable value from this root module, which each pattern uses to create your environment.
+The second route is to use the `override.json` to create a fully customized environment based on the starting template. By default, Standard variation `override.json` is set to contain the default environment configuration. You can use the `override.json` in the Standard variation directory by setting the template input `override` variable to `true`. Each value in `override.json` corresponds directly to a variable value from this root module, which Standard variation uses to create your environment.
 
 #### Supported variables
 
-Through the `override.json`, you can pass any variable or supported optional variable attributes from this root module, which each pattern uses to provision infrastructure. For a complete list of supported variables and attributes, see the [variables.tf ](variables.tf) file.
+Through the `override.json`, you can pass any variable or supported optional variable attributes from this root module, which Standard variation uses to provision infrastructure. For a complete list of supported variables and attributes, see the [variables.tf ](variables.tf) file.
 
 #### Overriding variables
 
@@ -81,6 +81,13 @@ The `override.json` file does not need to contain all elements. For example,
 | <a name="module_private_secret_engine"></a> [private\_secret\_engine](#module\_private\_secret\_engine) | terraform-ibm-modules/secrets-manager-private-cert-engine/ibm | 1.1.1 |
 | <a name="module_secrets_manager_private_certificate"></a> [secrets\_manager\_private\_certificate](#module\_secrets\_manager\_private\_certificate) | terraform-ibm-modules/secrets-manager-private-cert/ibm | 1.0.2 |
 | <a name="module_client_to_site_vpn"></a> [client\_to\_site\_vpn](#module\_client\_to\_site\_vpn) | terraform-ibm-modules/client-to-site-vpn/ibm | 1.6.2 |
+
+### Execution
+
+1. Export API Key
+    export TF_VAR_ibmcloud_api_key=XXX
+2. Run Terraform init
+3. Run Terraform apply -var-file=override.json
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
