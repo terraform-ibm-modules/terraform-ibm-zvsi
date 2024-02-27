@@ -19,7 +19,7 @@ You can customize your environment with VSI on VPC IBM Secure Landing Zone by us
 
 ### Customizing by using the `override_json_string` variable
 
-The second route is to use the `override_json_string` to create a fully customized environment based on the starting template. By default, Quickstart variation `override_json_string` variable is set to contain the default environment configuration. You can use the `override_json_string` variable in the variation directory by setting the template input `override` variable to `true`. Each value in `override_json_string` variable corresponds directly to a variable value from this root module, which Quickstart variation uses to create your environment.
+The second route is to use the `override_json_string` variable to create a fully customized environment based on the starting template. By default, Quickstart variation `override_json_string` variable is set to contain the default environment configuration. Each value in `override_json_string` variable corresponds directly to a variable value from this root module, which Quickstart variation uses to create your environment.
 
 #### Supported variables
 
@@ -66,7 +66,7 @@ The `override_json_string` variable does not need to contain all elements. For e
 ### Execution
 
 1. Export API Key
-    export TF_VAR_ibmcloud_api_key=XXX
+    export TF_VAR_ibmcloud_api_key=xxxx
 2. Run Terraform init
 3. Run Terraform apply
 
