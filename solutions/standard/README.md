@@ -25,7 +25,7 @@ This pattern deploys the following infrastructure:
 
 ## Customize your environment
 
-You can customize your environment with Secure Landing Zone by using the `override.json` file.
+You can customize your environment with VSI on VPC IBM Secure Landing Zone by using the `override.json` file.
 
 ### Customizing by using the override.json file
 
@@ -37,7 +37,7 @@ Through the `override.json`, you can pass any variable or supported optional var
 
 #### Overriding variables
 
-After every execution of `terraform apply`, a JSON-encoded definition is output. This definition of your environment is based on the defaults for the IBM zvsi and any variables that are changed in the `override.json` file. You can then use the output in the `override.json` file.
+After every execution of `terraform apply`, a JSON-encoded definition is output. This definition of your environment is based on the defaults for the VSI on VPC IBM Secure Landing Zone and any variables that are changed in the `override.json` file. You can then use the output in the `override.json` file.
 
 You can redirect the contents between the output lines by running the following commands:
 
