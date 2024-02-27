@@ -63,5 +63,12 @@ The `override_json_string` variable does not need to contain all elements. For e
 |------|--------|---------|
 | <a name="module_landing_zone"></a> [landing\_zone_](#module\_landing\_zone) | terraform-ibm-modules/landing-zone/ibm//patterns//vsi-quickstart | 4.13.0 |
 
+### Execution
+
+1. Export API Key
+    export TF_VAR_ibmcloud_api_key=XXX
+2. Run Terraform init
+3. Run Terraform apply
+
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
