@@ -13,6 +13,43 @@ This pattern deploys the following infrastructure:
 - Workload VPC with Wazi as a Service VSI with Floating IP.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Customize your environment
+
+You can customize your environment with VSI on VPC IBM Secure Landing Zone by using the `override_json_string` variable
+
+### Customizing by using the `override_json_string` variable
+
+The second route is to use the `override_json_string` to create a fully customized environment based on the starting template. By default, Quickstart variation `override_json_string` variable is set to contain the default environment configuration. You can use the `override_json_string` variable in the variation directory by setting the template input `override` variable to `true`. Each value in `override_json_string` variable corresponds directly to a variable value from this root module, which Quickstart variation uses to create your environment.
+
+#### Supported variables
+
+Through the `override_json_string` variable, you can pass any variable or supported optional variable attributes from this root module, which Quickstart variation uses to provision infrastructure. For a complete list of supported variables and attributes, see the [variables.tf ](variables.tf) file.
+
+#### Overriding variables
+
+After every execution of `terraform apply`, a JSON-encoded definition is output. This definition of your environment is based on the defaults for the VSI on VPC IBM Secure Landing Zone and any variables that are changed in the `override_json_string` variable. You can then use the output in the `override_json_string` variable.
+
+You can redirect the contents between the output lines by running the following commands:
+
+```sh
+config = <<EOT
+EOT
+```
+
+After you replace the contents of the `override_json_string` variable with your configuration, you can edit the resources within. Make use that you set the template `override` variable to `true` as an input variable. For example, within the `variables.tf` file.
+
+To view your current configuration, run the `terraform refresh` command.
+
+#### Overriding only some variables
+
+The `override_json_string` variable does not need to contain all elements. For example,
+
+```json
+{
+  "enable_transit_gateway": false
+}
+```
+
 ### Requirements
 
 | Name | Version |
