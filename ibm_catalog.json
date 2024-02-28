@@ -2,6 +2,7 @@
   "products": [
     {
       "name": "Wazi as a service VSI on VPC Landing zone",
+      "version": "v1.0.0",
       "product_kind": "solution",
       "tags": [
         "virtualservers",
