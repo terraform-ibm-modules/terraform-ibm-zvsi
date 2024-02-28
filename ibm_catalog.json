@@ -86,7 +86,21 @@
                         }        
                     ],
                     "install_type": "fullstack"
-                  }
+                },
+                {
+                    "label": "Quickstart",
+                    "name": "quickstart",
+                    "working_directory": "solutions/quickstart",
+                    "compliance": {},
+                    "iam_permissions": [
+                        {
+                          "service_name": "is.vpc",
+                          "role_crns": [
+                            "crn:v1:bluemix:public:iam::::role:Operator"
+                          ]
+                        }
+                    ]
+                }
             ]                   
         }
     ]
