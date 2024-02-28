@@ -1,296 +1,139 @@
-{
-	"products": [
-		{
-			"name": "deploy-arch-ibm-slz-vsi",
-			"version": "v5.3.1",
-			"product_kind": "solution",
-			"tags": [
-				"converged_infra",
-				"ibm_created"
-			],
-			"keywords": [
-				"vpc",
-				"slz",
-				"IaC",
-				"infrastructure as code",
-				"terraform",
-				"solution",
-				"vsi",
-				"virtual server instance"
-			],
-			"provider_name": "IBM",
-			"offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-vsi",
-			"offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-vsi-lt.svg",
-			"features": [
-				{
-					"title_i18n": {
-						"de": "Erstellt virtuelle Server für Workloads",
-						"en": "Creates virtual servers for workloads",
-						"es": "Crea servidores virtuales para cargas de trabajo",
-						"fr": "Crée des serveurs virtuels pour les charges de travail",
-						"it": "Crea server virtuali per i carichi di lavoro",
-						"ja": "ワークロード用の仮想サーバーの作成",
-						"ko": "워크로드에 대한 가상 서버를 생성합니다.",
-						"pt-BR": "Cria servidores virtuais para as cargas de trabalho",
-						"zh-Hans": "为工作负载创建虚拟服务器",
-						"zh-Hant": "為工作負載建立虛擬伺服器"
-					},
-					"description_i18n": {
-						"de": "Erstellt und konfiguriert einen oder mehrere virtuelle Server für die Verarbeitung von Workloads.",
-						"en": "Creates and configures one or more virtual servers to handle workloads.",
-						"es": "Crea y configura uno o varios servidores virtuales para manejar cargas de trabajo.",
-						"fr": "Crée et configure un ou plusieurs serveurs virtuels pour gérer les charges de travail.",
-						"it": "Crea e configura uno o più server virtuali per gestire i carichi di lavoro.",
-						"ja": "ワークロードを処理するための 1 つ以上の仮想サーバーを作成して構成します。",
-						"ko": "워크로드를 처리할 하나 이상의 가상 서버를 만들고 구성합니다.",
-						"pt-BR": "Cria e configura um ou mais servidores virtuais para manipular as cargas de trabalho.",
-						"zh-Hans": "创建并配置一个或多个虚拟服务器以处理工作负载。",
-						"zh-Hant": "建立並配置一個以上虛擬伺服器以處理工作量。"
-					}
-				},
-				{
-					"title_i18n": {
-						"de": "Konfiguriert Teilnetze",
-						"en": "Configures subnets",
-						"es": "Configura subredes",
-						"fr": "Configure les sous-réseaux",
-						"it": "Configura le sottoreti",
-						"ja": "サブネットの構成",
-						"ko": "서브넷을 구성합니다.",
-						"pt-BR": "Configura sub-redes",
-						"zh-Hans": "配置子网",
-						"zh-Hant": "配置子網路"
-					},
-					"description_i18n": {
-						"de": "Konfiguriert die Teilnetze für die VSIs und gibt an, in welchen Teilnetzen die Instanzen bereitgestellt werden.",
-						"en": "Configures the subnets for the VSIs and specifies which subnets the instances are deployed in.",
-						"es": "Configura las subredes para las VSI y especifica en qué subredes se despliegan las instancias.",
-						"fr": "Configure les sous-réseaux pour les VSI et spécifie les sous-réseaux dans lesquels les instances sont déployées.",
-						"it": "Configura le sottoreti per le VSI e specifica in quali sottoreti vengono distribuite le istanze.",
-						"ja": "VSI のサブネットを構成し、インスタンスがデプロイされるサブネットを指定します。",
-						"ko": "VSI에 대한 서브넷을 구성하고 인스턴스가 배치되는 서브넷을 지정합니다.",
-						"pt-BR": "Configura as sub-redes para VSIs e especifica em quais sub-redes as instâncias serão implementadas.",
-						"zh-Hans": "配置 VSI 的子网，并指定要在其中部署实例的子网。",
-						"zh-Hant": "配置 VSI 的子網路，並指定在其中部署實例的子網路。"
-					}
-				},
-				{
-					"title_i18n": {
-						"de": "Ordnet Sicherheitsgruppen zu",
-						"en": "Associates security groups",
-						"es": "Asocia grupos de seguridad",
-						"fr": "Associe des groupes de sécurité",
-						"it": "Associa gruppi di protezione",
-						"ja": "セキュリティー・グループの関連付け",
-						"ko": "보안 그룹 연계",
-						"pt-BR": "Associa grupos de segurança",
-						"zh-Hans": "关联安全组",
-						"zh-Hant": "關聯安全群組"
-					},
-					"description_i18n": {
-						"de": "Ordnet den VSIs Sicherheitsgruppen zu, um eingehenden und ausgehenden Datenverkehr von und zu Instanzen zu steuern.",
-						"en": "Associates security groups with the VSIs to control inbound and outbound traffic to instances.",
-						"es": "Asocia grupos de seguridad con las VSI para controlar el tráfico de entrada y salida a las instancias.",
-						"fr": "Associe des groupes de sécurité aux VSI pour contrôler le trafic entrant et sortant de et vers les instances.",
-						"it": "Associa i gruppi di protezione alle VSI per controllare il traffico in entrata e in uscita alle istanze.",
-						"ja": "セキュリティー・グループを VSI に関連付けて、インスタンスへのインバウンド・トラフィックとアウトバウンド・トラフィックを制御します。",
-						"ko": "보안 그룹을 VSI와 연계하여 인스턴스에 대한 인바운드 및 아웃바운드 트래픽을 제어합니다.",
-						"pt-BR": "Associa grupos de segurança às VSIs para controlar o tráfego de entrada e saída para instâncias.",
-						"zh-Hans": "将安全组与 VSI 相关联，以控制到实例的入站和出站流量。",
-						"zh-Hant": "將安全群組與 VSI 相關聯，以控制實例的入埠及出埠資料流量。"
-					}
-				},
-				{
-					"title_i18n": {
-						"de": "Stellt SSH-Schlüssel bereit",
-						"en": "Provisions SSH keys",
-						"es": "Suministra claves SSH",
-						"fr": "Met à disposition des clés SSH",
-						"it": "Fornisce chiavi SSH",
-						"ja": "SSH 鍵のプロビジョン",
-						"ko": "SSH 키 프로비저닝",
-						"pt-BR": "Provisiona chaves SSH",
-						"zh-Hans": "供应 SSH 密钥",
-						"zh-Hant": "供應 SSH 金鑰"
-					},
-					"description_i18n": {
-						"de": "Stellt SSH-Schlüssel für die VSIs bereit und verwaltet sie, sodass Sie die Instanzen auf sichere Weise verwalten können.",
-						"en": "Provisions and manages SSH keys for the VSIs so that you can securely administer the instances.",
-						"es": "Suministra y gestiona claves SSH para las VSI para que pueda administrar de forma segura las instancias.",
-						"fr": "Met à disposition et gère des clés SSH pour les instances de VSI pour vous permettre d'administrer les instances en toute sécurité.",
-						"it": "Fornisce e gestisce chiavi SSH per le VSI in modo che si possa amministrare in modo sicuro le istanze.",
-						"ja": "インスタンスを安全に管理できるように、VSI の SSH 鍵をプロビジョンして管理します。",
-						"ko": "인스턴스를 안전하게 관리할 수 있도록 VSI에 대한 SSH 키를 프로비저닝하고 관리합니다.",
-						"pt-BR": "Provisiona e gerencia as chaves SSH para as VSIs para que seja possível administrar as instâncias de maneira segura.",
-						"zh-Hans": "供应和管理 VSI 的 SSH 密钥，以便您可以安全地管理实例。",
-						"zh-Hant": "供應及管理 VSI 的 SSH 金鑰，以便您可以安全地管理實例。"
-					}
-				}
-			],
-			"flavors": [
-				{
-					"label": "QuickStart",
-					"name": "quickstart",
-					"compliance": {},
-					"iam_permissions": [
-						{
-							"service_name": "appid",
-							"role_crns": [
-								"crn:v1:bluemix:public:iam::::serviceRole:Manager"
-							]
-						},
-						{
-							"service_name": "cloud-object-storage",
-							"role_crns": [
-								"crn:v1:bluemix:public:iam::::serviceRole:Manager"
-							]
-						},
-						{
-							"service_name": "hs-crypto",
-							"role_crns": [
-								"crn:v1:bluemix:public:iam::::serviceRole:Manager"
-							]
-						},
-						{
+﻿{
+  "products": [
+    {
+      "name": "Wazi as a service VSI on VPC Landing zone",
+      "product_kind": "solution",
+      "tags": [
+        "virtualservers",
+        "ibm_created",
+        "target_terraform",
+        "terraform",
+        "reference_architecture",
+        "solution"
+      ],
+      "keywords": [
+        "vpc",
+        "slz",
+        "IaC",
+        "infrastructure as code",
+        "terraform",
+        "solution",
+        "vsi",
+        "virtual server instance"
+      ],
+      "short_description": "Creates a secure infrastructure with virtual servers to run your workloads on a VPC network",
+      "long_description": "The VSI on VPC landing zone provides secure and customizable compute resources for running your applications and services. It creates secure and compliant Virtual Server Instances (VSI) on top of an existing Virtual Private Cloud (VPC) network.",
+      "offering_icon_url": "https://globalcatalog.cloud.ibm.com/api/v1/1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc/artifacts/solution.svg",
+      "provider_name": "IBM",
+      "flavors": [
+        {
+          "label": "Standard",
+          "name": "standard",
+          "working_directory": "solutions/standard",
+          "licenses": [
+            {
+              "id": "LICENSE",
+              "name": "LICENSE",
+              "type": "text/plain",
+              "description": "LICENSE"
+            }
+          ],
+          "compliance": {},
+          "iam_permissions": [
+            {
 							"service_name": "iam-identity",
 							"role_crns": [
 								"crn:v1:bluemix:public:iam::::role:Administrator"
 							]
 						},
-						{
-							"service_name": "kms",
-							"role_crns": [
-								"crn:v1:bluemix:public:iam::::serviceRole:Manager"
-							]
-						},
-						{
-							"service_name": "is.vpc",
-							"role_crns": [
-								"crn:v1:bluemix:public:iam::::serviceRole:Manager",
-								"crn:v1:bluemix:public:iam::::role:Administrator"
-							]
-						}
-					],
-					"architecture": {
-						"features": [
-							{
-								"title": "Separate VPC for management",
-								"description": "Yes"
-							},
-							{
-								"title": "Separate VPC for workloads",
-								"description": "Yes"
-							},
-							{
-								"title": "Adds a virtual server instance in every VPC subnet",
-								"description": "Yes"
-							},
-							{
-								"title": "Increases security with Key Management",
-								"description": "Yes"
-							},
-							{
-								"title": "Reduces failure events by using multizone regions",
-								"description": "No"
-							},
-							{
-								"title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
-								"description": "No"
-							},
-							{
-								"title": "Securely connects to multiple networks with a site-to-site virtual private network",
-								"description": "No"
-							},
-							{
-								"title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
-								"description": "No"
-							},
-							{
-								"title": "Uses an edge VPC for secure access through the public internet",
-								"description": "No"
-							},
-							{
-								"title": "Uses floating IP addresses for access through the public internet",
-								"description": "Yes"
-							}
-						],
-						"diagrams": [
-							{
-								"diagram": {
-									"url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-quickstart.drawio.svg",
-									"caption": "VSI on VPC landing zone - QuickStart variation",
-									"type": "image/svg+xml"
-								},
-								"description": "The QuickStart variation of the VSI on VPC landing zone deployable architecture creates a fully customizable Virtual Private Cloud (VPC) environment in a single region. The solution provides virtual servers in a secure VPC for your workloads. The QuickStart variation is designed to deploy quickly for demonstration and development."
-							}
-						]
-					},
-					"release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
-					"configuration": [
-						{
-							"key": "override_json_string",
-							"type": "string",
-							"default_value": "{\n   \"atracker\": {\n      \"collector_bucket_name\": \"\",\n      \"receive_global_events\": false,\n      \"resource_group\": \"\",\n      \"add_route\": false\n   },\n   \"clusters\": [],\n   \"cos\": [],\n   \"enable_transit_gateway\": true,\n   \"transit_gateway_global\": false,\n   \"key_management\": {\n      \"keys\": [\n         {\n            \"key_ring\": \"slz-ring\",\n            \"name\": \"slz-vsi-volume-key\",\n            \"root_key\": true,\n            \"policies\": {\n               \"rotation\": {\n                  \"interval_month\": 12\n               }\n            }\n         }\n      ],\n      \"name\": \"slz-kms\",\n      \"resource_group\": \"service-rg\",\n      \"use_hs_crypto\": false,\n      \"use_data\": false\n   },\n   \"network_cidr\": \"10.0.0.0/8\",\n   \"resource_groups\": [\n      {\n         \"create\": true,\n         \"name\": \"service-rg\",\n         \"use_prefix\": true\n      },\n      {\n         \"create\": true,\n         \"name\": \"management-rg\",\n         \"use_prefix\": true\n      },\n      {\n         \"create\": true,\n         \"name\": \"workload-rg\",\n         \"use_prefix\": true\n      }\n   ],\n   \"security_groups\": [],\n   \"transit_gateway_connections\": [\n      \"management\",\n      \"workload\"\n   ],\n   \"transit_gateway_resource_group\": \"service-rg\",\n   \"virtual_private_endpoints\": [],\n   \"vpcs\": [\n      {\n         \"default_security_group_rules\": [],\n         \"clean_default_sg_acl\": true,\n         \"flow_logs_bucket_name\": null,\n         \"network_acls\": [\n            {\n               \"add_cluster_rules\": false,\n               \"name\": \"management-acl\",\n               \"rules\": [\n                  {\n                     \"name\": \"allow-ssh-inbound\",\n                     \"action\": \"allow\",\n                     \"direction\": \"inbound\",\n                     \"tcp\": {\n                        \"port_min\": 22,\n                        \"port_max\": 22\n                     },\n                     \"source\": \"0.0.0.0/0\",\n                     \"destination\": \"10.0.0.0/8\"\n                  },\n                  {\n                     \"action\": \"allow\",\n                     \"destination\": \"10.0.0.0/8\",\n                     \"direction\": \"inbound\",\n                     \"name\": \"allow-ibm-inbound\",\n                     \"source\": \"161.26.0.0/16\"\n                  },\n                  {\n                     \"action\": \"allow\",\n                     \"destination\": \"10.0.0.0/8\",\n                     \"direction\": \"inbound\",\n                     \"name\": \"allow-all-network-inbound\",\n                     \"source\": \"10.0.0.0/8\"\n                  },\n                  {\n                     \"action\": \"allow\",\n                     \"destination\": \"0.0.0.0/0\",\n                     \"direction\": \"outbound\",\n                     \"name\": \"allow-all-outbound\",\n                     \"source\": \"0.0.0.0/0\"\n                  }\n               ]\n            }\n         ],\n         \"prefix\": \"management\",\n         \"resource_group\": \"management-rg\",\n         \"subnets\": {\n            \"zone-1\": [\n               {\n                  \"acl_name\": \"management-acl\",\n                  \"cidr\": \"10.10.10.0/24\",\n                  \"name\": \"vsi-zone-1\",\n                  \"public_gateway\": false\n               }\n            ],\n            \"zone-2\": [],\n            \"zone-3\": []\n         },\n         \"use_public_gateways\": {\n            \"zone-1\": false,\n            \"zone-2\": false,\n            \"zone-3\": false\n         },\n         \"address_prefixes\": {\n            \"zone-1\": [],\n            \"zone-2\": [],\n            \"zone-3\": []\n         }\n      },\n      {\n         \"default_security_group_rules\": [],\n         \"clean_default_sg_acl\": true,\n         \"flow_logs_bucket_name\": null,\n         \"network_acls\": [\n            {\n               \"add_cluster_rules\": false,\n               \"name\": \"workload-acl\",\n               \"rules\": [\n                  {\n                     \"action\": \"allow\",\n                     \"destination\": \"10.0.0.0/8\",\n                     \"direction\": \"inbound\",\n                     \"name\": \"allow-ibm-inbound\",\n                     \"source\": \"161.26.0.0/16\"\n                  },\n                  {\n                     \"action\": \"allow\",\n                     \"destination\": \"10.0.0.0/8\",\n                     \"direction\": \"inbound\",\n                     \"name\": \"allow-all-network-inbound\",\n                     \"source\": \"10.0.0.0/8\"\n                  },\n                  {\n                     \"action\": \"allow\",\n                     \"destination\": \"0.0.0.0/0\",\n                     \"direction\": \"outbound\",\n                     \"name\": \"allow-all-outbound\",\n                     \"source\": \"0.0.0.0/0\"\n                  }\n               ]\n            }\n         ],\n         \"prefix\": \"workload\",\n         \"resource_group\": \"workload-rg\",\n         \"subnets\": {\n            \"zone-1\": [\n               {\n                  \"acl_name\": \"workload-acl\",\n                  \"cidr\": \"10.40.10.0/24\",\n                  \"name\": \"vsi-zone-1\",\n                  \"public_gateway\": false\n               }\n            ],\n            \"zone-2\": [],\n            \"zone-3\": []\n         },\n         \"use_public_gateways\": {\n            \"zone-1\": false,\n            \"zone-2\": false,\n            \"zone-3\": false\n         },\n         \"address_prefixes\": {\n            \"zone-1\": [],\n            \"zone-2\": [],\n            \"zone-3\": []\n         }\n      }\n   ],\n   \"vpn_gateways\": [],\n   \"vsi\": [\n      {\n         \"boot_volume_encryption_key_name\": \"slz-vsi-volume-key\",\n         \"image_name\": \"ibm-ubuntu-22-04-3-minimal-amd64-2\",\n         \"machine_type\": \"cx2-4x8\",\n         \"name\": \"jump-box\",\n         \"resource_group\": \"management-rg\",\n         \"security_group\": {\n            \"name\": \"management\",\n            \"rules\": [\n               {\n                  \"name\": \"allow-ssh-inbound\",\n                  \"direction\": \"inbound\",\n                  \"tcp\": {\n                     \"port_min\": 22,\n                     \"port_max\": 22\n                  },\n                  \"source\": \"0.0.0.0/0\"\n               },\n               {\n                  \"direction\": \"inbound\",\n                  \"name\": \"allow-ibm-inbound\",\n                  \"source\": \"161.26.0.0/16\"\n               },\n               {\n                  \"direction\": \"inbound\",\n                  \"name\": \"allow-vpc-inbound\",\n                  \"source\": \"10.0.0.0/8\"\n               },\n               {\n                  \"direction\": \"outbound\",\n                  \"name\": \"allow-all-outbound\",\n                  \"source\": \"0.0.0.0/0\"\n               }\n            ]\n         },\n         \"ssh_keys\": [\n            \"ssh-key\"\n         ],\n         \"subnet_names\": [\n            \"vsi-zone-1\"\n         ],\n         \"vpc_name\": \"management\",\n         \"vsi_per_subnet\": 1,\n         \"enable_floating_ip\": true\n      },\n      {\n         \"boot_volume_encryption_key_name\": \"slz-vsi-volume-key\",\n         \"image_name\": \"ibm-ubuntu-22-04-3-minimal-amd64-2\",\n         \"machine_type\": \"cx2-4x8\",\n         \"name\": \"workload-server\",\n         \"resource_group\": \"workload-rg\",\n         \"security_group\": {\n            \"name\": \"workload\",\n            \"rules\": [\n               {\n                  \"direction\": \"inbound\",\n                  \"name\": \"allow-ibm-inbound\",\n                  \"source\": \"161.26.0.0/16\"\n               },\n               {\n                  \"direction\": \"inbound\",\n                  \"name\": \"allow-vpc-inbound\",\n                  \"source\": \"10.0.0.0/8\"\n               },\n               {\n                  \"direction\": \"outbound\",\n                  \"name\": \"allow-all-outbound\",\n                  \"source\": \"0.0.0.0/0\"\n               }\n            ]\n         },\n         \"ssh_keys\": [\n            \"ssh-key\"\n         ],\n         \"subnet_names\": [\n            \"vsi-zone-1\"\n         ],\n         \"vpc_name\": \"workload\",\n         \"vsi_per_subnet\": 1,\n         \"enable_floating_ip\": false\n      }\n   ]\n}\n",
-							"description": "Override default values with custom JSON. Any value here other than an empty string will override all other configuration changes.",
-							"required": false,
-							"custom_config": {
-								"type": "json_editor",
-								"grouping": "deployment",
-								"original_grouping": "deployment"
-							}
-						},
-						{
-							"key": "region",
-							"type": "string",
-							"default_value": "us-south",
-							"description": "Region where VPC will be created. To find your VPC region, use `ibmcloud is regions` command to find available regions.",
-							"required": true,
-							"custom_config": {
-								"type": "vpc_region",
-								"grouping": "deployment",
-								"original_grouping": "deployment",
-								"config_constraints": {
-									"generationType": "2"
-								}
-							}
-						},
-						{
-							"key": "ibmcloud_api_key",
-							"type": "password",
-							"description": "The IBM Cloud platform API key needed to deploy IAM enabled resources.",
-							"required": true
-						},
-						{
-							"key": "prefix",
-							"type": "string",
-							"default_value": "land-zone-vsi-qs",
-							"description": "A unique identifier for resources. Must begin with a lowercase letter and end with a lowerccase letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters.",
-							"required": false
-						},
-						{
-							"key": "ssh_key",
-							"type": "string",
-							"default_value": "__NOT_SET__",
-							"description": "A public SSH Key for VSI creation which does not already exist in the deployment region. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended) - See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys.",
-							"required": true
-						},
-						{
-							"key": "resource_tags",
-							"type": "array",
-							"default_value": "[]",
-							"description": "Optional list of tags to be added to created resources",
-							"required": false
-						}
-					],
-					"outputs": [
-						{
-							"key": "config",
-							"description": "Output configuration as encoded JSON"
-						}
-					],
-					"install_type": "fullstack"
-				}
-			]
-		}
-	]
+            {
+              "service_name": "is.vpc",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Operator"
+              ]
+            }
+          ],
+          "architecture": {
+            "descriptions": "",
+            "diagrams": {
+              "caption": "Wazi as a service VSI on VPC Landing zone - Standard variation",
+              "url": "https://raw.githubusercontent.com/terraform-ibm-zvsi/blob/standard_quickstart/reference-architecture/Standard-variation.svg",
+              "type": "image/svg+xml"
+            }
+          },
+          "configuration": [
+            {
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "json_editor"
+              },
+              "key": "override_json_string"
+            },
+            {
+              "custom_config": {
+                "config_constraints": {
+                  "generationType": "2"
+                },
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "vpc_region"
+              },
+              "key": "region",
+              "required": true,
+              "type": "string"
+            }        
+          ],
+          "install_type": "fullstack"
+        },
+        {
+          "label": "Quickstart",
+          "name": "quickstart",
+          "working_directory": "solutions/quickstart",
+          "compliance": {},
+          "iam_permissions": [
+            {
+              "service_name": "is.vpc",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Operator"
+              ]
+            }
+          ],
+          "release_notes_url": {},
+          "architecture": {
+            "descriptions": "",
+            "diagrams": {
+              "caption": "Wazi as a service VSI on VPC Landing zone - QuickStart variation",
+              "url": "https://raw.githubusercontent.com/terraform-ibm-zvsi/blob/standard_quickstart/reference-architecture/QuickStart.svg",
+              "type": "image/svg+xml"
+            }
+          },
+          "configuration": [
+            {
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "json_editor"
+              },
+              "key": "override_json_string"
+            },
+            {
+              "custom_config": {
+                "config_constraints": {
+                  "generationType": "2"
+                },
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "vpc_region"
+              },
+              "key": "region",
+              "required": true,
+              "type": "string"
+            }        
+          ],
+          "install_type": "fullstack"
+        }
+      ]
+    }
+  ]
 }
