@@ -99,7 +99,16 @@
                             "crn:v1:bluemix:public:iam::::role:Operator"
                           ]
                         }
-                    ]
+                    ],
+                    "release_notes_url": {},
+                    "architecture": {
+                    "descriptions": "",
+                    "diagrams": {
+                        "caption": "Wazi as a service VSI on VPC Landing zone - QuickStart variation",
+                        "url": "https://raw.githubusercontent.com/terraform-ibm-zvsi/blob/standard_quickstart/reference-architecture/QuickStart.svg",
+                        "type": "image/svg+xml"
+                        }
+                    }
                 }
             ]                   
         }
