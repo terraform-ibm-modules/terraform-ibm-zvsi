@@ -1,4 +1,14 @@
+# VSI on VPC IBM Secure Landing Zone - Standard Variation
+
+[![Graduated (Supported)](https://img.shields.io/badge/status-Graduated%20(Supported)-brightgreen?style=plastic)](https://terraform-ibm-modules.github.io/documentation/#/badge-status)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+[![latest release](https://img.shields.io/github/v/release/terraform-ibm-modules/terraform-ibm-zvsi?logo=GitHub&sort=semver)](https://github.com/terraform-ibm-modules/terraform-ibm-zvsi/releases/latest)
+[![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
+
 <!-- BEGIN MODULE HOOK -->
+
+![Architecture diagram for the Standard variation of VSI on VPC landing zone](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-zvsi/standard_quickstart/reference-architecture/Standard-variation.svg)
 
 This pattern deploys the following infrastructure:
 
@@ -15,19 +25,19 @@ This pattern deploys the following infrastructure:
 
 ## Customize your environment
 
-You can customize your environment with Secure Landing Zone by using the `override.json` file.
+You can customize your environment with VSI on VPC IBM Secure Landing Zone by using the `override.json` file.
 
 ### Customizing by using the override.json file
 
-The second route is to use the `override.json` to create a fully customized environment based on the starting template. By default, each pattern's `override.json` is set to contain the default environment configuration. You can use the `override.json` in the respective pattern directory by setting the template input `override` variable to `true`. Each value in `override.json` corresponds directly to a variable value from this root module, which each pattern uses to create your environment.
+The second route is to use the `override.json` to create a fully customized environment based on the starting template. By default, Standard variation `override.json` is set to contain the default environment configuration. You can use the `override.json` in the Standard variation directory by setting the template input `override` variable to `true`. Each value in `override.json` corresponds directly to a variable value from this root module, which Standard variation uses to create your environment.
 
 #### Supported variables
 
-Through the `override.json`, you can pass any variable or supported optional variable attributes from this root module, which each pattern uses to provision infrastructure. For a complete list of supported variables and attributes, see the [variables.tf ](variables.tf) file.
+Through the `override.json`, you can pass any variable or supported optional variable attributes from this root module, which Standard variation uses to provision infrastructure. For a complete list of supported variables and attributes, see the [variables.tf ](variables.tf) file.
 
 #### Overriding variables
 
-After every execution of `terraform apply`, a JSON-encoded definition is output. This definition of your environment is based on the defaults for the Landing Zone and any variables that are changed in the `override.json` file. You can then use the output in the `override.json` file.
+After every execution of `terraform apply`, a JSON-encoded definition is output. This definition of your environment is based on the defaults for the VSI on VPC IBM Secure Landing Zone and any variables that are changed in the `override.json` file. You can then use the output in the `override.json` file.
 
 You can redirect the contents between the output lines by running the following commands:
 
@@ -71,6 +81,13 @@ The `override.json` file does not need to contain all elements. For example,
 | <a name="module_private_secret_engine"></a> [private\_secret\_engine](#module\_private\_secret\_engine) | terraform-ibm-modules/secrets-manager-private-cert-engine/ibm | 1.1.1 |
 | <a name="module_secrets_manager_private_certificate"></a> [secrets\_manager\_private\_certificate](#module\_secrets\_manager\_private\_certificate) | terraform-ibm-modules/secrets-manager-private-cert/ibm | 1.0.2 |
 | <a name="module_client_to_site_vpn"></a> [client\_to\_site\_vpn](#module\_client\_to\_site\_vpn) | terraform-ibm-modules/client-to-site-vpn/ibm | 1.6.2 |
+
+### Execution
+
+1. Export API Key
+    export TF_VAR_ibmcloud_api_key=XXX
+2. Run Terraform init
+3. Run Terraform apply -var-file=override.json
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
