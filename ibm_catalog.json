@@ -61,7 +61,33 @@
                         "url": "https://raw.githubusercontent.com/terraform-ibm-zvsi/blob/standard_quickstart/reference-architecture/Standard-variation.svg",
                         "type": "image/svg+xml"
                       }
-                    }
+                    },
+                    "configuration": [
+                        {
+                          "custom_config": {
+                            "grouping": "deployment",
+                            "original_grouping": "deployment",
+                            "type": "json_editor"
+                          },
+                          "key": "override_json_string"
+                        },
+                        {
+                          "custom_config": {
+                            "config_constraints": {
+                              "generationType": "2"
+                            },
+                            "grouping": "deployment",
+                            "original_grouping": "deployment",
+                            "type": "vpc_region"
+                          },
+                          "key": "region",
+                          "required": true,
+                          "type": "string"
+                        }        
+                    ],
+                    "install_type": "fullstack"
+                  }
+            ]                   
         }
     ]
 }
