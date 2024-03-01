@@ -11,7 +11,7 @@ variable "ibmcloud_api_key" {
 variable "prefix" {
   description = "A unique identifier for resources. Must begin with a lowercase letter and end with a lowerccase letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters."
   type        = string
-  default     = "ketaki-quk-start"
+  default     = "nvr-quick-start"
 
   validation {
     error_message = "Prefix must begin with a lowercase letter and contain only lowercase letters, numbers, and - characters. Prefixes must end with a lowercase letter or number and be 16 or fewer characters."
@@ -22,7 +22,7 @@ variable "prefix" {
 variable "region" {
   description = "Region where VPC will be created. To find your VPC region, use `ibmcloud is regions` command to find available regions."
   type        = string
-  default     = "br-sao"
+  default     = "ca-tor"
 }
 
 variable "ssh_key" {
@@ -35,12 +35,12 @@ variable "ssh_key" {
 }
 
 variable "machine_type" {
-  description = "machine type with specified profile size with greater than 2GB" 
-  type = string
-}
-
-locals{
-   machine_type = var.machine_type
+  type = string 
+  description = "input machine type: valid values are: mz2o-2x16, bz2-4x16, bz2-8x32, bz2-16x64"
+  validation {
+    condition     = contains(["mz2o-2x16","bz2-4x16", "bz2-8x32", "bz2-16x64"], var.machine_type)
+    error_message = "Valid values for machine_type are: mz2o-2x16, bz2-4x16, bz2-8x32, bz2-16x64"
+  }
 }
 
 variable "resource_tags" {
@@ -211,6 +211,7 @@ variable "override_json_string" {
       {
          "boot_volume_encryption_key_name": null,
          "image_name": "ibm-zos-2-5-s390x-dev-test-wazi-6",
+         "machine_type": "mz2o-2x16",
          "name": "workload-server",
          "resource_group": "workload-rg",
          "security_group": {
@@ -272,7 +273,6 @@ variable "override_json_string" {
          "ssh_keys": [
             "ssh-key"
          ],
-	 "machine_type": "${local.machine_type}",
          "subnet_names": [
             "vsi-zone-1"
          ],
