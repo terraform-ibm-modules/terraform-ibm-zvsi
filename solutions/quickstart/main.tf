@@ -14,9 +14,3 @@ module "landing_zone" {
 locals {
   out = replace(var.override_json_string,"mz2o-2x16",var.machine_type)
 }
-
-# resource "local_file" "override-json" {
-#  content  = local.out
-#  filename = "${path.module}/updated_override_json"
-#} 
-
