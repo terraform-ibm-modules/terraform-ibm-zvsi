@@ -30,18 +30,6 @@ variable "ssh_public_key" {
   }
 }
 
-variable "existing_sm_instance_guid" {
-  type        = string
-  description = "Existing Secrets Manager GUID. The existing Secret Manager instance must have private certificate engine configured. If not provided an new instance will be provisioned."
-  default     = null
-}
-
-variable "existing_sm_instance_region" {
-  type        = string
-  description = "Required if value is passed into var.existing_sm_instance_guid"
-  default     = null
-}
-
 variable "override" {
 description = "Override default values with custom JSON template. This uses the file `override.json` to allow users to create a fully customized environment."
 type        = bool
@@ -128,4 +116,19 @@ variable "resource_group" {
   type        = string
   description = "Name of the resource group to use for this example. If not set, a resource group is created."
   default = null
+}
+
+variable "cert_common_name" {
+  type        = string
+  description = "Fully qualified domain name or host domain name for the certificate to be created"
+
+  validation {
+    condition     = length(var.cert_common_name) >= 4 && length(var.cert_common_name) <= 128
+    error_message = "length of cert_common_name must be >= 4 and <= 128"
+  }
+
+  validation {
+    condition     = can(regex("(.*?)", var.cert_common_name))
+    error_message = "cert_common_name must match regular expression /(.*?)/"
+  }
 }

@@ -10,15 +10,6 @@ provider "ibm" {
 
 ##############################################################################
 
-########################################################################################################################
-# Locals
-########################################################################################################################
-
-locals {
-  sm_guid   = var.existing_sm_instance_guid == null ? module.secrets_manager.secrets_manager_guid : var.existing_sm_instance_guid
-  sm_region = var.existing_sm_instance_region == null ? var.region : var.existing_sm_instance_region
-}
-
 ##############################################################################
 # Landing Zone
 ##############################################################################
@@ -53,7 +44,7 @@ module "secrets_manager" {
   source               = "terraform-ibm-modules/secrets-manager/ibm"
   version              = "1.1.0"
   resource_group_id    = module.resource_group.resource_group_id
-  region               = local.sm_region
+  region               = var.region
   secrets_manager_name = "${var.prefix}-sm-instance"
   sm_service_plan      = var.sm_service_plan
   service_endpoints    = "public-and-private"
@@ -63,8 +54,8 @@ module "secrets_manager" {
 module "secrets_manager_group" {
   source                   = "terraform-ibm-modules/secrets-manager-secret-group/ibm"
   version                  = "1.0.1"
-  region                   = local.sm_region
-  secrets_manager_guid     = local.sm_guid
+  region                   = var.region
+  secrets_manager_guid     = module.secrets_manager.secrets_manager_guid
   secret_group_name        = "${var.prefix}-certs"
   secret_group_description = "A secret group to store private certs"
   providers = {
@@ -75,11 +66,10 @@ module "secrets_manager_group" {
 # Configure private cert engine if provisioning a new SM instance
 module "private_secret_engine" {
   depends_on                = [module.secrets_manager]
-  count                     = var.existing_sm_instance_guid == null ? 1 : 0
   source                    = "terraform-ibm-modules/secrets-manager-private-cert-engine/ibm"
   version                   = "1.1.1"
-  secrets_manager_guid      = local.sm_guid
-  region                    = local.sm_region
+  secrets_manager_guid      = module.secrets_manager.secrets_manager_guid
+  region                    = var.region
   root_ca_name              = var.root_ca_name
   intermediate_ca_name      = var.intermediate_ca_name
   certificate_template_name = var.certificate_template_name
@@ -96,12 +86,12 @@ module "secrets_manager_private_certificate" {
   source                 = "terraform-ibm-modules/secrets-manager-private-cert/ibm"
   version                = "1.0.2"
   cert_name              = "${var.prefix}-cts-vpn-private-cert"
-  cert_description       = "an example private cert"
+  cert_description       = "Private certificate"
   cert_template          = var.certificate_template_name
   cert_secrets_group_id  = module.secrets_manager_group.secret_group_id
-  cert_common_name       = "example.com"
-  secrets_manager_guid   = local.sm_guid
-  secrets_manager_region = local.sm_region
+  cert_common_name       = var.cert_common_name
+  secrets_manager_guid   = module.secrets_manager.secrets_manager_guid
+  secrets_manager_region = var.region
   providers = {
     ibm = ibm.ibm-sm
   }
@@ -117,21 +107,16 @@ module "client_to_site_vpn" {
   server_cert_crn               = module.secrets_manager_private_certificate.secret_crn
   vpn_gateway_name              = "${var.prefix}-c2s-vpn"
   resource_group_id             = module.resource_group.resource_group_id
-  subnet_ids                    = [data.ibm_is_subnet.vpc_test.id]
+  subnet_ids                    = [data.ibm_is_subnet.edge-vpn.id]
   create_policy                 = var.create_policy
   vpn_client_access_group_users = var.vpn_client_access_group_users
   access_group_name             = "${var.prefix}-${var.access_group_name}"
-  secrets_manager_id            = local.sm_guid
+  secrets_manager_id            = module.secrets_manager.secrets_manager_guid
   vpn_server_routes             = var.vpn_server_routes
   depends_on                    = [module.landing-zone]
 }
 
-data "ibm_is_vpc" "vpc_test" {
-  name       = "${var.prefix}-edge-vpc"
-  depends_on = [module.landing-zone]
-}
-
-data "ibm_is_subnet" "vpc_test" {
+data "ibm_is_subnet" "edge-vpn" {
   name       = "${var.prefix}-edge-vpn-zone-1"
   depends_on = [module.landing-zone]
 }

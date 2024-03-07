@@ -204,7 +204,7 @@ variable "override_json_string" {
          "name": "workload-server",
          "resource_group": "workload-rg",
          "security_group": {
-            "name": "workload",
+            "name": "workload-sg",
             "rules": [
                {
                   "direction": "inbound",

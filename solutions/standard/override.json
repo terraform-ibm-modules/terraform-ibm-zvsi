@@ -1009,7 +1009,7 @@
          "name": "workload-server",
          "resource_group": "slz-workload-rg",
          "security_group": {
-            "name": "workload",
+            "name": "workload-waas-sg",
             "rules": [
             {
               "direction": "inbound",
