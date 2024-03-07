@@ -34,7 +34,7 @@ config = <<EOT
 EOT
 ```
 
-After you replace the contents of the `override_json_string` variable with your configuration, you can edit the resources within. Make use that you set the template `override` variable to `true` as an input variable. For example, within the `variables.tf` file.
+After you replace the contents of the `override_json_string` variable with your configuration, you can edit the resources within. For example, within the `variables.tf` file.
 
 To view your current configuration, run the `terraform refresh` command.
 
