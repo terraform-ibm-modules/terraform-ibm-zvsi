@@ -1,15 +1,13 @@
 {
     "products":[
         {
-            "name": "Wazi-as-a-service-VSI-on-VPC-Landing-zone",
-            "version": "v1.0.0",
+            "name": "deploy-arch-ibm-wazi",
             "product_kind": "solution",
             "tags": [
                 "virtualservers",
                 "ibm_created",
                 "target_terraform",
                 "terraform",
-                "reference_architecture",
                 "solution"
             ],
             "keywords": [
@@ -20,6 +18,7 @@
                 "terraform",
                 "solution",
                 "vsi",
+                "wazi",
                 "virtual server instance"
             ],
             "short_description": "Creates a secure infrastructure with Wazi virtual servers to run your workloads on a VPC network",
@@ -58,7 +57,7 @@
                       "descriptions": "",
                       "diagrams": {
                         "caption": "Wazi as a service VSI on VPC Landing zone - Standard variation",
-                        "url": "https://raw.githubusercontent.com/terraform-ibm-zvsi/blob/standard_quickstart/reference-architecture/Standard-variation.svg",
+                        "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-zvsi/standard_quickstart/reference-architecture/Standard-variation.svg",
                         "type": "image/svg+xml"
                       }
                     },
@@ -105,7 +104,7 @@
                     "descriptions": "",
                     "diagrams": {
                         "caption": "Wazi as a service VSI on VPC Landing zone - QuickStart variation",
-                        "url": "https://raw.githubusercontent.com/terraform-ibm-zvsi/blob/standard_quickstart/reference-architecture/QuickStart.svg",
+                        "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-zvsi/standard_quickstart/reference-architecture/QuickStart.svg",
                         "type": "image/svg+xml"
                         }
                     },
