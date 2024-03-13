@@ -171,15 +171,6 @@
            "vpc_name": "edge",
            "resource_group": "slz-management-rg",
            "rules": [
-		   {
-                  "direction": "inbound",
-                  "name": "allow-ibm-inbound",
-                  "source": "0.0.0.0/0",
-                  "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-	   },
 	   {
                   "direction": "inbound",
                   "name": "allow-ibm-inbound-1",
@@ -199,43 +190,16 @@
                         }
             },
 	    {
-                  "direction": "outbound",
-                  "name": "allow-all-outbound",
-                  "source": "0.0.0.0/0",
-                  "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-           },
-	   {
-                  "direction": "outbound",
+		  "direction": "outbound",  
                   "name": "allow-ibm-outbound-1",
                   "source": "0.0.0.0/0",
                   "icmp": {
                             "type": 8,
 			    "code": 0
                         }
-            },
-	    {
-                  "direction": "outbound",
-                  "name": "allow-all-outbound-2",
-                  "source": "0.0.0.0/0",
-                  "tcp": {
-                            "port_max": 992,
-                            "port_min": 992
-                        }
-           },
-	   {
-                  "direction": "outbound",
-                  "name": "allow-all-outbound-3",
-                  "source": "0.0.0.0/0",
-                  "tcp": {
-                            "port_max": 10443,
-                            "port_min": 10443
-                        }
-           }
- 	  ]
-          },
+            }
+	   ]
+	   }, 
 	  {
             "name": "site-to-site-sg",
             "vpc_name": "workload",
@@ -467,21 +431,8 @@
                      "icmp": {
                             "type": 8
                         }
-                  },
-                  {
-                     "action": "allow",
-                     "destination": "0.0.0.0/0",
-                     "direction": "outbound",
-                     "name": "allow-all-network-outbound-2",
-                     "source": "0.0.0.0/0",
-                     "tcp": {
-                            "source_port_max": 22,
-                            "source_port_min": 22,
-			    "port_max": 65535,
-                            "port_min": 1
-                        }
                   }
-               ]
+	       ]
 	    },
 	    {
                "add_cluster_rules": false,
@@ -514,32 +465,6 @@
                             "port_min": 443
                         }
 		  },
-		  {
-                     "action": "allow",
-                     "destination": "0.0.0.0/0",
-                     "direction": "inbound",
-                     "name": "allow-all-inbound-1",
-                     "source": "0.0.0.0/0",
-                     "tcp": {
-                            "source_port_max": 65535,
-                            "source_port_min": 1,
-                            "port_max": 10443,
-                            "port_min": 10443
-                        }
-                  },
-		  {
-                     "action": "allow",
-                     "destination": "0.0.0.0/0",
-                     "direction": "inbound",
-                     "name": "allow-all-inbound-2",
-                     "source": "0.0.0.0/0",
-                     "tcp": {
-                            "source_port_max": 65535,
-                            "source_port_min": 1,
-                            "port_max": 992,
-                            "port_min": 992
-                        }
-                  },
                   {
                      "action": "allow",
                      "destination": "0.0.0.0/0",
@@ -552,7 +477,7 @@
                   },
                   {
                      "action": "allow",
-                     "destination": "0.0.0.0/0",
+                     "destination": "10.10.0.0/16",
                      "direction": "outbound",
                      "name": "allow-all-network-outbound-2",
                      "source": "0.0.0.0/0",
@@ -588,7 +513,20 @@
                             "port_max": 65535,
                             "port_min": 1
 			 }
-                   }
+                   },
+		   {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
+                     "direction": "outbound",
+                     "name": "allow-all-network-outbound-5",
+                     "source": "0.0.0.0/0",
+                     "tcp": {
+                            "source_port_max": 65535,
+                            "source_port_min": 1,
+                            "port_max": 992,
+                            "port_min": 992
+                        }
+                  }
                  ]
 	    },    
 	    {
@@ -730,20 +668,7 @@
                         }
                   },
 		  {
-                     "action": "allow",
-                     "destination": "0.0.0.0/0",
-                     "direction": "inbound",
-                     "name": "allow-all-network-inbound-2",
-                     "source": "0.0.0.0/0",
-                     "tcp": {
-                            "source_port_max": 65535,
-                            "source_port_min": 1,
-                            "port_max": 10443,
-                            "port_min": 10443
-                        }
-                  },
-		  {
-                     "action": "allow",
+	             "action": "allow",		 
                      "destination": "0.0.0.0/0",
                      "direction": "inbound",
                      "name": "allow-all-network-inbound-3",
@@ -764,19 +689,6 @@
                             "source_port_min": 1,
                             "port_max": 22,
                             "port_min": 22
-                        }
-                  },
-		  {
-                     "action": "allow",
-                     "destination": "0.0.0.0/0",
-                     "direction": "inbound",
-                     "name": "allow-all-network-inbound-5",
-                     "source": "0.0.0.0/0",
-                     "tcp": {
-                            "source_port_max": 65535,
-                            "source_port_min": 1,
-                            "port_max": 992,
-                            "port_min": 992
                         }
                   },
 		  {
