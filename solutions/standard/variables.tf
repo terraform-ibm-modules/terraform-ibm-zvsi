@@ -137,3 +137,43 @@ variable "cert_common_name" {
     error_message = "cert_common_name must match regular expression /(.*?)/"
   }
 }
+
+variable "port_max_in" {
+  description = "Enter inbound port for zosmf web browser for Wazi VSI SG"
+  type        = number
+}
+
+variable "port_min_in" {
+  description = "Enter inbound port for zosmf web browser for Wazi VSI SG"
+  type        = number
+}
+
+variable "port_max" {
+  description = "Enter inbound port for telnet for Wazi VSI SG"
+  type        = number
+}
+
+variable "port_min" {
+  description = "Enter inbound port for telnet for Wazi VSI SG"
+  type        = number
+}
+
+variable "port_max_webin" {
+  description = "Enter inbound port for zosmf web browser for site-to-site-sg"
+  type        = number
+}
+
+variable "port_min_webin" {
+  description = "Enter inbound port for zosmf web browser for site-to-site-sg"
+  type        = number
+}
+
+variable "port_max_telin" {
+  description = "Enter inbound port for telnet for site-to-site-sg"
+  type        = number
+}
+
+variable "port_min_telin" {
+  description = "Enter inbound port for telnet for site-to-site-sg"
+  type        = number
+}

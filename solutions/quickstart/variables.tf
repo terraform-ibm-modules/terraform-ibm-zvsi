@@ -42,6 +42,26 @@ variable "resource_tags" {
   default     = []
 }
 
+variable "port_max_in" {
+  description = "Enter inbound port for zosmf web browser for Wazi VSI SG"
+  type        = number
+}
+
+variable "port_min_in" {
+  description = "Enter inbound port for zosmf web browser for Wazi VSI SG"
+  type        = number
+}
+
+variable "port_max" {
+  description = "Enter inbound port for telnet for Wazi VSI SG"
+  type        = number
+}
+
+variable "port_min" {
+  description = "Enter inbound port for telnet for Wazi VSI SG"
+  type        = number
+}
+
 variable "override_json_string" {
   description = "Override default values with custom JSON. Any value here other than an empty string will override all other configuration changes."
   type        = string
@@ -79,8 +99,36 @@ variable "override_json_string" {
    "virtual_private_endpoints": [],
    "vpcs": [
       {
-         "default_security_group_rules": [],
-         "clean_default_sg_acl": true,
+         "default_security_group_name": "workload-vpc-sg",
+         "default_security_group_rules": [
+	   {
+                  "direction": "inbound",
+                  "name": "allow-ibm-inbound",
+                  "remote": "0.0.0.0/0",
+                  "tcp": {
+                            "port_max": 22,
+                            "port_min": 22
+                        }
+	   },
+	   {
+                  "direction": "inbound",
+                  "name": "allow-ibm-inbound-1",
+                  "remote": "0.0.0.0/0",
+                  "icmp": {
+                            "type": 8
+                        }
+            },
+	    {
+                  "direction": "inbound",
+                  "name": "allow-ibm-inbound-2",
+                  "remote": "0.0.0.0/0",
+                     "udp": {
+                            "port_max": 443,
+                            "port_min": 443
+                        }
+           }
+	 ],
+         "clean_default_sg_acl": false,
          "flow_logs_bucket_name": null,
          "network_acls": [
             {
@@ -227,24 +275,6 @@ variable "override_json_string" {
 	          "tcp": {
                            "port_max": 22,
                            "port_min": 22
-                         }
-              },
-	      {
-                  "direction": "inbound",
-                  "name": "allow-all-inbound-1",
-                  "source": "0.0.0.0/0",
-                  "tcp": {
-                           "port_max": 992,
-                           "port_min": 992
-                         } 
-              },
-              {
-                  "direction": "inbound",
-                  "name": "allow-all-inbound-2",
-                  "source": "0.0.0.0/0",
-                  "tcp": {
-                           "port_max": 10443,
-                           "port_min": 10443
                          }
               },
               {

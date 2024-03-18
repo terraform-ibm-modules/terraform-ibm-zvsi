@@ -249,24 +249,6 @@
                             "type": 8,
 			    "code": 0
                         }
-            },
-	    {
-                  "direction": "outbound",
-                  "name": "allow-all-outbound-2",
-                  "source": "0.0.0.0/0",
-                  "tcp": {
-                            "port_max": 992,
-                            "port_min": 992
-                        }
-           },
-	   {
-                  "direction": "outbound",
-                  "name": "allow-all-outbound-3",
-                  "source": "0.0.0.0/0",
-                  "tcp": {
-                            "port_max": 10443,
-                            "port_min": 10443
-                        }
            }
          ]
          }
@@ -930,24 +912,6 @@
 	      "tcp": {
                        "port_max": 22,
                        "port_min": 22
-                        }
-            },
-	    {
-              "direction": "inbound",
-              "name": "allow-all-inbound-1",
-              "source": "0.0.0.0/0",
-              "tcp": {
-                       "port_max": 992,
-                       "port_min": 992
-                        }
-            },
-	    {
-              "direction": "inbound",
-              "name": "allow-all-inbound-2",
-              "source": "0.0.0.0/0",
-              "tcp": {
-                       "port_max": 10443,
-                       "port_min": 10443
                         }
             },
 	    {

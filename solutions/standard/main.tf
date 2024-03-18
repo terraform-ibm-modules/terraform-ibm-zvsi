@@ -119,3 +119,57 @@ data "ibm_is_subnet" "edge-vpn" {
   name       = "${var.prefix}-edge-vpn-zone-1"
   depends_on = [module.landing-zone]
 }
+
+########################################################################################################################
+# Modify Security Group for Wazi VSI
+########################################################################################################################
+
+data "ibm_is_security_group" "workload_wazi" {
+  name = "workload-waas-sg"
+  depends_on = [module.landing-zone]
+}
+
+resource "ibm_is_security_group_rule" "wazi_security_group_web_inbound" {
+  group = data.ibm_is_security_group.workload_wazi.id
+  direction  = "inbound"
+  tcp {
+    port_min = var.port_min_in
+    port_max = var.port_max_in
+  }
+}
+
+resource "ibm_is_security_group_rule" "wazi_security_group_telnet_inbound" {
+  group = data.ibm_is_security_group.workload_wazi.id
+  direction  = "inbound"
+  tcp {
+    port_min = var.port_min
+    port_max = var.port_max
+  }
+}
+
+########################################################################################################################
+# Modify Security Group for Site-to-site VPN
+########################################################################################################################
+
+data "ibm_is_security_group" "workload_s2s" {
+  name = "site-to-site-sg"
+  depends_on = [module.landing-zone]
+}
+
+resource "ibm_is_security_group_rule" "s2s_security_group_web_inbound" {
+  group = data.ibm_is_security_group.workload_s2s.id
+  direction  = "inbound"
+  tcp {
+    port_min = var.port_min_webin
+    port_max = var.port_max_webin
+  }
+}
+
+resource "ibm_is_security_group_rule" "s2s_security_group_telnet_inbound" {
+  group = data.ibm_is_security_group.workload_s2s.id
+  direction  = "inbound"
+  tcp {
+    port_min = var.port_min_telin
+    port_max = var.port_max_telin
+  }
+}
