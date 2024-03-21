@@ -333,24 +333,6 @@
                   "icmp": {
                             "type": 8
                         }
-            },
-	    {
-                  "direction": "outbound",
-                  "name": "allow-all-outbound-2",
-                  "remote": "0.0.0.0/0",
-                  "tcp": {
-                            "port_max": 992,
-                            "port_min": 992
-                        }
-           },
-	   {
-                  "direction": "outbound",
-                  "name": "allow-all-outbound-3",
-                  "remote": "0.0.0.0/0",
-                  "tcp": {
-                            "port_max": 10443,
-                            "port_min": 10443
-                        }
            }
 	 ],
          "clean_default_sg_acl": false,
@@ -597,23 +579,22 @@
                         }
             },
 	    {
-                  "direction": "inbound",
-                  "name": "allow-ibm-inbound-2",
+                  "direction": "outbound",
+                  "name": "allow-all-outbound",
                   "remote": "0.0.0.0/0",
                   "tcp": {
-                            "port_max": 992,
-                            "port_min": 992
+                            "port_max": 22,
+                            "port_min": 22
                         }
-            },
-            {
-                  "direction": "inbound",
-                  "name": "allow-ibm-inbound-3",
+           },
+	   {
+                  "direction": "outbound",
+                  "name": "allow-ibm-outbound-1",
                   "remote": "0.0.0.0/0",
-                  "tcp": {
-                            "port_max": 10443,
-                            "port_min": 10443
+                  "icmp": {
+                            "type": 8
                         }
-           } 
+            }
 	 ],
          "clean_default_sg_acl": false,
          "flow_logs_bucket_name": null,
@@ -922,11 +903,6 @@
                             "type": 8,
 			    "code": 0
                         }
-            },
-            {
-              "direction": "outbound",
-              "name": "allow-all-outbound",
-              "source": "0.0.0.0/0"
             }
                 ],
                 "vpc_name": "workload"

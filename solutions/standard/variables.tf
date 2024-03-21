@@ -125,7 +125,7 @@ variable "resource_group" {
 
 variable "cert_common_name" {
   type        = string
-  description = "Fully qualified domain name or host domain name for the certificate to be created"
+  description = "Fully qualified domain name or host domain name for the private certificate to be created"
 
   validation {
     condition     = length(var.cert_common_name) >= 4 && length(var.cert_common_name) <= 128
@@ -141,39 +141,47 @@ variable "cert_common_name" {
 variable "port_max_in" {
   description = "Enter inbound port for zosmf web browser for Wazi VSI SG"
   type        = number
+  default     = 10443
 }
 
 variable "port_min_in" {
   description = "Enter inbound port for zosmf web browser for Wazi VSI SG"
   type        = number
+  default     = 10443
 }
 
 variable "port_max" {
   description = "Enter inbound port for telnet for Wazi VSI SG"
   type        = number
+  default     = 992
 }
 
 variable "port_min" {
   description = "Enter inbound port for telnet for Wazi VSI SG"
   type        = number
+  default     = 992
 }
 
 variable "port_max_webin" {
   description = "Enter inbound port for zosmf web browser for site-to-site-sg"
   type        = number
+  default     = 10443
 }
 
 variable "port_min_webin" {
   description = "Enter inbound port for zosmf web browser for site-to-site-sg"
   type        = number
+  default     = 10443
 }
 
 variable "port_max_telin" {
   description = "Enter inbound port for telnet for site-to-site-sg"
   type        = number
+  default     = 992
 }
 
 variable "port_min_telin" {
   description = "Enter inbound port for telnet for site-to-site-sg"
   type        = number
+  default     = 992
 }
