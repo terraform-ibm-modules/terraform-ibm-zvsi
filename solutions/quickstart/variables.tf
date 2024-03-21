@@ -11,10 +11,6 @@ variable "ibmcloud_api_key" {
 variable "prefix" {
   description = "A unique identifier for resources. Must begin with a lowercase letter and end with a lowerccase letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters."
   type        = string
-  default     = ""
-
-
-
   validation {
     error_message = "Prefix must begin with a lowercase letter and contain only lowercase letters, numbers, and - characters. Prefixes must end with a lowercase letter or number and be 16 or fewer characters."
     condition     = can(regex("^([a-z]|[a-z][-a-z0-9]*[a-z0-9])$", var.prefix)) && length(var.prefix) <= 16
@@ -24,7 +20,6 @@ variable "prefix" {
 variable "region" {
   description = "Region where VPC will be created. To find your VPC region, use `ibmcloud is regions` command to find available regions."
   type        = string
-  default     = ""
   validation {
     condition     = contains(["jp-osa", "jp-tok", "kr-seo", "eu-de", "eu-es", "eu-fr2", "eu-gb", "ca-tor", "us-south", "us-south-test", "us-east", "br-sao", "au-syd"], var.region)
     error_message = "Enter valid region for WaziaaS"
@@ -44,8 +39,8 @@ variable "machine_type" {
   type = string 
   description = "input machine type: valid values are: bz2-4x16, bz2-8x32, bz2-16x64, cz2-8x16, cz2-16x32, mz2-2x16, mz2-4x32, mz2-8x64, mz2-16x128"
   validation {
-    condition  = contains(["mz2o-2x16","bz2-4x16", "bz2-8x32", "bz2-16x64", "cz2-8x16", "cz2-16x32", "mz2-2x16", "mz2-4x32", "mz2-8x64", "mz2-16x128"], var.machine_type)
-    error_message = "Valid values for machine_type are: mz2o-2x16, bz2-4x16, bz2-8x32, bz2-16x64"
+    condition  = contains(["bz2-4x16", "bz2-8x32", "bz2-16x64", "cz2-8x16", "cz2-16x32", "mz2-2x16", "mz2-4x32", "mz2-8x64", "mz2-16x128"], var.machine_type)
+    error_message = "Valid values for machine_type are: bz2-4x16, bz2-8x32, bz2-16x64, cz2-8x16, cz2-16x32, mz2-2x16, mz2-4x32, mz2-8x64, mz2-16x128"
   }
 }
 
@@ -112,36 +107,8 @@ variable "override_json_string" {
    "virtual_private_endpoints": [],
    "vpcs": [
       {
-         "default_security_group_name": "workload-vpc-sg",
-         "default_security_group_rules": [
-	   {
-                  "direction": "inbound",
-                  "name": "allow-ibm-inbound",
-                  "remote": "0.0.0.0/0",
-                  "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-	   },
-	   {
-                  "direction": "inbound",
-                  "name": "allow-ibm-inbound-1",
-                  "remote": "0.0.0.0/0",
-                  "icmp": {
-                            "type": 8
-                        }
-            },
-	    {
-                  "direction": "inbound",
-                  "name": "allow-ibm-inbound-2",
-                  "remote": "0.0.0.0/0",
-                     "udp": {
-                            "port_max": 443,
-                            "port_min": 443
-                        }
-           }
-	 ],
-         "clean_default_sg_acl": false,
+         "default_security_group_rules": [],
+         "clean_default_sg_acl": true,
          "flow_logs_bucket_name": null,
          "network_acls": [
             {
@@ -269,7 +236,7 @@ variable "override_json_string" {
          "name": "workload-server",
          "resource_group": "workload-rg",
          "security_group": {
-            "name": "workload-sg",
+            "name": "workload",
             "rules": [
                {
                   "direction": "inbound",
