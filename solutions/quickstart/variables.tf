@@ -45,21 +45,25 @@ variable "resource_tags" {
 variable "port_max_in" {
   description = "Enter inbound port for zosmf web browser for Wazi VSI SG"
   type        = number
+  default     = 10443
 }
 
 variable "port_min_in" {
   description = "Enter inbound port for zosmf web browser for Wazi VSI SG"
   type        = number
+  default     = 10443
 }
 
 variable "port_max" {
   description = "Enter inbound port for telnet for Wazi VSI SG"
   type        = number
+  default     = 992
 }
 
 variable "port_min" {
   description = "Enter inbound port for telnet for Wazi VSI SG"
   type        = number
+  default     = 992
 }
 
 variable "override_json_string" {
