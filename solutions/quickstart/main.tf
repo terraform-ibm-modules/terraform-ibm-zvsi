@@ -9,7 +9,10 @@ module "landing_zone" {
   prefix               = var.prefix
   region               = var.region
   ssh_key              = var.ssh_key
-  override_json_string = var.override_json_string
+  override_json_string = local.out
+}
+locals {
+  out = replace(var.override_json_string,"mz2o-2x16",var.machine_type)
 }
 
 ########################################################################################################################
