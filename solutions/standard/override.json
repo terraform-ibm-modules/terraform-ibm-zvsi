@@ -166,40 +166,6 @@
             }
            ]
            },
-	   {
-	   "name": "client-to-site-sg",
-           "vpc_name": "edge",
-           "resource_group": "slz-management-rg",
-           "rules": [
-	   {
-                  "direction": "inbound",
-                  "name": "allow-ibm-inbound-1",
-                  "source": "0.0.0.0/0",
-                  "icmp": {
-                            "type": 8,
-			    "code": 0
-                        }
-            },
-	    {
-                  "direction": "inbound",
-                  "name": "allow-ibm-inbound-2",
-                  "source": "0.0.0.0/0",
-                     "udp": {
-                            "port_max": 443,
-                            "port_min": 443
-                        }
-            },
-	    {
-		  "direction": "outbound",  
-                  "name": "allow-ibm-outbound-1",
-                  "source": "0.0.0.0/0",
-                  "icmp": {
-                            "type": 8,
-			    "code": 0
-                        }
-            }
-	   ]
-	   }, 
 	  {
             "name": "site-to-site-sg",
             "vpc_name": "workload",

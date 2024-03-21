@@ -101,7 +101,14 @@ module "secrets_manager_private_certificate" {
 # VPN
 ########################################################################################################################
 
+resource "time_sleep" "wait_for_security_group" {
+  depends_on       = [module.client_to_site_sg.ibm_is_security_group]
+  create_duration  = "10s"
+  destroy_duration = "60s"
+}
+
 module "client_to_site_vpn" {
+  depends_on                    = [time_sleep.wait_for_security_group]
   source                        = "terraform-ibm-modules/client-to-site-vpn/ibm"
   version                       = "1.7.2"
   server_cert_crn               = module.secrets_manager_private_certificate.secret_crn
@@ -115,8 +122,33 @@ module "client_to_site_vpn" {
   vpn_server_routes             = var.vpn_server_routes
 }
 
+module "client_to_site_sg" {
+  depends_on                   = [module.landing-zone]
+  source                       = "terraform-ibm-modules/security-group/ibm"
+  version                      = "2.6.1"
+  add_ibm_cloud_internal_rules = true
+  vpc_id                       = data.ibm_is_vpc.edge.id
+  resource_group               = module.resource_group.resource_group_id
+  security_group_name          = "client-to-site-sg"
+  security_group_rules         = [{
+                  direction = "inbound"
+                  name = "allow-ibm-inbound-2"
+                  remote = "0.0.0.0/0"
+                     udp = {
+                            port_max = 443
+                            port_min = 443
+                        }
+  }]
+  target_ids                   = [module.client_to_site_vpn.vpn_server_id]
+}
+
 data "ibm_is_subnet" "edge-vpn" {
   name       = "${var.prefix}-edge-vpn-zone-1"
+  depends_on = [module.landing-zone]
+}
+
+data "ibm_is_vpc" "edge" {
+  name       = "${var.prefix}-edge-vpc"
   depends_on = [module.landing-zone]
 }
 
