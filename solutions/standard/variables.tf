@@ -35,6 +35,15 @@ variable "ssh_public_key" {
   }
 }
 
+variable "machine_type" {
+  type = string 
+  description = "input machine type: valid values are: bz2-4x16, bz2-8x32, bz2-16x64, cz2-8x16, cz2-16x32, mz2-2x16, mz2-4x32, mz2-8x64, mz2-16x128"
+  validation {
+    condition  = contains(["mz2o-2x16","bz2-4x16", "bz2-8x32", "bz2-16x64", "cz2-8x16", "cz2-16x32", "mz2-2x16", "mz2-4x32", "mz2-8x64", "mz2-16x128"], var.machine_type)
+    error_message = "Valid values for machine_type are: bz2-4x16, bz2-8x32, bz2-16x64, cz2-8x16, cz2-16x32, mz2-2x16, mz2-4x32, mz2-8x64, mz2-16x128"
+  }
+}
+
 variable "override" {
 description = "Override default values with custom JSON template. This uses the file `override.json` to allow users to create a fully customized environment."
 type        = bool
@@ -184,4 +193,10 @@ variable "port_min_telin" {
   description = "Enter inbound port for telnet for site-to-site-sg"
   type        = number
   default     = 992
+}
+
+variable "override_json_string" {
+  description = "Override default values with custom JSON. Any value here other than an empty string will override all other configuration changes."
+  type        = string
+  default     = ""
 }
