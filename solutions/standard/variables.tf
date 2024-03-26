@@ -44,6 +44,15 @@ variable "machine_type" {
   }
 }
 
+variable "image_name" {
+   description = "Enter a valid image name for Wazi VSI"
+   type        = string
+   validation {
+    condition     = can(regex("ibm-zos-[a-z]|[a-z][-a-z0-9]*[a-z0-9]", var.image_name)) || can(regex("zos-vsi-image-devtest-[-0-9]*[0-9]", var.image_name))
+    error_message = "Enter valid image name for WaziaaS"
+  }
+}
+
 variable "override" {
 description = "Override default values with custom JSON template. This uses the file `override.json` to allow users to create a fully customized environment."
 type        = bool

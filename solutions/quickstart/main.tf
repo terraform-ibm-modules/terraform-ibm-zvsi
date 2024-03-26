@@ -1,4 +1,12 @@
 ##############################################################################
+# Landing Zone Locals
+##############################################################################
+
+locals {
+  out = replace(var.override_json_string,"mz2o-2x16",var.machine_type)
+  image = replace(local.out,"ibm-zos-2-4-s390x-dev-test-wazi-10", var.image_name)
+}
+##############################################################################
 # QuickStart VSI Landing Zone
 ##############################################################################
 
@@ -9,20 +17,21 @@ module "landing_zone" {
   prefix               = var.prefix
   region               = var.region
   ssh_key              = var.ssh_key
-  override_json_string = local.out
-}
-locals {
-  out = replace(var.override_json_string,"mz2o-2x16",var.machine_type)
+  override_json_string = local.image
 }
 
 ########################################################################################################################
-# Modify Security Group for Workload VSI
+# Modify Security Group Rule for Workload Resources
 ########################################################################################################################
 
 data "ibm_is_security_group" "workload" {
   name = "workload-sg"
   depends_on = [module.landing_zone]
 }
+
+########################################################################################################################
+# Security Group Rule for Wazi VSI - zosmf Web Browser
+########################################################################################################################
 
 resource "ibm_is_security_group_rule" "workload_security_group_web_inbound" {
   group = data.ibm_is_security_group.workload.id
@@ -32,6 +41,10 @@ resource "ibm_is_security_group_rule" "workload_security_group_web_inbound" {
     port_max = var.port_max_in
   }
 }
+
+########################################################################################################################
+# Security Group Rule for Wazi VSI - Telnet
+########################################################################################################################
 
 resource "ibm_is_security_group_rule" "workload_security_group_telnet_inbound" {
   group = data.ibm_is_security_group.workload.id
