@@ -30,7 +30,7 @@
           "name": "standard",
           "working_directory": "solutions/standard",
           "compliance": {
-            
+
           },
           "iam_permissions": [
             {
@@ -48,6 +48,44 @@
           ],
           "architecture": {
             "descriptions": "",
+            "features": [
+              {
+                "title": "Seperate VPC for edge",
+                "description": "Yes" 
+              },
+              {
+                "title": "Seperate VPC for Workloads",
+                "description": "Yes" 
+              },
+              {
+                "title": "Virtual Server Instances for every subnet",
+                "description": "Yes" 
+              },
+              {
+                "title": "Increases security with Key Management",
+                "description": "Yes" 
+              },
+              {
+                "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
+                "description": "Yes" 
+              },
+              {
+                "title": "Securely connects to multiple networks with a client-to-site/site-to-site virtual private network",
+                "description": "Yes"
+              },
+              {
+                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
+                "description": "Yes" 
+              },
+              {
+                "title": "Uses an edge VPC for secure access through the public internet",
+                "description": "Yes" 
+              },
+              {
+                "title": "Uses floating IP addresses for access through the public internet",
+                "description": "No" 
+              }
+            ],
             "diagrams": {
               "caption": "Wazi as a service VSI on VPC Landing zone - Standard variation",
               "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-zvsi/standard_quickstart/reference-architecture/Standard-variation.svg",
@@ -98,6 +136,44 @@
           },
           "architecture": {
             "descriptions": "",
+            "features": [
+              {
+                "title": "Seperate VPC for edge",
+                "description": "No" 
+              },
+              {
+                "title": "Seperate VPC for Workloads",
+                "description": "No" 
+              },
+              {
+                "title": "Virtual Server Instances for every subnet",
+                "description": "No" 
+              },
+              {
+                "title": "Increases security with Key Management",
+                "description": "Yes" 
+              },
+              {
+                "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
+                "description": "Yes" 
+              },
+              {
+                "title": "Securely connects to multiple networks with a client-to-site/site-to-site virtual private network",
+                "description": "Yes"
+              },
+              {
+                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
+                "description": "Yes" 
+              },
+              {
+                "title": "Uses an edge VPC for secure access through the public internet",
+                "description": "Yes" 
+              },
+              {
+                "title": "Uses floating IP addresses for access through the public internet",
+                "description": "No" 
+              }
+            ],
             "diagrams": {
               "caption": "Wazi as a service VSI on VPC Landing zone - QuickStart variation",
               "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-zvsi/standard_quickstart/reference-architecture/QuickStart.svg",
