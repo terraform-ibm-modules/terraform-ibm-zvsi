@@ -119,7 +119,6 @@ resource "time_sleep" "wait_for_security_group" {
 }
 
 module "client_to_site_vpn" {
-  depends_on                    = [time_sleep.wait_for_security_group]
   source                        = "terraform-ibm-modules/client-to-site-vpn/ibm"
   version                       = "1.7.2"
   server_cert_crn               = module.secrets_manager_private_certificate.secret_crn
@@ -137,13 +136,13 @@ module "client_to_site_sg" {
   depends_on                   = [module.landing-zone]
   source                       = "terraform-ibm-modules/security-group/ibm"
   version                      = "2.6.1"
-  add_ibm_cloud_internal_rules = true
+  add_ibm_cloud_internal_rules = false
   vpc_id                       = data.ibm_is_vpc.edge.id
   resource_group               = module.resource_group.resource_group_id
   security_group_name          = "client-to-site-sg"
   security_group_rules         = [{
                   direction = "inbound"
-                  name = "allow-ibm-inbound-2"
+                  name = "allow-ibm-inbound-1"
                   remote = "0.0.0.0/0"
                      udp = {
                             port_max = 443
@@ -176,8 +175,8 @@ resource "ibm_is_security_group_rule" "wazi_security_group_web_inbound" {
   group = data.ibm_is_security_group.workload_wazi.id
   direction  = "inbound"
   tcp {
-    port_min = var.port_min_in
-    port_max = var.port_max_in
+    port_min = var.port_min_zosmf
+    port_max = var.port_max_zosmf
   }
 }
 
@@ -185,8 +184,8 @@ resource "ibm_is_security_group_rule" "wazi_security_group_telnet_inbound" {
   group = data.ibm_is_security_group.workload_wazi.id
   direction  = "inbound"
   tcp {
-    port_min = var.port_min
-    port_max = var.port_max
+    port_min = var.port_min_telnet
+    port_max = var.port_max_telnet
   }
 }
 
@@ -203,8 +202,8 @@ resource "ibm_is_security_group_rule" "s2s_security_group_web_inbound" {
   group = data.ibm_is_security_group.workload_s2s.id
   direction  = "inbound"
   tcp {
-    port_min = var.port_min_webin
-    port_max = var.port_max_webin
+    port_min = var.port_min_zosmf
+    port_max = var.port_max_zosmf
   }
 }
 
@@ -212,7 +211,7 @@ resource "ibm_is_security_group_rule" "s2s_security_group_telnet_inbound" {
   group = data.ibm_is_security_group.workload_s2s.id
   direction  = "inbound"
   tcp {
-    port_min = var.port_min_telin
-    port_max = var.port_max_telin
+    port_min = var.port_min_telnet
+    port_max = var.port_max_telnet
   }
 }

@@ -99,8 +99,16 @@ variable "vpn_server_routes" {
   }))
   description = "Map of server routes to be added to created VPN server."
   default = {
-    "vpc-10" = {
+    "vpn-ibm-network" = {
       destination = "10.0.0.0/8"
+      action      = "translate"
+    }
+    "vpn-to-subnet-edge-vsi" = {
+      destination = "10.10.20.0/24"
+      action      = "translate"
+    }
+    "vpn-to-subnet-edge-vpe" = {
+      destination = "10.10.30.0/24"
       action      = "translate"
     }
     "route-vpn-2-services" = {
@@ -147,50 +155,26 @@ variable "cert_common_name" {
   }
 }
 
-variable "port_max_in" {
-  description = "Enter inbound port for zosmf web browser for Wazi VSI SG"
+variable "port_max_zosmf" {
+  description = "Enter inbound port for zosmf web browser for Wazi VSI SG & Site-to-site VPN SG"
   type        = number
   default     = 10443
 }
 
-variable "port_min_in" {
-  description = "Enter inbound port for zosmf web browser for Wazi VSI SG"
+variable "port_min_zosmf" {
+  description = "Enter inbound port for zosmf web browser for Wazi VSI SG & Site-to-site VPN SG"
   type        = number
   default     = 10443
 }
 
-variable "port_max" {
-  description = "Enter inbound port for telnet for Wazi VSI SG"
+variable "port_max_telnet" {
+  description = "Enter inbound port for telnet for Wazi VSI SG & Site-to-site VPN SG"
   type        = number
   default     = 992
 }
 
-variable "port_min" {
-  description = "Enter inbound port for telnet for Wazi VSI SG"
-  type        = number
-  default     = 992
-}
-
-variable "port_max_webin" {
-  description = "Enter inbound port for zosmf web browser for site-to-site-sg"
-  type        = number
-  default     = 10443
-}
-
-variable "port_min_webin" {
-  description = "Enter inbound port for zosmf web browser for site-to-site-sg"
-  type        = number
-  default     = 10443
-}
-
-variable "port_max_telin" {
-  description = "Enter inbound port for telnet for site-to-site-sg"
-  type        = number
-  default     = 992
-}
-
-variable "port_min_telin" {
-  description = "Enter inbound port for telnet for site-to-site-sg"
+variable "port_min_telnet" {
+  description = "Enter inbound port for telnet for Wazi VSI SG & Site-to-site VPN SG"
   type        = number
   default     = 992
 }
