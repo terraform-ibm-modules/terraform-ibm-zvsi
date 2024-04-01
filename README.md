@@ -17,10 +17,10 @@ This repository contains wazi deployable architecture solutions that help provis
 
 Two solutions are offered:
 1. [Quickstart Variation](https://github.com/terraform-ibm-modules/terraform-ibm-zvsi/tree/standard_quickstart/solutions/quickstart)
-    - This pattern deploys the following infrastructure:
-    - Workload VPC with Wazi as a Service VSI with Floating IP..
+    This pattern deploys the following infrastructure:
+    - Workload VPC with Wazi as a Service VSI with Floating IP.
 2. [Standard Variation](https://github.com/terraform-ibm-modules/terraform-ibm-zvsi/tree/standard_quickstart/solutions/standard)
-    - This pattern deploys the following infrastructure:
+    This pattern deploys the following infrastructure:
     - A resource group for cloud services and for each VPC.
     - Cloud Object Storage instances for flow logs and Activity Tracker.
     - Encryption keys in a Key Protect instance.
