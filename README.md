@@ -52,7 +52,7 @@ https://terraform-ibm-modules.github.io/documentation/#/implementation-guideline
 * [terraform-ibm-zvsi](#terraform-ibm-zvsi)
 * [Submodules](./examples)
     * [default](./examples/default)
-    * [existing-resources](./modules/existing-resources)
+    * [existing-resources](./examples/existing-resources)
     * [non-default](./examples/non-default)
 * [Contributing](#contributing)
 <!-- END OVERVIEW HOOK -->
