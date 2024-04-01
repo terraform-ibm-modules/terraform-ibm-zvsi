@@ -13,7 +13,7 @@
 
 ## Summary
 
-This repository contains deployable architecture solutions that help provision VPC landing zones, PowerVS workspaces, and interconnect them. The solutions are available in the IBM Cloud Catalog and can also be deployed without the catalog, except for the second solution below.
+This repository contains wazi deployable architecture solutions that help provision VPC landing zones and interconnect them. The below solutions are available in the IBM Cloud Catalog and can also be deployed without the catalog.
 
 Two solutions are offered:
 1. [Quickstart Variation](https://github.com/terraform-ibm-modules/terraform-ibm-zvsi/tree/standard_quickstart/solutions/quickstart)
@@ -42,10 +42,10 @@ https://terraform-ibm-modules.github.io/documentation/#/implementation-guideline
 -->
 
 ## Solutions
-| Variation  | Available on IBM Catalog  |  Requires IBM Schematics Workspace ID | Creates VPC Landing Zone | 
+| Variation  | Available on IBM Catalog  |  Requires IBM Schematics Workspace ID | Creates VPC Landing Zone | Performs VPC VSI OS Config | 
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| [Quickstart](https://github.com/terraform-ibm-modules/terraform-ibm-zvsi/tree/standard_quickstart/solutions/quickstart)  | :heavy_check_mark:  | N/A  | :heavy_check_mark:  | :heavy_check_mark:  |  :heavy_check_mark: | N/A | N/A |
-| [Standard](https://github.com/terraform-ibm-modules/terraform-ibm-zvsi/tree/standard_quickstart/solutions/standard)    | :heavy_check_mark:  |  :heavy_check_mark: |  N/A | N/A | :heavy_check_mark:  | N/A | N/A |
+| [Quickstart](https://github.com/terraform-ibm-modules/terraform-ibm-zvsi/tree/standard_quickstart/solutions/quickstart)  | :heavy_check_mark:  | N/A  | :heavy_check_mark:  | :heavy_check_mark:  |
+| [Standard](https://github.com/terraform-ibm-modules/terraform-ibm-zvsi/tree/standard_quickstart/solutions/standard)    | :heavy_check_mark:  |  :heavy_check_mark: |  N/A | N/A |
 
 <!-- BEGIN OVERVIEW HOOK -->
 ## Overview
