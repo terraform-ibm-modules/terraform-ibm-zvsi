@@ -44,6 +44,18 @@
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Operator"
               ]
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "cloud-object-storage"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "kms"
             }
           ],
           "architecture": {
