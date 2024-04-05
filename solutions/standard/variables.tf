@@ -103,14 +103,6 @@ variable "vpn_server_routes" {
       destination = "10.0.0.0/8"
       action      = "translate"
     }
-    "vpn-to-subnet-edge-vsi" = {
-      destination = "10.10.20.0/24"
-      action      = "translate"
-    }
-    "vpn-to-subnet-edge-vpe" = {
-      destination = "10.10.30.0/24"
-      action      = "translate"
-    }
     "route-vpn-2-services" = {
       destination = "166.9.0.0/16"
       action      = "translate"
