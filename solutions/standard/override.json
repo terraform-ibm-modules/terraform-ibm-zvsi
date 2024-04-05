@@ -846,7 +846,7 @@
       },
       {
          "boot_volume_encryption_key_name": null,
-         "image_name": "ibm-zos-2-4-s390x-dev-test-wazi-10",
+         "image_name": "ibm-zos-2-5-s390x-dev-test-wazi-7",
          "machine_type": "mz2o-2x16",
          "name": "workload-server",
          "resource_group": "slz-workload-rg",

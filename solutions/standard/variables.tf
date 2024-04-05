@@ -47,10 +47,7 @@ variable "machine_type" {
 variable "image_name" {
    description = "Enter a valid image name for Wazi VSI"
    type        = string
-   validation {
-    condition     = can(regex("ibm-zos-[a-z]|[a-z][-a-z0-9]*[a-z0-9]", var.image_name)) || can(regex("zos-vsi-image-devtest-[-0-9]*[0-9]", var.image_name))
-    error_message = "Enter valid image name for WaziaaS"
-  }
+   default     = "ibm-zos-2-5-s390x-dev-test-wazi-7"
 }
 
 variable "override" {
