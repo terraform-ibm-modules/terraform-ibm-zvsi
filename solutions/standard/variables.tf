@@ -44,6 +44,12 @@ variable "machine_type" {
   }
 }
 
+variable "image_name" {
+   description = "Enter a valid image name for Wazi VSI"
+   type        = string
+   default     = "ibm-zos-2-5-s390x-dev-test-wazi-7"
+}
+
 variable "override" {
 description = "Override default values with custom JSON template. This uses the file `override.json` to allow users to create a fully customized environment."
 type        = bool

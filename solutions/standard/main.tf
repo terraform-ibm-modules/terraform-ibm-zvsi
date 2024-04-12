@@ -11,11 +11,12 @@ provider "ibm" {
 ##############################################################################
 
 ########################################################################################################################
-# Locals
+# Landing Zone Locals
 ########################################################################################################################
 
 locals {
-  out = replace(file("./override.json"), "mz2o-2x16", var.machine_type) 
+  out = replace(file("./override.json"), "mz2o-2x16", var.machine_type)
+  image = replace(local.out,"ibm-zos-2-5-s390x-dev-test-wazi-7", var.image_name)
 }
 
 ##############################################################################
@@ -24,14 +25,13 @@ locals {
 # Landing Zone
 ##############################################################################
 module "landing-zone" {
-  source  = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
-  version = "5.18.0"
-  prefix  = var.prefix
-  region  = var.region
-  #  ibmcloud_api_key                    = var.ibmcloud_api_key 
-  ssh_public_key = var.ssh_public_key
-  override       = var.override
-  override_json_string                = local.out
+  source                 = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
+  version                = "5.18.0"
+  prefix                 = var.prefix
+  region                 = var.region
+  ssh_public_key         = var.ssh_public_key
+  override               = var.override
+  override_json_string   = local.image
 }
 
 ########################################################################################################################
@@ -132,6 +132,7 @@ module "client_to_site_vpn" {
   vpn_server_routes             = var.vpn_server_routes
 }
 
+# Security Group for Client-to-Site VPN
 module "client_to_site_sg" {
   depends_on                   = [module.landing-zone]
   source                       = "terraform-ibm-modules/security-group/ibm"
@@ -149,7 +150,7 @@ module "client_to_site_sg" {
                             port_min = 443
                         }
   }]
-  target_ids                   = [module.client_to_site_vpn.vpn_server_id]
+  target_ids                  = [module.client_to_site_vpn.vpn_server_id]
 }
 
 data "ibm_is_subnet" "edge-vpn" {
@@ -163,13 +164,17 @@ data "ibm_is_vpc" "edge" {
 }
 
 ########################################################################################################################
-# Modify Security Group for Wazi VSI
+# Modify Security Group for Workload Resources
 ########################################################################################################################
 
 data "ibm_is_security_group" "workload_wazi" {
   name = "workload-waas-sg"
   depends_on = [module.landing-zone]
 }
+
+########################################################################################################################
+# Security Group Rule for Wazi VSI - zosmf Web Browser
+########################################################################################################################
 
 resource "ibm_is_security_group_rule" "wazi_security_group_web_inbound" {
   group = data.ibm_is_security_group.workload_wazi.id
@@ -179,6 +184,10 @@ resource "ibm_is_security_group_rule" "wazi_security_group_web_inbound" {
     port_max = var.port_max_zosmf
   }
 }
+
+########################################################################################################################
+# Security Group Rule for Wazi VSI - Telnet
+########################################################################################################################
 
 resource "ibm_is_security_group_rule" "wazi_security_group_telnet_inbound" {
   group = data.ibm_is_security_group.workload_wazi.id
@@ -198,6 +207,10 @@ data "ibm_is_security_group" "workload_s2s" {
   depends_on = [module.landing-zone]
 }
 
+########################################################################################################################
+# Security Group Rule for Site-to-site VPN - zosmf Web Browser
+########################################################################################################################
+
 resource "ibm_is_security_group_rule" "s2s_security_group_web_inbound" {
   group = data.ibm_is_security_group.workload_s2s.id
   direction  = "inbound"
@@ -206,6 +219,10 @@ resource "ibm_is_security_group_rule" "s2s_security_group_web_inbound" {
     port_max = var.port_max_zosmf
   }
 }
+
+########################################################################################################################
+# Security Group Rule for Site-to-site VPN - Telnet
+########################################################################################################################
 
 resource "ibm_is_security_group_rule" "s2s_security_group_telnet_inbound" {
   group = data.ibm_is_security_group.workload_s2s.id

@@ -45,6 +45,12 @@ variable "machine_type" {
   }
 }
 
+variable "image_name" {
+   description = "Enter a valid image name for Wazi VSI"
+   type        = string
+   default     = "ibm-zos-2-5-s390x-dev-test-wazi-7"
+}
+
 variable "resource_tags" {
   type        = list(string)
   description = "Optional list of tags to be added to created resources"
@@ -169,7 +175,7 @@ variable "override_json_string" {
                      "name": "allow-all-network-inbound-1",
                      "source": "0.0.0.0/0",
                      "icmp": {
-                            "type": 8
+                             "type": 8
                         }
                   },
                   {
@@ -179,8 +185,8 @@ variable "override_json_string" {
                      "name": "allow-all-network-inbound-2",
                      "source": "0.0.0.0/0",
                      "udp": {
-			    "source_port_max": 65535,
-			    "source_port_min": 1,
+			                   "source_port_max": 65535,
+			                   "source_port_min": 1,
                             "port_max": 443,
                             "port_min": 443
                         }
@@ -264,7 +270,7 @@ variable "override_json_string" {
    "vsi": [
       {
          "boot_volume_encryption_key_name": null,
-         "image_name": "ibm-zos-2-5-s390x-dev-test-wazi-6",
+         "image_name": "ibm-zos-2-5-s390x-dev-test-wazi-7",
          "machine_type": "mz2o-2x16",
          "name": "workload-server",
          "resource_group": "workload-rg",
@@ -286,9 +292,9 @@ variable "override_json_string" {
                   "name": "allow-all-inbound",
                   "source": "0.0.0.0/0",
 	          "tcp": {
-                           "port_max": 22,
-                           "port_min": 22
-                         }
+                       "port_max": 22,
+                       "port_min": 22
+                     }
               },
               {
                   "direction": "inbound",
