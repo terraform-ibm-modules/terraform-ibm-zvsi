@@ -37,8 +37,8 @@ resource "ibm_is_security_group_rule" "workload_security_group_web_inbound" {
   group = data.ibm_is_security_group.workload.id
   direction  = "inbound"
   tcp {
-    port_min = var.port_min_zosmf
-    port_max = var.port_max_zosmf
+    port_min = var.port_zosmf
+    port_max = var.port_zosmf
   }
 }
 
@@ -50,7 +50,7 @@ resource "ibm_is_security_group_rule" "workload_security_group_telnet_inbound" {
   group = data.ibm_is_security_group.workload.id
   direction  = "inbound"
   tcp {
-    port_min = var.port_min_telnet
-    port_max = var.port_max_telnet
+    port_min = var.port_telnet
+    port_max = var.port_telnet
   }
 }

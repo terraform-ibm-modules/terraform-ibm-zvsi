@@ -57,25 +57,13 @@ variable "resource_tags" {
   default     = []
 }
 
-variable "port_max_zosmf" {
+variable "port_zosmf" {
   description = "Enter inbound port for zosmf web browser for Wazi VSI SG"
   type        = number
   default     = 10443
 }
 
-variable "port_min_zosmf" {
-  description = "Enter inbound port for zosmf web browser for Wazi VSI SG"
-  type        = number
-  default     = 10443
-}
-
-variable "port_max_telnet" {
-  description = "Enter inbound port for telnet for Wazi VSI SG"
-  type        = number
-  default     = 992
-}
-
-variable "port_min_telnet" {
+variable "port_telnet" {
   description = "Enter inbound port for telnet for Wazi VSI SG"
   type        = number
   default     = 992
