@@ -42,7 +42,7 @@ To view your current configuration, run the `terraform refresh` command.
 
 | Name | Source | Version |
 |------|--------|---------|
-| landing_zone | (https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/tree/main/patterns/vsi) | 4.13.0 |
+| landing_zone | [terraform-ibm-modules/terraform-ibm-landing-zone/tree/main/patterns/vsi](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/tree/main/patterns/vsi) | 4.13.0 |
 
 ### Execution
 
