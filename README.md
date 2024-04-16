@@ -5,7 +5,7 @@
 <!-- UPDATE BADGE: Update the link for the following badge-->
 [![Incubating (Not yet consumable)](https://img.shields.io/badge/status-Incubating%20(Not%20yet%20consumable)-red)](https://terraform-ibm-modules.github.io/documentation/#/badge-status)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
-[![latest release](https://img.shields.io/github/v/release/terraform-ibm-modules/terraform-ibm-module-template?logo=GitHub&sort=semver)](https://github.com/terraform-ibm-modules/terraform-ibm-module-template/releases/latest)
+[![latest release](https://img.shields.io/github/v/release/terraform-ibm-modules/terraform-ibm-zvsi?logo=GitHub&sort=semver)](https://github.com/terraform-ibm-modules/terraform-ibm-zvsi/releases)
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
@@ -13,30 +13,32 @@
 
 ## Summary
 
-This repository contains wazi deployable architecture solutions that help provision VPC landing zones and interconnect them. The below solutions are available in the IBM Cloud Catalog and can also be deployed with terraform.
+This repository contains WaziaaS deployable architecture solutions that help provision VPC landing zones and interconnect them. The below solutions are available and can be deployed with terraform.
 
 Two solutions are offered:
-1. [Quickstart Variation](https://github.com/terraform-ibm-modules/terraform-ibm-zvsi/tree/standard_quickstart/solutions/quickstart)
+1. [Quickstart Variation](https://github.com/terraform-ibm-modules/terraform-ibm-zvsi/tree/main/solutions/quickstart)
     This pattern deploys the following infrastructure:
-    - Increases security with Key Management.
-    - Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs.
-    - Simplifies risk management and demonstrates regulatory compliance with Financial Services
-    - Uses an edge VPC for secure access through the public internet.
-2. [Standard Variation](https://github.com/terraform-ibm-modules/terraform-ibm-zvsi/tree/standard_quickstart/solutions/standard)
+    - Workload VPC with Wazi as a service VSI.
+    - Uses Floating IP addresses for access through the public internet.
+2. [Standard Variation](https://github.com/terraform-ibm-modules/terraform-ibm-zvsi/tree/main/solutions/standard)
     This pattern deploys the following infrastructure:
-    - Seperate VPC for edge.
-    - Seperate VPC for Workloads.
+    - Separate VPC for edge.
+    - Separate VPC for workloads.
     - Virtual Server Instances for every subnet.
-    - Increases security with Key Management.
-    - Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs.
-    - Securely connects to multiple networks with a client-to-site/site-to-site virtual private network
-    - Simplifies risk management and demonstrates regulatory compliance with Financial Services
-    - Uses an edge VPC for secure access through the public internet.
+    - A resource group for cloud services and for each VPC.
+    - Cloud Object Storage instances for flow logs and Activity Tracker.
+    - Encryption keys in a Key Protect instance.
+    - A edge and workload VPC connected by a transit gateway.
+    - All necessary networking rules to allow communication.
+    - Virtual Private Endpoint (VPE) for Cloud Object Storage in each VPC.
+    - A client-to-site VPN gateway in the edge VPC.
+    - A jump server Bastion host VSI in the edge VPC without floating IP.
+    - A site-to-site VPN in the workload VPC.
+    - Wazi as a Service VSI in the workload VPC.
 <!-- Remove the content in this previous H2 heading -->
 ## Reference architectures
-- [Quickstart Variation](https://github.com/terraform-ibm-modules/terraform-ibm-zvsi/tree/standard_quickstart/solutions/quickstart)
-- [Standard Variation](https://github.com/terraform-ibm-modules/terraform-ibm-zvsi/tree/standard_quickstart/solutions/standard)
-
+- [Quickstart Variation](https://github.com/terraform-ibm-modules/terraform-ibm-zvsi/tree/main/solutions/quickstart)
+- [Standard Variation](https://github.com/terraform-ibm-modules/terraform-ibm-zvsi/tree/main/solutions/standard)
 <!--
 Add links to any reference architectures for this module.
 (Usually in the `/reference-architectures` directory.)
@@ -44,39 +46,29 @@ See "Reference architecture" in Authoring Guidelines in the public documentation
 https://terraform-ibm-modules.github.io/documentation/#/implementation-guidelines?id=reference-architecture
 -->
 
-<!-- BEGIN OVERVIEW HOOK -->
-## Overview
-* [terraform-ibm-zvsi](#terraform-ibm-zvsi)
-* [Submodules](./)
-    * [quickstart](./solutions/quickstart/)
-    * [standard](./solutions/standard/)
-* [Contributing](#contributing)
-<!-- END OVERVIEW HOOK -->
-
 ## Required IAM access policies
 
 You need the following permissions to run this module.
 
-- Account Management
-    - **Resource Group** service
-        - `Viewer` platform access
-    - IAM Services
-            - `Editor` platform access
-        - **VPC Infrastructure Services** service
-            - `Editor` platform access
-        - **Transit Gateway** service
-            - `Editor` platform access
-        - **Direct Link** service
-            - `Editor` platform access
-
+- IAM Access Requirements
+    - Quickstart Variation
+        - **Platform Roles**
+            - `Editor` Virtual Private Cloud
+    - Standard Variation
+        - **Platform Roles**
+            - `Editor` IAM Identity Service
+            - `Editor` Virtual Private Cloud
+        - **Service Roles**
+            - `Editor` Cloud Object Storage
+            - `Editor` IBM Key Protect
 <!-- END MODULE HOOK -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ### Requirements
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3, < 1.6 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.56.1 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\terraform) | >= 1.3, < 1.6 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\ibm) | >= 1.56.1 |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
