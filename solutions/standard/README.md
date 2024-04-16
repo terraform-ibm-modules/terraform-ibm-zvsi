@@ -53,20 +53,20 @@ The `override.json` file does not need to contain all elements. For example,
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3, < 1.6 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.56.1 |
+| terraform | >= 1.3, < 1.6 |
+| ibm | >= 1.56.1 |
 
 ### Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_landing-zone"></a> [landing\_zone](#module\_landing\_zone) | terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module | 4.13.0 |
-| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | terraform-ibm-modules/resource-group/ibm | 1.0.6 |
-| <a name="module_secrets_manager"></a> [secrets\_manager](#module\_secrets\_manager) | terraform-ibm-modules/secrets-manager/ibm | 1.1.0 |
-| <a name="module_secrets_manager_group"></a> [secrets\_manager\_group](#module\_secrets\_manager\_group) | terraform-ibm-modules/secrets-manager-secret-group/ibm | 1.0.1 |
-| <a name="module_private_secret_engine"></a> [private\_secret\_engine](#module\_private\_secret\_engine) | terraform-ibm-modules/secrets-manager-private-cert-engine/ibm | 1.1.1 |
-| <a name="module_secrets_manager_private_certificate"></a> [secrets\_manager\_private\_certificate](#module\_secrets\_manager\_private\_certificate) | terraform-ibm-modules/secrets-manager-private-cert/ibm | 1.0.2 |
-| <a name="module_client_to_site_vpn"></a> [client\_to\_site\_vpn](#module\_client\_to\_site\_vpn) | terraform-ibm-modules/client-to-site-vpn/ibm | 1.6.2 |
+| landing-zone | [landing\_zone](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/tree/main/patterns/vsi) | 4.13.0 |
+| resource_group | [resource\_group](https://github.com/terraform-ibm-modules/terraform-ibm-resource-group) | 1.0.6 |
+| secrets_manager | [secrets\_manager](https://github.com/terraform-ibm-modules/terraform-ibm-secrets-manager)| 1.1.0 |
+| secrets_manager_group | [secrets\_manager\_group](https://github.com/terraform-ibm-modules/terraform-ibm-secrets-manager-secret-group) | 1.0.1 |
+| private_secret_engine | [private\_secret\_engine](https://github.com/terraform-ibm-modules/terraform-ibm-secrets-manager-private-cert-engine)| 1.1.1 |
+| secrets_manager_private_certificate | [secrets\_manager\_private\_certificate](https://github.com/terraform-ibm-modules/terraform-ibm-secrets-manager-private-cert) | 1.0.2 |
+| client_to_site_vpn | [client\_to\_site\_vpn](https://github.com/terraform-ibm-modules/terraform-ibm-client-to-site-vpn) | 1.6.2 |
 
 ### Execution
 

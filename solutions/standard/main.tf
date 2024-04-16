@@ -173,28 +173,16 @@ data "ibm_is_security_group" "workload_wazi" {
 }
 
 ########################################################################################################################
-# Security Group Rule for Wazi VSI - zosmf Web Browser
+# Security Group Rule for Wazi VSI 
 ########################################################################################################################
 
-resource "ibm_is_security_group_rule" "wazi_security_group_web_inbound" {
+resource "ibm_is_security_group_rule" "wazi_security_group_inbound" {
+  for_each = toset(var.ports)
   group = data.ibm_is_security_group.workload_wazi.id
   direction  = "inbound"
   tcp {
-    port_min = var.port_zosmf
-    port_max = var.port_zosmf
-  }
-}
-
-########################################################################################################################
-# Security Group Rule for Wazi VSI - Telnet
-########################################################################################################################
-
-resource "ibm_is_security_group_rule" "wazi_security_group_telnet_inbound" {
-  group = data.ibm_is_security_group.workload_wazi.id
-  direction  = "inbound"
-  tcp {
-    port_min = var.port_telnet
-    port_max = var.port_telnet
+    port_min = each.value
+    port_max = each.value
   }
 }
 
@@ -208,27 +196,15 @@ data "ibm_is_security_group" "workload_s2s" {
 }
 
 ########################################################################################################################
-# Security Group Rule for Site-to-site VPN - zosmf Web Browser
+# Security Group Rule for Site-to-site VPN 
 ########################################################################################################################
 
-resource "ibm_is_security_group_rule" "s2s_security_group_web_inbound" {
+resource "ibm_is_security_group_rule" "s2s_security_group_inbound" {
+  for_each = toset(var.ports)
   group = data.ibm_is_security_group.workload_s2s.id
   direction  = "inbound"
   tcp {
-    port_min = var.port_zosmf
-    port_max = var.port_zosmf
-  }
-}
-
-########################################################################################################################
-# Security Group Rule for Site-to-site VPN - Telnet
-########################################################################################################################
-
-resource "ibm_is_security_group_rule" "s2s_security_group_telnet_inbound" {
-  group = data.ibm_is_security_group.workload_s2s.id
-  direction  = "inbound"
-  tcp {
-    port_min = var.port_telnet
-    port_max = var.port_telnet
+    port_min = each.value
+    port_max = each.value
   }
 }

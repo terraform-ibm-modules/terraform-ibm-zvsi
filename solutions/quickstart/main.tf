@@ -30,27 +30,16 @@ data "ibm_is_security_group" "workload" {
 }
 
 ########################################################################################################################
-# Security Group Rule for Wazi VSI - zosmf Web Browser
+# Security Group Rule for Wazi VSI 
 ########################################################################################################################
 
-resource "ibm_is_security_group_rule" "workload_security_group_web_inbound" {
+resource "ibm_is_security_group_rule" "workload_security_group_inbound" {
+  for_each = toset(var.ports)
   group = data.ibm_is_security_group.workload.id
   direction  = "inbound"
   tcp {
-    port_min = var.port_zosmf
-    port_max = var.port_zosmf
+    port_min = each.value
+    port_max = each.value
   }
 }
 
-########################################################################################################################
-# Security Group Rule for Wazi VSI - Telnet
-########################################################################################################################
-
-resource "ibm_is_security_group_rule" "workload_security_group_telnet_inbound" {
-  group = data.ibm_is_security_group.workload.id
-  direction  = "inbound"
-  tcp {
-    port_min = var.port_telnet
-    port_max = var.port_telnet
-  }
-}
