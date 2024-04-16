@@ -67,8 +67,8 @@ You need the following permissions to run this module.
 
 | Name | Version |
 |------|---------|
-| [terraform](#requirement\terraform) | >= 1.3, < 1.6 |
-| [ibm](#requirement\ibm) | >= 1.56.1 |
+| terraform | >= 1.3, < 1.6 |
+| ibm | >= 1.56.1 |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
