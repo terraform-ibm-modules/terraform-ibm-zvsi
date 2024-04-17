@@ -1,10 +1,11 @@
-module github.com/terraform-ibm-modules/terraform-ibm-zvsi
+module github.com/terraform-ibm-modules/terraform-ibm-zvsi/tree/standard_quickstart
 
 go 1.21
 
 toolchain go1.21.3
 
 require (
+	github.com/hashicorp/terraform-json v0.21.0
 	github.com/stretchr/testify v1.8.4
 	github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper v1.28.2
 )
@@ -69,7 +70,6 @@ require (
 	github.com/hashicorp/go-safetemp v1.0.0 // indirect
 	github.com/hashicorp/go-version v1.6.0 // indirect
 	github.com/hashicorp/hcl/v2 v2.17.0 // indirect
-	github.com/hashicorp/terraform-json v0.21.0 // indirect
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
 	github.com/jinzhu/copier v0.4.0 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
