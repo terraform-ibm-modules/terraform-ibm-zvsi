@@ -158,8 +158,8 @@ variable "cert_common_name" {
 }
 
 variable "ports" {
-  description = "Enter the list of ports to open for Wazi VSI SG. For example, Enter a value: ["992", "10443", "9443"]"
-  type        = list(string)
+  description = "Enter the list of ports to open for Wazi VSI SG."
+  type        = list(number)
 }
 
 variable "override_json_string" {

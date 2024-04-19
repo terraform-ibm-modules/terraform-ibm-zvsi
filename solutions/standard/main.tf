@@ -177,7 +177,7 @@ data "ibm_is_security_group" "workload_wazi" {
 ########################################################################################################################
 
 resource "ibm_is_security_group_rule" "wazi_security_group_inbound" {
-  for_each = toset(var.ports)
+  for_each = toset([for v in var.ports : tostring(v)])
   group = data.ibm_is_security_group.workload_wazi.id
   direction  = "inbound"
   tcp {
@@ -200,7 +200,7 @@ data "ibm_is_security_group" "workload_s2s" {
 ########################################################################################################################
 
 resource "ibm_is_security_group_rule" "s2s_security_group_inbound" {
-  for_each = toset(var.ports)
+  for_each = toset([for v in var.ports : tostring(v)])
   group = data.ibm_is_security_group.workload_s2s.id
   direction  = "inbound"
   tcp {

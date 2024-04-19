@@ -61,12 +61,8 @@ variable "resource_tags" {
 }
 
 variable "ports" {
-  description = "Enter the list of ports to open for Wazi VSI SG. For example : [992, 10443]"
-  type        = list(string)
-  validation {
-    condition  = can(regex("^([0-9]))?$", var.ports)
-    error_message = "Valid values for ports are:"
-  }
+  description = "Enter the list of ports to open for Wazi VSI SG. For example : [992,10443]"
+  type        = list(number)
 }
 
 

@@ -34,7 +34,7 @@ data "ibm_is_security_group" "workload" {
 ########################################################################################################################
 
 resource "ibm_is_security_group_rule" "workload_security_group_inbound" {
-  for_each = toset(var.ports)
+  for_each = toset([for v in var.ports : tostring(v)])
   group = data.ibm_is_security_group.workload.id
   direction  = "inbound"
   tcp {
