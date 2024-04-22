@@ -2,6 +2,7 @@
   "products": [
     {
       "name": "deploy-arch-ibm-wazi",
+      "label": "Wazi as a Service on VPC Landing zone",
       "product_kind": "solution",
       "tags": [
         "virtualservers",
