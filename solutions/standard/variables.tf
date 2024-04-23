@@ -36,8 +36,8 @@ variable "ssh_public_key" {
 }
 
 variable "machine_type" {
-  type = string 
-  default = "bz2-4x16"
+  type = string
+  default = "mz2-2x16"
   description = "input machine type: valid values are: bz2-4x16, bz2-8x32, bz2-16x64, cz2-8x16, cz2-16x32, mz2-2x16, mz2-4x32, mz2-8x64, mz2-16x128"
   validation {
     condition  = contains(["mz2o-2x16","bz2-4x16", "bz2-8x32", "bz2-16x64", "cz2-8x16", "cz2-16x32", "mz2-2x16", "mz2-4x32", "mz2-8x64", "mz2-16x128"], var.machine_type)
@@ -154,16 +154,9 @@ variable "cert_common_name" {
   }
 }
 
-variable "port_zosmf" {
-  description = "Enter inbound port for zosmf web browser for Wazi VSI SG & Site-to-site VPN SG"
-  type        = number
-  default     = 10443
-}
-
-variable "port_telnet" {
-  description = "Enter inbound port for telnet for Wazi VSI SG & Site-to-site VPN SG"
-  type        = number
-  default     = 992
+variable "ports" {
+  description = "Enter the list of ports to open for Wazi VSI SG."
+  type        = list(number)
 }
 
 variable "override_json_string" {

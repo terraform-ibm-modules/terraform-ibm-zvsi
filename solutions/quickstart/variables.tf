@@ -11,7 +11,6 @@ variable "ibmcloud_api_key" {
 variable "prefix" {
   description = "A unique identifier for resources. Must begin with a lowercase letter and end with a lowerccase letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters."
   type        = string
-
   validation {
     error_message = "Prefix must begin with a lowercase letter and contain only lowercase letters, numbers, and - characters. Prefixes must end with a lowercase letter or number and be 16 or fewer characters."
     condition     = can(regex("^([a-z]|[a-z][-a-z0-9]*[a-z0-9])$", var.prefix)) && length(var.prefix) <= 16
@@ -40,6 +39,7 @@ variable "machine_type" {
   type = string 
   default = "bz2-4x16"
   description = "input machine type: valid values are: bz2-4x16, bz2-8x32, bz2-16x64, cz2-8x16, cz2-16x32, mz2-2x16, mz2-4x32, mz2-8x64, mz2-16x128"
+  default = "mz2-2x16"
   validation {
     condition  = contains(["mz2o-2x16", "bz2-4x16", "bz2-8x32", "bz2-16x64", "cz2-8x16", "cz2-16x32", "mz2-2x16", "mz2-4x32", "mz2-8x64", "mz2-16x128"], var.machine_type)
     error_message = "Valid values for machine_type are: bz2-4x16, bz2-8x32, bz2-16x64, cz2-8x16, cz2-16x32, mz2-2x16, mz2-4x32, mz2-8x64, mz2-16x128"
@@ -58,17 +58,11 @@ variable "resource_tags" {
   default     = []
 }
 
-variable "port_zosmf" {
-  description = "Enter inbound port for zosmf web browser for Wazi VSI SG"
-  type        = number
-  default     = 10443
+variable "ports" {
+  description = "Enter the list of ports to open for Wazi VSI SG. For example : [992,10443]"
+  type        = list(number)
 }
 
-variable "port_telnet" {
-  description = "Enter inbound port for telnet for Wazi VSI SG"
-  type        = number
-  default     = 992
-}
 
 variable "override_json_string" {
   description = "Override default values with custom JSON. Any value here other than an empty string will override all other configuration changes."
