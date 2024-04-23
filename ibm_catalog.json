@@ -2,6 +2,7 @@
   "products": [
     {
       "name": "deploy-arch-ibm-wazi",
+      "label": "Wazi as a Service on VPC Landing zone",
       "product_kind": "solution",
       "tags": [
         "virtualservers",
@@ -168,27 +169,27 @@
               },
               {
                 "title": "Increases security with Key Management",
-                "description": "Yes" 
+                "description": "No" 
               },
               {
                 "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
-                "description": "Yes" 
+                "description": "No" 
               },
               {
                 "title": "Securely connects to multiple networks with a client-to-site/site-to-site virtual private network",
-                "description": "Yes"
+                "description": "No"
               },
               {
                 "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
-                "description": "Yes" 
+                "description": "No" 
               },
               {
                 "title": "Uses an edge VPC for secure access through the public internet",
-                "description": "Yes" 
+                "description": "No" 
               },
               {
                 "title": "Uses floating IP addresses for access through the public internet",
-                "description": "No" 
+                "description": "Yes" 
               }
             ],
             "diagrams": [
