@@ -107,8 +107,8 @@ You need the following permissions to run this module.
 
 ### Resources
 
-| Name | Type | | Variation |
-|------|------| |-----------|
+| Name | Type | Variation |
+|------|------|-----------|
 | [time_sleep](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource | standard |
 | [ibm_is_subnet](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_subnet_reserved_ip) | data source | standard |
 | [ibm_is_vpc](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_vpc_routing_table_route) | data source | standard |
