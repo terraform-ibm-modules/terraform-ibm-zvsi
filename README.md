@@ -120,11 +120,11 @@ You need the following permissions to run this module.
 
 | Name | Description | Type | Default | Required | Variation |
 |------|-------------|------|---------|:--------:|-----------|
-| [IBM_Cloud_API_Key] | The IBM Cloud platform API key needed to deploy IAM enabled resources | `string` | unique | yes | quickstart, standard |
-| [Machine_Type] | Valid machine type such as "mz2o-2x16", "bz2-4x16", "bz2-8x32", etc... | `string` | "mz2o-2x16" | yes | quickstart, standard |
-| [Prefix] | A unique identifier for resources | `string` | n/a | yes | quickstart, standard |
-| [Region] | Region where VPC will be created | `string` | n/a | yes | quickstart, standard |
-| [SSH_Public_Key] | A public SSH Key for VSI creation which does not already exist in the deployment region | `string` | unique | yes | quickstart, standard |
+| [ibmcloud_api_key] | The IBM Cloud platform API key needed to deploy IAM enabled resources | `string` | unique | yes | quickstart, standard |
+| [machine_type] | Valid machine type such as "mz2o-2x16", "bz2-4x16", "bz2-8x32", etc... | `string` | "mz2o-2x16" | yes | quickstart, standard |
+| [prefix] | A unique identifier for resources | `string` | n/a | yes | quickstart, standard |
+| [region] | Region where VPC will be created | `string` | n/a | yes | quickstart, standard |
+| [ssh_public_key] | A public SSH Key for VSI creation which does not already exist in the deployment region | `string` | unique | yes | quickstart, standard |
 | [ports] | Inbound port for telnet & zosmf web browser for Wazi VSI SG  | `list(number)` | n/a | yes | quickstart, standard |
 | [image_name] | valid image name for Wazi VSI | `string` | "ibm-zos-2-5-s390x-dev-test-wazi-7" | yes | quickstart, standard |
 | [resource_tags] | Optional list of tags to be added to created resources | `string` | n/a | no | quickstart, standard |
@@ -147,7 +147,7 @@ You need the following permissions to run this module.
 
 | Name | Description | Value | 
 |------|-------------|-------|
-| [config] | Output configuration as encoded JSON | [module.landing_zone.config](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/main/patterns/vsi/module/config.tf) | 
+| config | Output configuration as encoded JSON | [module.landing_zone.config](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/main/patterns/vsi/module/config.tf) | 
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
