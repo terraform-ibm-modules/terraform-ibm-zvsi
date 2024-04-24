@@ -1,4 +1,12 @@
 ##############################################################################
+# Landing Zone Locals
+##############################################################################
+
+locals {
+  out = replace(var.override_json_string,"mz2o-2x16",var.machine_type)
+  image = replace(local.out,"ibm-zos-2-5-s390x-dev-test-wazi-7", var.image_name)
+}
+##############################################################################
 # QuickStart VSI Landing Zone
 ##############################################################################
 
@@ -9,14 +17,11 @@ module "landing_zone" {
   prefix               = var.prefix
   region               = var.region
   ssh_key              = var.ssh_key
-  override_json_string = local.out
-}
-locals {
-  out = replace(var.override_json_string,"mz2o-2x16",var.machine_type)
+  override_json_string = local.image
 }
 
 ########################################################################################################################
-# Modify Security Group for Workload VSI
+# Modify Security Group Rule for Workload Resources
 ########################################################################################################################
 
 data "ibm_is_security_group" "workload" {
@@ -24,20 +29,17 @@ data "ibm_is_security_group" "workload" {
   depends_on = [module.landing_zone]
 }
 
-resource "ibm_is_security_group_rule" "workload_security_group_web_inbound" {
+########################################################################################################################
+# Security Group Rule for Wazi VSI 
+########################################################################################################################
+
+resource "ibm_is_security_group_rule" "workload_security_group_inbound" {
+  for_each = toset([for v in var.ports : tostring(v)])
   group = data.ibm_is_security_group.workload.id
   direction  = "inbound"
   tcp {
-    port_min = var.port_min_zosmf
-    port_max = var.port_max_zosmf
+    port_min = each.value
+    port_max = each.value
   }
 }
 
-resource "ibm_is_security_group_rule" "workload_security_group_telnet_inbound" {
-  group = data.ibm_is_security_group.workload.id
-  direction  = "inbound"
-  tcp {
-    port_min = var.port_min_telnet
-    port_max = var.port_max_telnet
-  }
-}

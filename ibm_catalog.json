@@ -2,6 +2,7 @@
   "products": [
     {
       "name": "deploy-arch-ibm-wazi",
+      "label": "Wazi as a Service on VPC Landing zone",
       "product_kind": "solution",
       "tags": [
         "virtualservers",
@@ -44,6 +45,18 @@
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Operator"
               ]
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "cloud-object-storage"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "kms"
             }
           ],
           "architecture": {
@@ -86,11 +99,16 @@
                 "description": "No" 
               }
             ],
-            "diagrams": {
-              "caption": "Wazi as a service VSI on VPC Landing zone - Standard variation",
-              "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-zvsi/standard_quickstart/reference-architecture/Standard-variation.svg",
-              "type": "image/svg+xml"
-            }
+            "diagrams": [
+              {
+                "diagram": {
+                  "caption": "Wazi as a service VSI on VPC Landing zone - Standard variation",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-zvsi/standard_quickstart/reference-architecture/Standard-variation.svg",
+                  "type": "image/svg+xml"
+            },
+            "description": "Standard Variation"
+           }
+           ]
           },
           "configuration": [
             {
@@ -151,34 +169,39 @@
               },
               {
                 "title": "Increases security with Key Management",
-                "description": "Yes" 
+                "description": "No" 
               },
               {
                 "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
-                "description": "Yes" 
+                "description": "No" 
               },
               {
                 "title": "Securely connects to multiple networks with a client-to-site/site-to-site virtual private network",
-                "description": "Yes"
+                "description": "No"
               },
               {
                 "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
-                "description": "Yes" 
+                "description": "No" 
               },
               {
                 "title": "Uses an edge VPC for secure access through the public internet",
-                "description": "Yes" 
+                "description": "No" 
               },
               {
                 "title": "Uses floating IP addresses for access through the public internet",
-                "description": "No" 
+                "description": "Yes" 
               }
             ],
-            "diagrams": {
+            "diagrams": [
+              {
+                "diagram": {
               "caption": "Wazi as a service VSI on VPC Landing zone - QuickStart variation",
               "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-zvsi/standard_quickstart/reference-architecture/QuickStart.svg",
               "type": "image/svg+xml"
-            }
+            },
+            "description": "Quickstart variation"
+          }
+          ]
           },
           "configuration": [
             {

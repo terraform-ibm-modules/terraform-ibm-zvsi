@@ -36,12 +36,19 @@ variable "ssh_public_key" {
 }
 
 variable "machine_type" {
-  type = string 
+  type = string
+  default = "mz2-2x16"
   description = "input machine type: valid values are: bz2-4x16, bz2-8x32, bz2-16x64, cz2-8x16, cz2-16x32, mz2-2x16, mz2-4x32, mz2-8x64, mz2-16x128"
   validation {
     condition  = contains(["mz2o-2x16","bz2-4x16", "bz2-8x32", "bz2-16x64", "cz2-8x16", "cz2-16x32", "mz2-2x16", "mz2-4x32", "mz2-8x64", "mz2-16x128"], var.machine_type)
     error_message = "Valid values for machine_type are: bz2-4x16, bz2-8x32, bz2-16x64, cz2-8x16, cz2-16x32, mz2-2x16, mz2-4x32, mz2-8x64, mz2-16x128"
   }
+}
+
+variable "image_name" {
+   description = "Enter a valid image name for Wazi VSI"
+   type        = string
+   default     = "ibm-zos-2-5-s390x-dev-test-wazi-7"
 }
 
 variable "override" {
@@ -103,14 +110,6 @@ variable "vpn_server_routes" {
       destination = "10.0.0.0/8"
       action      = "translate"
     }
-    "vpn-to-subnet-edge-vsi" = {
-      destination = "10.10.20.0/24"
-      action      = "translate"
-    }
-    "vpn-to-subnet-edge-vpe" = {
-      destination = "10.10.30.0/24"
-      action      = "translate"
-    }
     "route-vpn-2-services" = {
       destination = "166.9.0.0/16"
       action      = "translate"
@@ -155,28 +154,9 @@ variable "cert_common_name" {
   }
 }
 
-variable "port_max_zosmf" {
-  description = "Enter inbound port for zosmf web browser for Wazi VSI SG & Site-to-site VPN SG"
-  type        = number
-  default     = 10443
-}
-
-variable "port_min_zosmf" {
-  description = "Enter inbound port for zosmf web browser for Wazi VSI SG & Site-to-site VPN SG"
-  type        = number
-  default     = 10443
-}
-
-variable "port_max_telnet" {
-  description = "Enter inbound port for telnet for Wazi VSI SG & Site-to-site VPN SG"
-  type        = number
-  default     = 992
-}
-
-variable "port_min_telnet" {
-  description = "Enter inbound port for telnet for Wazi VSI SG & Site-to-site VPN SG"
-  type        = number
-  default     = 992
+variable "ports" {
+  description = "Enter the list of ports to open for Wazi VSI SG."
+  type        = list(number)
 }
 
 variable "override_json_string" {
