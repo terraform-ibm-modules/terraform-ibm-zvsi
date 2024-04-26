@@ -1,7 +1,7 @@
 <!-- BEGIN MODULE HOOK -->
 
 <!-- Update the title to match the module name and add a description -->
-# Terraform Modules Template Project
+# Wazi as a service VSI on VPC Landing Zone
 <!-- UPDATE BADGE: Update the link for the following badge-->
 [![Incubating (Not yet consumable)](https://img.shields.io/badge/status-Incubating%20(Not%20yet%20consumable)-red)](https://terraform-ibm-modules.github.io/documentation/#/badge-status)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
@@ -24,7 +24,7 @@ Two solutions are offered:
     This pattern deploys the following infrastructure:
     - Separate VPC for edge.
     - Separate VPC for workloads.
-    - Virtual Server Instances for every subnet.
+    - Virtual Server Instances for subnet.
     - A resource group for cloud services and for each VPC.
     - Cloud Object Storage instances for flow logs and Activity Tracker.
     - Encryption keys in a Key Protect instance.
@@ -91,9 +91,8 @@ You need the following permissions to run this module.
 | Name | Type | Variation |
 |------|------|-----------|
 | [time_sleep](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource | standard |
-| [ibm_is_subnet](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_subnet_reserved_ip) | data source | standard |
-| [ibm_is_vpc](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_vpc_routing_table_route) | data source | standard |
-| [ibm_is_security_group](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_security_group_rule) | data source | quickstart, standard |
+| [ibm_is_subnet_reserved_ip](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_subnet_reserved_ip) | data source | standard |
+| [ibm_is_vpc_routing_table_route](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_vpc_routing_table_route) | data source | standard |
 | [ibm_is_security_group_rule](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_security_group_rule) | resource | quickstart, standard |
 
 
@@ -102,19 +101,19 @@ You need the following permissions to run this module.
 | Name | Description | Type | Default | Required | Variation |
 |------|-------------|------|---------|:--------:|-----------|
 | [ibmcloud_api_key] | The IBM Cloud platform API key needed to deploy IAM enabled resources | `string` | unique | yes | quickstart, standard |
-| [machine_type] | Valid machine type such as "mz2o-2x16", "bz2-4x16", "bz2-8x32", etc... | `string` | "mz2o-2x16" | yes | quickstart, standard |
+| [machine_type] | Valid machine type such as "bz2-4x16", "bz2-8x32", "bz2-16x64", "cz2-8x16", "cz2-16x32", "mz2-2x16", "mz2-4x32", "mz2-8x64", "mz2-16x128" | `string` | "mz2-2x16" | yes | quickstart, standard |
 | [prefix] | A unique identifier for resources | `string` | n/a | yes | quickstart, standard |
 | [region] | Region where VPC will be created | `string` | n/a | yes | quickstart, standard |
 | [ssh_public_key] | A public SSH Key for VSI creation which does not already exist in the deployment region | `string` | unique | yes | quickstart, standard |
-| [ports] | Inbound port for telnet & zosmf web browser for Wazi VSI SG  | `list(number)` | n/a | yes | quickstart, standard |
-| [image_name] | valid image name for Wazi VSI | `string` | "ibm-zos-2-5-s390x-dev-test-wazi-7" | yes | quickstart, standard |
+| [ports] | List of ports for which inbound traffic will be allowed | `list(number)` | n/a | yes | quickstart, standard |
+| [image_name] | Valid image name for Wazi VSI | `string` | "ibm-zos-2-5-s390x-dev-test-wazi-7" | yes | quickstart, standard |
 | [resource_tags] | Optional list of tags to be added to created resources | `string` | n/a | no | quickstart, standard |
 | [sm_service_plan] | Type of service plan to use to provision Secrets Manager if not using an existing one | `string` | "standard" | no | standard |
 | [root_ca_name] | Name of the Root CA to create for a private_cert secret engine. Only used when var.existing_sm_instance_guid is false | `string` | "root-ca" | no | standard |
 | [intermediate_ca_name] | Name of the Intermediate CA to create for a private_cert secret engine. Only used when var.existing_sm_instance_guid is false | `string` | "intermediate-ca" | no | standard |
 | [certificate_template_name] | Name of the Certificate Template to create for a private_cert secret engine. When var.existing_sm_instance_guid is true, then it has to be the existing template name that exists in the private cert engine | `string` | "my-template" | no | standard |
 | [create_policy] | Set to true to create a new access group (using the value of var.access_group_name) with a VPN Client role | `bool` | true | no | standard |
-| [vpn_client_access_group_users] | List of users in the Client to Site VPN Access Group | `list(string)` | [] | no      standard |
+| [vpn_client_access_group_users] | List of users in the Client to Site VPN Access Group | `list(string)` | [] | no | standard |
 | [access_group_name] | Name of the IAM Access Group to create if var.create_policy is true | `string` | client-to-site-vpn-access-group | no | standard |
 | [root_ca_max_ttl] | Maximum TTL value for the root CA | `string` | "8760h" | yes | standard |
 | [root_ca_common_name] | Fully qualified domain name or host domain name for the certificate to be created | `string` | "cloud.ibm.com" | no | standard |
