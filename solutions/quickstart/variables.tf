@@ -11,6 +11,7 @@ variable "ibmcloud_api_key" {
 variable "prefix" {
   description = "A unique identifier for resources. Must begin with a lowercase letter and end with a lowerccase letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters."
   type        = string
+  default = "kps"
   validation {
     error_message = "Prefix must begin with a lowercase letter and contain only lowercase letters, numbers, and - characters. Prefixes must end with a lowercase letter or number and be 16 or fewer characters."
     condition     = can(regex("^([a-z]|[a-z][-a-z0-9]*[a-z0-9])$", var.prefix)) && length(var.prefix) <= 16
@@ -20,6 +21,7 @@ variable "prefix" {
 variable "region" {
   description = "Region where VPC will be created. To find your VPC region, use `ibmcloud is regions` command to find available regions."
   type        = string
+  default = "br-sao"
   validation {
     condition     = contains(["jp-osa", "jp-tok", "kr-seo", "eu-de", "eu-es", "eu-fr2", "eu-gb", "ca-tor", "us-south", "us-south-test", "us-east", "br-sao", "au-syd"], var.region)
     error_message = "Enter valid region for WaziaaS"
@@ -29,6 +31,7 @@ variable "region" {
 variable "ssh_key" {
   description = "A public SSH Key for VSI creation which does not already exist in the deployment region. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended) - See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys."
   type        = string
+  default = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC2SHQIQomwT+SfMsNx8hIZCPJGw96bVROvrqBmYlx+P45oUNltBZYVnXEFlcjPZrdQ/0e0ZdbZY1i2aakBP5qakW0AJ6wPmXQacZYdDlI0SkP6Th01m2YDUkIvQ23l0Ym4xV5ZsYcarmizj/cYqamC4SQxerc1F/eyNol3IcMIRTC5vvoXvZjVZSfN4o5bUp9D3rretO+rgbhkTtYPclrH9j0c0AkQkewu4InfCFKMfvJ1vbCtRw1FS8rKPV5RdPFbQ6AtEToFXdTDhfyPVAiNNfzF4Pustv7jv/fA3LgEaAE90q7xzJ8/e5dPfIL0F7TZ2slNpW/NQAZOb3hsX+M0JIGkKnOCWUNWH9dzBF5U/32JYojRxGbW3SCl1zGA02hT+A7IaRhZxyqTgEikm3xbxBqzo/cywXlxOOn2lm3AiyxzWUe7Dt+GvJKPWpMucSSS6YSE2fPuDNufDlT61eSRC/V18vyratDeFizO4dVOrE6PsipISKjJJKS5rYxxAac= root@akshay-x86"
   validation {
     error_message = "Public SSH Key must be a valid ssh rsa public key."
     condition     = can(regex("ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?", var.ssh_key))
@@ -37,7 +40,6 @@ variable "ssh_key" {
 
 variable "machine_type" {
   type = string 
-  default = "bz2-4x16"
   description = "input machine type: valid values are: bz2-4x16, bz2-8x32, bz2-16x64, cz2-8x16, cz2-16x32, mz2-2x16, mz2-4x32, mz2-8x64, mz2-16x128"
   default = "mz2-2x16"
   validation {
@@ -61,8 +63,59 @@ variable "resource_tags" {
 variable "ports" {
   description = "Enter the list of ports to open for Wazi VSI SG. For example : [992,10443]"
   type        = list(number)
+  default     = [21,99]
 }
 
+variable "data_volume_names" {
+  description = "Enter the details of Data Volume creation"
+  type = list(object({
+   name                  = string
+   capacity              = number
+   volume_name           = string
+  }))
+  default []
+   validation {
+   error_message = "Enter a size between 10 GB and 16000 GB."
+   condition = length([
+      for o in var.data_volume_names : 
+      o.capacity > 10 && o.capacity < 16000
+    ]) == length(var.data_volume_names)
+  }
+
+   validation {
+    error_message = "Each Data volume name must have a unique name."
+    condition = length(
+      distinct(
+        [
+          for data_volume_name in var.data_volume_names :
+          data_volume_name.name if lookup(data_volume_name, "name", null) != null
+        ]
+      )
+      ) == length(
+      [
+        for data_volume_name in var.data_volume_names :
+        data_volume_name.name if lookup(data_volume_name, "name", null) != null
+      ]
+    )
+  }
+
+  validation {
+    error_message = "Each volume name must have a unique name."
+    condition = length(
+      distinct(
+        [
+          for data_volume_name in var.data_volume_names :
+          data_volume_name.volume_name if lookup(data_volume_name, "volume_name", null) != null
+        ]
+      )
+      ) == length(
+      [
+        for data_volume_name in var.data_volume_names :
+        data_volume_name.volume_name if lookup(data_volume_name, "volume_name", null) != null
+      ]
+    )
+  }
+}
 
 variable "override_json_string" {
   description = "Override default values with custom JSON. Any value here other than an empty string will override all other configuration changes."
