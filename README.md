@@ -1,168 +1,137 @@
 <!-- BEGIN MODULE HOOK -->
 
 <!-- Update the title to match the module name and add a description -->
-# Terraform Modules Template Project
+# Wazi as a service VSI on VPC Landing Zone
 <!-- UPDATE BADGE: Update the link for the following badge-->
 [![Incubating (Not yet consumable)](https://img.shields.io/badge/status-Incubating%20(Not%20yet%20consumable)-red)](https://terraform-ibm-modules.github.io/documentation/#/badge-status)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
-[![latest release](https://img.shields.io/github/v/release/terraform-ibm-modules/terraform-ibm-module-template?logo=GitHub&sort=semver)](https://github.com/terraform-ibm-modules/terraform-ibm-module-template/releases/latest)
+[![latest release](https://img.shields.io/github/v/release/terraform-ibm-modules/terraform-ibm-zvsi?logo=GitHub&sort=semver)](https://github.com/terraform-ibm-modules/terraform-ibm-zvsi/releases)
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 <!-- Remove the content in this H2 heading after completing the steps -->
 
-## Submit a new module
+## Summary
 
-:+1::tada: Thank you for taking the time to contribute! :tada::+1:
+This repository contains WaziaaS deployable architecture solutions that help provision VPC landing zones and interconnect them. The below solutions are available and can be deployed with terraform.
 
-This template repository exists to help you create Terraform modules for IBM Cloud.
-
-The default structure includes the following files:
-
-- `README.md`: A description of the module
-- `main.tf`: The logic for the module
-- `version.tf`: The required terraform and provider versions
-- `variables.tf`: The input variables for the module
-- `outputs.tf`: The values that are output from the module
-For more information, see [Module structure](https://terraform-ibm-modules.github.io/documentation/#/module-structure) in the project documentation.
-
-You can add other content to support what your module does and how it works. For example, you might add a `scripts/` directory that contains shell scripts that are run by a `local-exec` `null_resource` in the Terraform module.
-
-Follow this process to create and submit a Terraform module.
-
-### Create a repo from this repo template
-
-1.  Create a repository from this repository template by clicking `Use this template` in the upper right of the GitHub UI.
-&emsp;&emsp;&emsp;&emsp;<br>For more information about creating a repository from a template, see the [GitHub docs](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
-1.  Select `terraform-ibm-modules` as the owner.
-1.  Enter a name for the module in format `terraform-ibm-<NAME>`, where `<NAME>` reflects the type of infrastructure that the module manages.
-&emsp;&emsp;&emsp;&emsp;<br>Use hyphens as delimiters for names with multiple words (for example, terraform-ibm-`activity-tracker`).
-1.  Provide a short description of the module.
-&emsp;&emsp;&emsp;&emsp;<br>The description is displayed under the repository name on the [organization page](https://github.com/terraform-ibm-modules) and in the **About** section of the repository. Use the description to help users understand the purpose of your module. For more information, see [module names and descriptions](https://terraform-ibm-modules.github.io/documentation/#/implementation-guidelines?id=module-names-and-descriptions) in the docs.
-
-### Clone the repo and set up your development environment
-
-Locally clone the new repository and set up your development environment by completing the tasks in [Local development setup](https://terraform-ibm-modules.github.io/documentation/#/local-dev-setup) in the project documentation.
-
-### Update the repo name and description in source control
-
-To help make sure that the repo name and description are not changed except through pull requests, they are defined in the `settings.yml` file.
-
-Check to make sure that values are uncommented and correct:
-
-1.  Open the [settings.yml](.github/settings.yml) file.
-1.  If not already updated, uncomment the `name` and `description` properties and set the values to what you specified when you requested the repo.
-
-### Update the Terraform files
-
-Implement the logic for your module by updating the `main.tf`, `version.tf`, `variables.tf`, and `outputs.tf` Terraform files. For more information, see [Creating Terraform on IBM Cloud templates](https://cloud.ibm.com/docs/ibm-cloud-provider-for-terraform?topic=ibm-cloud-provider-for-terraform-create-tf-config).
-
-### Create examples and tests
-
-Add one or more examples in the `examples` directory that consume your new module, and configure tests for them in the `tests` directory. For more information about tests, see [Tests](https://terraform-ibm-modules.github.io/documentation/#/tests).
-
-### Update the content in the readme file
-
-After you implement the logic for your module and create examples and tests, update this readme file in your repository by following these steps:
-
-1.  Update the title heading and add a description about your module.
-1.  Update the badge links.
-1.  Remove all the content in this H2 heading section.
-1.  Complete the [Usage](#usage) and [Required IAM access policies](#required-iam-access-policies) sections. The [Examples](#examples) and [Requirements](#requirements) section are populated by a pre-commit hook.
-
-### Commit your code and submit your module for review
-
-1.  Before you commit any code, review [Contributing to the IBM Cloud Terraform modules project](https://terraform-ibm-modules.github.io/documentation/#/contribute-module) in the project documentation.
-1.  Create a pull request for review.
-
-### Post-merge steps
-
-After the first PR for your module is merged, follow these post-merge steps:
-
-1.  Create a PR to enable the upgrade test by removing the `t.Skip` line in `tests/pr_test.go`.
-
+Two solutions are offered:
+1. [Quickstart Variation](https://github.com/terraform-ibm-modules/terraform-ibm-zvsi/tree/main/solutions/quickstart)
+    This pattern deploys the following infrastructure:
+    - Workload VPC with Wazi as a service VSI.
+    - Uses Floating IP addresses for access through the public internet.
+2. [Standard Variation](https://github.com/terraform-ibm-modules/terraform-ibm-zvsi/tree/main/solutions/standard)
+    This pattern deploys the following infrastructure:
+    - Separate VPC for edge.
+    - Separate VPC for workloads.
+    - Virtual Server Instances for subnet.
+    - A resource group for cloud services and for each VPC.
+    - Cloud Object Storage instances for flow logs and Activity Tracker.
+    - Encryption keys in a Key Protect instance.
+    - A edge and workload VPC connected by a transit gateway.
+    - All necessary networking rules to allow communication.
+    - Virtual Private Endpoint (VPE) for Cloud Object Storage in each VPC.
+    - A client-to-site VPN gateway in the edge VPC.
+    - A jump server Bastion host VSI in the edge VPC without floating IP.
+    - A site-to-site VPN in the workload VPC.
+    - Wazi as a Service VSI in the workload VPC.
 <!-- Remove the content in this previous H2 heading -->
+
+<!-- BEGIN OVERVIEW HOOK -->
+## Overview
+* [terraform-ibm-zvi](#terraform-ibm-zvsi)
+* [Variations](./solutions)
+    * [Quickstart](./solutions/quickstart)
+    * [Standard](./solutions/standard)
+* [Contributing](#contributing)
+<!-- END OVERVIEW HOOK -->
+
 ## Reference architectures
-
-<!--
-Add links to any reference architectures for this module.
-(Usually in the `/reference-architectures` directory.)
-See "Reference architecture" in Authoring Guidelines in the public documentation at
-https://terraform-ibm-modules.github.io/documentation/#/implementation-guidelines?id=reference-architecture
--->
-
-## Usage
-
-<!--
-Add an example of the use of the module in the following code block.
-
-Use real values instead of "var.<var_name>" or other placeholder values
-unless real values don't help users know what to change.
--->
-
-```hcl
-
-```
+- [Quickstart Variation](https://github.com/terraform-ibm-modules/terraform-ibm-zvsi/tree/main/solutions/quickstart)
+- [Standard Variation](https://github.com/terraform-ibm-modules/terraform-ibm-zvsi/tree/main/solutions/standard)
 
 ## Required IAM access policies
 
-<!-- PERMISSIONS REQUIRED TO RUN MODULE
-If this module requires permissions, uncomment the following block and update
-the sample permissions, following the format.
-Replace the sample Account and IBM Cloud service names and roles with the
-information in the console at
-Manage > Access (IAM) > Access groups > Access policies.
--->
-
-<!--
 You need the following permissions to run this module.
 
-- Account Management
-    - **Sample Account Service** service
-        - `Editor` platform access
-        - `Manager` service access
-    - IAM Services
-        - **Sample Cloud Service** service
-            - `Administrator` platform access
--->
-
-<!-- NO PERMISSIONS FOR MODULE
-If no permissions are required for the module, uncomment the following
-statement instead the previous block.
--->
-
-<!-- No permissions are needed to run this module.-->
+- IAM Access Requirements
+    - **Quickstart Variation**
+        - Platform Roles
+            - `Editor` Virtual Private Cloud
+    - **Standard Variation**
+        - Platform Roles
+            - `Editor` IAM Identity Service
+            - `Editor` Virtual Private Cloud
+        - Service Roles
+            - `Editor` Cloud Object Storage
+            - `Editor` IBM Key Protect
 <!-- END MODULE HOOK -->
-<!-- BEGIN EXAMPLES HOOK -->
-## Examples
-
-- [ Default example](examples/default)
-- [ Example that uses existing resources](examples/existing-resources)
-- [ Non default example](examples/non-default)
-<!-- END EXAMPLES HOOK -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ### Requirements
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0, <1.6.0 |
+| ibm | >= 1.56.1 |
+| terraform | >= 1.3, < 1.6 |
 
 ### Modules
 
-No modules.
+| Name | Source | Version |
+|------|--------|---------|
+| client_to_site_vpn | [terraform-ibm-modules/terraform-ibm-client-to-site-vpn](https://github.com/terraform-ibm-modules/terraform-ibm-client-to-site-vpn) | 1.6.2 |
+| landing-zone | [terraform-ibm-modules/terraform-ibm-landing-zone/tree/main/patterns/vsi](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/tree/main/patterns/vsi) | 4.13.0 |
+| private_secret_engine | [terraform-ibm-modules/terraform-ibm-secrets-manager-private-cert-engine](https://github.com/terraform-ibm-modules/terraform-ibm-secrets-manager-private-cert-engine)| 1.1.1 |
+| resource_group | [terraform-ibm-modules/terraform-ibm-resource-group](https://github.com/terraform-ibm-modules/terraform-ibm-resource-group) | 1.0.6 |
+| secrets_manager | [terraform-ibm-modules/terraform-ibm-secrets-manager](https://github.com/terraform-ibm-modules/terraform-ibm-secrets-manager)| 1.1.0 |
+| secrets_manager_group | [terraform-ibm-modules/terraform-ibm-secrets-manager-secret-group](https://github.com/terraform-ibm-modules/terraform-ibm-secrets-manager-secret-group) | 1.0.1 |
+| secrets_manager_private_certificate | [terraform-ibm-modules/terraform-ibm-secrets-manager-private-cert](https://github.com/terraform-ibm-modules/terraform-ibm-secrets-manager-private-cert) | 1.0.2 |
 
 ### Resources
 
-No resources.
+| Name | Type | Variation |
+|------|------|-----------|
+| [ibm_is_security_group_rule](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_security_group_rule) | resource | quickstart, standard |
+| [ibm_is_subnet_reserved_ip](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_subnet_reserved_ip) | data source | standard |
+| [ibm_is_vpc_routing_table_route](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_vpc_routing_table_route) | data source | standard |
+| [time_sleep](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource | standard |
+
 
 ### Inputs
 
-No inputs.
+| Name | Description | Type | Default | Required | Variation |
+|------|-------------|------|---------|:--------:|-----------|
+| [access_group_name] | Name of the IAM Access Group to create if var.create_policy is true | `string` | client-to-site-vpn-access-group | no | standard |
+| [cert_common_name] | Fully qualified domain name or host domain name for the private certificate to be created | `string` | n/a | no | standard |
+| [certificate_template_name] | Name of the Certificate Template to create for a private_cert secret engine. When var.existing_sm_instance_guid is true, then it has to be the existing template name that exists in the private cert engine | `string` | "my-template" | no | standard |
+| [create_policy] | Set to true to create a new access group (using the value of var.access_group_name) with a VPN Client role | `bool` | true | no | standard |
+| [ibmcloud_api_key] | The IBM Cloud platform API key needed to deploy IAM enabled resources | `string` | unique | yes | quickstart, standard |
+| [image_name] | Valid image name for Wazi VSI | `string` | "ibm-zos-2-5-s390x-dev-test-wazi-7" | yes | quickstart, standard |
+| [intermediate_ca_name] | Name of the Intermediate CA to create for a private_cert secret engine. Only used when var.existing_sm_instance_guid is false | `string` | "intermediate-ca" | no | standard |
+| [machine_type] | Valid machine type such as "bz2-4x16", "bz2-8x32", "bz2-16x64", "cz2-8x16", "cz2-16x32", "mz2-2x16", "mz2-4x32", "mz2-8x64", "mz2-16x128" | `string` | "mz2-2x16" | yes | quickstart, standard |
+| [override] | Override default values with custom JSON template. This uses the file `override.json` to allow users to create a fully customized environment | `bool` | true | no | standard |
+| [override_json_string] | Override default values with custom JSON. Any value other than an empty string will override all other configuration changes | `string` | "" | no | quickstart, standard |
+| [ports] | List of ports for which inbound traffic will be allowed | `list(number)` | n/a | yes | quickstart, standard |
+| [prefix] | A unique identifier for resources | `string` | n/a | yes | quickstart, standard |
+| [region] | Region where VPC will be created | `string` | n/a | yes | quickstart, standard |
+| [resource_group] | Name of the resource group to use for this example. If not set, a resource group is created | `string` | null | no | standard |
+| [resource_tags] | Optional list of tags to be added to created resources | `string` | n/a | no | quickstart, standard |
+| [root_ca_common_name] | Fully qualified domain name or host domain name for the certificate to be created | `string` | "cloud.ibm.com" | no | standard |
+| [root_ca_max_ttl] | Maximum TTL value for the root CA | `string` | "8760h" | yes | standard |
+| [root_ca_name] | Name of the Root CA to create for a private_cert secret engine. Only used when var.existing_sm_instance_guid is false | `string` | "root-ca" | no | standard |
+| [sm_service_plan] | Type of service plan to use to provision Secrets Manager if not using an existing one | `string` | "standard" | no | standard |
+| [ssh_public_key] | A public SSH Key for VSI creation which does not already exist in the deployment region | `string` | unique | yes | quickstart, standard |
+| [vpn_client_access_group_users] | List of users in the Client to Site VPN Access Group | `list(string)` | [] | no | standard |
+
 
 ### Outputs
 
-No outputs.
+| Name | Description | Value | 
+|------|-------------|-------|
+| config | Output configuration as encoded JSON | [module.landing_zone.config](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/main/patterns/vsi/module/config.tf) | 
+
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
+
 <!-- BEGIN CONTRIBUTING HOOK -->
 
 <!-- Leave this section as is so that your module has a link to local development environment set up steps for contributors to follow -->
