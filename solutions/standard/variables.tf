@@ -48,7 +48,7 @@ variable "machine_type" {
 variable "image_name" {
    description = "Enter a valid image name for Wazi VSI"
    type        = string
-   default     = "ibm-zos-2-5-s390x-dev-test-wazi-7"
+   default     = "ibm-zos-3-1-s390x-dev-test-wazi-1"
 }
 
 variable "override" {
@@ -157,10 +157,62 @@ variable "cert_common_name" {
 variable "ports" {
   description = "Enter the list of ports to open for Wazi VSI SG."
   type        = list(number)
+  default     = [21,992,9443,10443,8101,8102,8120,8121,8150,8153,8154,8155,8180,8135,8191,8192,8194,8137,8138,8139,8115,8195,12000,12001,12002,12003,12004,12005,12006,12007,12008,12009,12010,12011,12012,12013,12014,12015,12016,12017,12018,12019,12020,12021,12022,12023,12024,12025,12026,12027,12028,12029]
 }
 
 variable "override_json_string" {
   description = "Override default values with custom JSON. Any value here other than an empty string will override all other configuration changes."
   type        = string
   default     = ""
+}
+
+variable "data_volume_names" {
+  description = "Enter the details of Data Volume creation. Refer https://github.com/terraform-ibm-modules/terraform-ibm-zvsi/tree/main/solutions/standard/README.md for input value" 
+  type = list(object({
+   name                  = string
+   capacity              = number
+   volume_name           = string
+  }))
+  default                = []
+   validation {
+   error_message = "Enter a size between 10 GB and 16000 GB."
+   condition = length([
+      for o in var.data_volume_names : 
+      o.capacity > 10 && o.capacity < 16000
+    ]) == length(var.data_volume_names)
+  }
+
+   validation {
+    error_message = "Each Data volume name must have a unique name."
+    condition = length(
+      distinct(
+        [
+          for data_volume_name in var.data_volume_names :
+          data_volume_name.name if lookup(data_volume_name, "name", null) != null
+        ]
+      )
+      ) == length(
+      [
+        for data_volume_name in var.data_volume_names :
+        data_volume_name.name if lookup(data_volume_name, "name", null) != null
+      ]
+    )
+  }
+
+  validation {
+    error_message = "Each volume name must have a unique name."
+    condition = length(
+      distinct(
+        [
+          for data_volume_name in var.data_volume_names :
+          data_volume_name.volume_name if lookup(data_volume_name, "volume_name", null) != null
+        ]
+      )
+      ) == length(
+      [
+        for data_volume_name in var.data_volume_names :
+        data_volume_name.volume_name if lookup(data_volume_name, "volume_name", null) != null
+      ]
+    )
+  }
 }

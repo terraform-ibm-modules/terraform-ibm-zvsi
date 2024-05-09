@@ -43,9 +43,13 @@ resource "ibm_is_security_group_rule" "workload_security_group_inbound" {
   }
 }
 
-resource "ibm_is_instance_volume_attachment" "example" {
+########################################################################################################################
+# Additional Data volumes for Wazi VSI (Optional)
+########################################################################################################################
+
+resource "ibm_is_instance_volume_attachment" "vsi" {
   instance = data.ibm_is_instance.wazi.id
-  for_each = { for example in var.data_volume_names : example.name => example }
+  for_each = { for vsi in var.data_volume_names : vsi.name => vsi }
 
   name                               = each.key
   profile                            = "general-purpose"
