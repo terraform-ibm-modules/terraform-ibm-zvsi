@@ -74,6 +74,12 @@ The `override.json` file does not need to contain all elements. For example,
     export TF_VAR_ibmcloud_api_key=XXX
 2. Run Terraform init
 3. Run Terraform apply -var-file=override.json
+4. Input value for additional storage.
+  ```var.data_volume_names
+  Enter the details of Data Volume creation
 
+  Enter a value: [{name="volume1",  capacity=10,  volume_name="vol1"},  {name="volume2",  capacity=11,  volume_name="vol2"}]
+  ```
 
-
+### List of all ports
+List of all default ports added to Quickstar & Standard variations are documented here : https://www.ibm.com/docs/en/wazi-aas/1.0.0?topic=vpc-configurations-in-zos-stock-images#stock-image-configurations

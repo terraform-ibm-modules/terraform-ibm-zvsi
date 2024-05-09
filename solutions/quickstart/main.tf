@@ -43,3 +43,30 @@ resource "ibm_is_security_group_rule" "workload_security_group_inbound" {
   }
 }
 
+########################################################################################################################
+# Additional Data volumes for Wazi VSI (Optional)
+########################################################################################################################
+
+resource "ibm_is_instance_volume_attachment" "vsi" {
+  instance = data.ibm_is_instance.wazi.id
+  for_each = { for vsi in var.data_volume_names : vsi.name => vsi }
+
+  name                               = each.key
+  profile                            = "general-purpose"
+  capacity                           = each.value.capacity
+  delete_volume_on_attachment_delete = true
+  delete_volume_on_instance_delete   = true
+  volume_name                        = each.value.volume_name
+
+  //User can configure timeouts
+  timeouts {
+    create = "15m"
+    update = "15m"
+    delete = "15m"
+  }
+}
+
+data "ibm_is_instance" "wazi" {
+  name = "${var.prefix}-workload-server-001"
+  depends_on = [module.landing_zone]
+}
