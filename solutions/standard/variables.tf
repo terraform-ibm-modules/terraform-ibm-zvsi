@@ -18,7 +18,7 @@ variable "prefix" {
 }
 
 variable "region" {
-  description = "Region where VPC will be created. To find your VPC region, use `ibmcloud is regions` command to find available regions."
+  description = "Region where all the resources will be created. Use `ibmcloud is regions` command to find available regions."
   type        = string
   validation {
     condition     = contains(["jp-osa", "jp-tok", "kr-seo", "eu-de", "eu-es", "eu-fr2", "eu-gb", "ca-tor", "us-south", "us-south-test", "us-east", "br-sao", "au-syd"], var.region)
@@ -37,7 +37,7 @@ variable "ssh_public_key" {
 
 variable "machine_type" {
   type = string
-  default = "mz2-2x16"
+  default = "mz2o-2x16"
   description = "input machine type: valid values are: bz2-4x16, bz2-8x32, bz2-16x64, cz2-8x16, cz2-16x32, mz2-2x16, mz2-4x32, mz2-8x64, mz2-16x128"
   validation {
     condition  = contains(["mz2o-2x16","bz2-4x16", "bz2-8x32", "bz2-16x64", "cz2-8x16", "cz2-16x32", "mz2-2x16", "mz2-4x32", "mz2-8x64", "mz2-16x128"], var.machine_type)
@@ -133,12 +133,6 @@ variable "root_ca_common_name" {
   default     = "cloud.ibm.com"
 }
 
-variable "resource_group" {
-  type        = string
-  description = "Name of the resource group to use for this example. If not set, a resource group is created."
-  default = null
-}
-
 variable "cert_common_name" {
   type        = string
   description = "Fully qualified domain name or host domain name for the private certificate to be created"
@@ -157,7 +151,7 @@ variable "cert_common_name" {
 variable "ports" {
   description = "Enter the list of ports to open for Wazi VSI SG."
   type        = list(number)
-  default     = [21,992,9443,10443,8101,8102,8120,8121,8150,8153,8154,8155,8180,8135,8191,8192,8194,8137,8138,8139,8115,8195,12000,12001,12002,12003,12004,12005,12006,12007,12008,12009,12010,12011,12012,12013,12014,12015,12016,12017,12018,12019,12020,12021,12022,12023,12024,12025,12026,12027,12028,12029]
+  default     = [21,992]
 }
 
 variable "override_json_string" {

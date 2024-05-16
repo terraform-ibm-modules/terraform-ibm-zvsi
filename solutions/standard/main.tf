@@ -1,15 +1,3 @@
-##############################################################################
-# IBM Cloud Provider
-##############################################################################
-
-provider "ibm" {
-  ibmcloud_api_key = var.ibmcloud_api_key
-  region           = var.region
-  ibmcloud_timeout = 60
-}
-
-##############################################################################
-
 ########################################################################################################################
 # Landing Zone Locals
 ########################################################################################################################
@@ -26,7 +14,7 @@ locals {
 ##############################################################################
 module "landing-zone" {
   source                 = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
-  version                = "5.18.0"
+  version                = "5.22.0"
   prefix                 = var.prefix
   region                 = var.region
   ssh_public_key         = var.ssh_public_key
@@ -53,32 +41,29 @@ module "resource_group" {
 # Create a new SM instance if not using an existing one
 module "secrets_manager" {
   source               = "terraform-ibm-modules/secrets-manager/ibm"
-  version              = "1.2.1"
+  version              = "1.12.4"
   resource_group_id    = module.resource_group.resource_group_id
   region               = var.region
   secrets_manager_name = "${var.prefix}-sm-instance"
   sm_service_plan      = var.sm_service_plan
-  service_endpoints    = "public-and-private"
+  allowed_network      = "public-and-private"
 }
 
 # Create a secret group to place the certificate in
 module "secrets_manager_group" {
   source                   = "terraform-ibm-modules/secrets-manager-secret-group/ibm"
-  version                  = "1.1.4"
+  version                  = "1.2.1"
   region                   = var.region
   secrets_manager_guid     = module.secrets_manager.secrets_manager_guid
   secret_group_name        = "${var.prefix}-certs"
   secret_group_description = "A secret group to store private certs"
-  providers = {
-    ibm = ibm.ibm-sm
-  }
 }
 
 # Configure private cert engine if provisioning a new SM instance
 module "private_secret_engine" {
   depends_on                = [module.secrets_manager]
   source                    = "terraform-ibm-modules/secrets-manager-private-cert-engine/ibm"
-  version                   = "1.2.2"
+  version                   = "1.3.1"
   secrets_manager_guid      = module.secrets_manager.secrets_manager_guid
   region                    = var.region
   root_ca_name              = var.root_ca_name
@@ -86,16 +71,13 @@ module "private_secret_engine" {
   certificate_template_name = var.certificate_template_name
   root_ca_max_ttl           = var.root_ca_max_ttl
   root_ca_common_name       = var.root_ca_common_name
-  providers = {
-    ibm = ibm.ibm-sm
-  }
 }
 
 # Create private cert to use for VPN server
 module "secrets_manager_private_certificate" {
   depends_on             = [module.private_secret_engine]
   source                 = "terraform-ibm-modules/secrets-manager-private-cert/ibm"
-  version                = "1.1.3"
+  version                = "1.2.1"
   cert_name              = "${var.prefix}-cts-vpn-private-cert"
   cert_description       = "Private certificate"
   cert_template          = var.certificate_template_name
@@ -103,9 +85,6 @@ module "secrets_manager_private_certificate" {
   cert_common_name       = var.cert_common_name
   secrets_manager_guid   = module.secrets_manager.secrets_manager_guid
   secrets_manager_region = var.region
-  providers = {
-    ibm = ibm.ibm-sm
-  }
 }
 
 ########################################################################################################################
