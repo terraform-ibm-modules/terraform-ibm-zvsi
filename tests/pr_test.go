@@ -80,9 +80,31 @@ func TestRunCompleteExampleQuickstart(t *testing.T) {
 func TestRunCompleteExampleStandard(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsQuickStartPattern(t, "standardtest", "br-sao", standardPatternTerraformDir)
+	options := setupOptionsStandardPattern(t, "standardtest", "br-sao", standardPatternTerraformDir)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
+}
+
+func TestRunUpgradeExampleQuickstart(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsQuickStartPattern(t, "quickstarttest", "br-sao", quickStartPatternTerraformDir)
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected some output")
+	}
+}
+
+func TestRunUpgradeExampleStandard(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsStandardPattern(t, "standardtest", "br-sao", standardPatternTerraformDir)
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected some output")
+	}
 }
