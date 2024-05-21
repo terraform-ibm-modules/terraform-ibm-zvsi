@@ -60,7 +60,7 @@ default     = true
 variable "sm_service_plan" {
   type        = string
   description = "Type of service plan to use to provision Secrets Manager if not using an existing one."
-  default     = "standard"
+  default     = "trial"
 }
 
 variable "root_ca_name" {
