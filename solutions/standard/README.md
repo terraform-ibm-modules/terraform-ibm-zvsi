@@ -71,7 +71,7 @@ The `override.json` file does not need to contain all elements. For example,
 ### Execution
 
 1. Export API Key
-    export TF_VAR_ibmcloud_api_key=XXX
+    export TF_VAR_ibmcloud_api_key=""
 2. Run Terraform init
 3. Run Terraform apply -var-file=override.json
 4. Input value for additional storage.

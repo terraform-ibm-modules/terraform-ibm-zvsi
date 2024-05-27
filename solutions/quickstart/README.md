@@ -47,7 +47,7 @@ To view your current configuration, run the `terraform refresh` command.
 ### Execution
 
 1. Export API Key
-    export TF_VAR_ibmcloud_api_key=xxxx
+    export TF_VAR_ibmcloud_api_key=""
 2. Run Terraform init
 3. Run Terraform apply
 4. Input value for additional storage.
