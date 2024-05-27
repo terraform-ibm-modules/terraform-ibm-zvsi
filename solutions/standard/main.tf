@@ -12,7 +12,7 @@ locals {
 ##############################################################################
 # Landing Zone
 ##############################################################################
-module "landing-zone" {
+module "landing_zone" {
   source               = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
   version              = "5.22.0"
   prefix               = var.prefix
@@ -31,7 +31,7 @@ module "resource_group" {
   version = "1.1.5"
   #   if an existing resource group is not set (null) create a new one using prefix
   existing_resource_group_name = "${var.prefix}-slz-management-rg"
-  depends_on                   = [module.landing-zone]
+  depends_on                   = [module.landing_zone]
 }
 
 ########################################################################################################################
@@ -103,7 +103,7 @@ module "client_to_site_vpn" {
   server_cert_crn               = module.secrets_manager_private_certificate.secret_crn
   vpn_gateway_name              = "${var.prefix}-c2s-vpn"
   resource_group_id             = module.resource_group.resource_group_id
-  subnet_ids                    = [data.ibm_is_subnet.edge-vpn.id]
+  subnet_ids                    = [data.ibm_is_subnet.edge_vpn.id]
   create_policy                 = var.create_policy
   vpn_client_access_group_users = var.vpn_client_access_group_users
   access_group_name             = "${var.prefix}-${var.access_group_name}"
@@ -113,7 +113,7 @@ module "client_to_site_vpn" {
 
 # Security Group for Client-to-Site VPN
 module "client_to_site_sg" {
-  depends_on                   = [module.landing-zone]
+  depends_on                   = [module.landing_zone]
   source                       = "terraform-ibm-modules/security-group/ibm"
   version                      = "2.6.1"
   add_ibm_cloud_internal_rules = false
@@ -132,14 +132,14 @@ module "client_to_site_sg" {
   target_ids = [module.client_to_site_vpn.vpn_server_id]
 }
 
-data "ibm_is_subnet" "edge-vpn" {
+data "ibm_is_subnet" "edge_vpn" {
   name       = "${var.prefix}-edge-vpn-zone-1"
-  depends_on = [module.landing-zone]
+  depends_on = [module.landing_zone]
 }
 
 data "ibm_is_vpc" "edge" {
   name       = "${var.prefix}-edge-vpc"
-  depends_on = [module.landing-zone]
+  depends_on = [module.landing_zone]
 }
 
 ########################################################################################################################
@@ -148,7 +148,7 @@ data "ibm_is_vpc" "edge" {
 
 data "ibm_is_security_group" "workload_wazi" {
   name       = "workload-waas-sg"
-  depends_on = [module.landing-zone]
+  depends_on = [module.landing_zone]
 }
 
 ########################################################################################################################
@@ -171,7 +171,7 @@ resource "ibm_is_security_group_rule" "wazi_security_group_inbound" {
 
 data "ibm_is_security_group" "workload_s2s" {
   name       = "site-to-site-sg"
-  depends_on = [module.landing-zone]
+  depends_on = [module.landing_zone]
 }
 
 ########################################################################################################################
@@ -207,7 +207,7 @@ resource "ibm_is_instance_volume_attachment" "example" {
   delete_volume_on_instance_delete   = true
   volume_name                        = each.value.volume_name
 
-  //User can configure timeouts
+  #User can configure timeouts
   timeouts {
     create = "15m"
     update = "15m"
@@ -217,5 +217,5 @@ resource "ibm_is_instance_volume_attachment" "example" {
 
 data "ibm_is_instance" "wazi" {
   name       = "${var.prefix}-workload-server-001"
-  depends_on = [module.landing-zone]
+  depends_on = [module.landing_zone]
 }

@@ -154,12 +154,6 @@ variable "ports" {
   default     = [21, 992, 9443, 10443, 8101, 8102, 8120, 8121, 8150, 8153, 8154, 8155, 8180, 8135, 8191, 8192, 8194, 8137, 8138, 8139, 8115, 8195, 12000, 12001, 12002, 12003, 12004, 12005, 12006, 12007, 12008, 12009, 12010, 12011, 12012, 12013, 12014, 12015, 12016, 12017, 12018, 12019, 12020, 12021, 12022, 12023, 12024, 12025, 12026, 12027, 12028, 12029]
 }
 
-variable "override_json_string" {
-  description = "Override default values with custom JSON. Any value here other than an empty string will override all other configuration changes."
-  type        = string
-  default     = ""
-}
-
 variable "data_volume_names" {
   description = "Enter the details of Data Volume creation. Refer https://github.com/terraform-ibm-modules/terraform-ibm-zvsi/tree/main/solutions/standard/README.md for input value"
   type = list(object({
