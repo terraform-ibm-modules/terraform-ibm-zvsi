@@ -64,23 +64,23 @@
             "features": [
               {
                 "title": "Seperate VPC for edge",
-                "description": "Yes" 
+                "description": "Yes"
               },
               {
                 "title": "Seperate VPC for Workloads",
-                "description": "Yes" 
+                "description": "Yes"
               },
               {
                 "title": "Virtual Server Instances for every subnet",
-                "description": "Yes" 
+                "description": "Yes"
               },
               {
                 "title": "Increases security with Key Management",
-                "description": "Yes" 
+                "description": "Yes"
               },
               {
                 "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
-                "description": "Yes" 
+                "description": "Yes"
               },
               {
                 "title": "Securely connects to multiple networks with a client-to-site/site-to-site virtual private network",
@@ -88,15 +88,15 @@
               },
               {
                 "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
-                "description": "Yes" 
+                "description": "Yes"
               },
               {
                 "title": "Uses an edge VPC for secure access through the public internet",
-                "description": "Yes" 
+                "description": "Yes"
               },
               {
                 "title": "Uses floating IP addresses for access through the public internet",
-                "description": "No" 
+                "description": "No"
               }
             ],
             "diagrams": [
@@ -140,7 +140,7 @@
           "name": "quickstart",
           "working_directory": "solutions/quickstart",
           "compliance": {
-            
+
           },
           "iam_permissions": [
             {
@@ -156,23 +156,23 @@
             "features": [
               {
                 "title": "Seperate VPC for edge",
-                "description": "No" 
+                "description": "No"
               },
               {
                 "title": "Seperate VPC for Workloads",
-                "description": "No" 
+                "description": "No"
               },
               {
                 "title": "Virtual Server Instances for every subnet",
-                "description": "No" 
+                "description": "No"
               },
               {
                 "title": "Increases security with Key Management",
-                "description": "No" 
+                "description": "No"
               },
               {
                 "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
-                "description": "No" 
+                "description": "No"
               },
               {
                 "title": "Securely connects to multiple networks with a client-to-site/site-to-site virtual private network",
@@ -180,15 +180,15 @@
               },
               {
                 "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
-                "description": "No" 
+                "description": "No"
               },
               {
                 "title": "Uses an edge VPC for secure access through the public internet",
-                "description": "No" 
+                "description": "No"
               },
               {
                 "title": "Uses floating IP addresses for access through the public internet",
-                "description": "Yes" 
+                "description": "Yes"
               }
             ],
             "diagrams": [

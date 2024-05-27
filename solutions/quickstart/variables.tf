@@ -36,19 +36,19 @@ variable "ssh_key" {
 }
 
 variable "machine_type" {
-  type = string 
+  type        = string
   description = "input machine type: valid values are: bz2-4x16, bz2-8x32, bz2-16x64, cz2-8x16, cz2-16x32, mz2-2x16, mz2-4x32, mz2-8x64, mz2-16x128"
-  default = "mz2-2x16"
+  default     = "mz2-2x16"
   validation {
-    condition  = contains(["mz2o-2x16", "bz2-4x16", "bz2-8x32", "bz2-16x64", "cz2-8x16", "cz2-16x32", "mz2-2x16", "mz2-4x32", "mz2-8x64", "mz2-16x128"], var.machine_type)
+    condition     = contains(["mz2o-2x16", "bz2-4x16", "bz2-8x32", "bz2-16x64", "cz2-8x16", "cz2-16x32", "mz2-2x16", "mz2-4x32", "mz2-8x64", "mz2-16x128"], var.machine_type)
     error_message = "Valid values for machine_type are: bz2-4x16, bz2-8x32, bz2-16x64, cz2-8x16, cz2-16x32, mz2-2x16, mz2-4x32, mz2-8x64, mz2-16x128"
   }
 }
 
 variable "image_name" {
-   description = "Enter a valid image name for Wazi VSI"
-   type        = string
-   default     = "ibm-zos-3-1-s390x-dev-test-wazi-1"
+  description = "Enter a valid image name for Wazi VSI"
+  type        = string
+  default     = "ibm-zos-3-1-s390x-dev-test-wazi-1"
 }
 
 variable "resource_tags" {
@@ -60,26 +60,26 @@ variable "resource_tags" {
 variable "ports" {
   description = "Enter the list of ports to open for Wazi VSI SG. For example : [992,10443]"
   type        = list(number)
-  default     = [21,992,9443,10443,8101,8102,8120,8121,8150,8153,8154,8155,8180,8135,8191,8192,8194,8137,8138,8139,8115,8195,12000,12001,12002,12003,12004,12005,12006,12007,12008,12009,12010,12011,12012,12013,12014,12015,12016,12017,12018,12019,12020,12021,12022,12023,12024,12025,12026,12027,12028,12029]
+  default     = [21, 992, 9443, 10443, 8101, 8102, 8120, 8121, 8150, 8153, 8154, 8155, 8180, 8135, 8191, 8192, 8194, 8137, 8138, 8139, 8115, 8195, 12000, 12001, 12002, 12003, 12004, 12005, 12006, 12007, 12008, 12009, 12010, 12011, 12012, 12013, 12014, 12015, 12016, 12017, 12018, 12019, 12020, 12021, 12022, 12023, 12024, 12025, 12026, 12027, 12028, 12029]
 }
 
 variable "data_volume_names" {
   description = "Enter the details of Data Volume creation. Refer https://github.com/terraform-ibm-modules/terraform-ibm-zvsi/tree/main/solutions/quickstart/README.md for input value "
   type = list(object({
-   name                  = string
-   capacity              = number
-   volume_name           = string
+    name        = string
+    capacity    = number
+    volume_name = string
   }))
-  default                = []
-   validation {
-   error_message = "Enter a size between 10 GB and 16000 GB."
-   condition = length([
-      for o in var.data_volume_names : 
+  default = []
+  validation {
+    error_message = "Enter a size between 10 GB and 16000 GB."
+    condition = length([
+      for o in var.data_volume_names :
       o.capacity > 10 && o.capacity < 16000
     ]) == length(var.data_volume_names)
   }
 
-   validation {
+  validation {
     error_message = "Each Data volume name must have a unique name."
     condition = length(
       distinct(

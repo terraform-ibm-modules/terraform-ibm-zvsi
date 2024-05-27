@@ -129,9 +129,9 @@ You need the following permissions to run this module.
 
 ### Outputs
 
-| Name | Description | Value | 
+| Name | Description | Value |
 |------|-------------|-------|
-| config | Output configuration as encoded JSON | [module.landing_zone.config](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/main/patterns/vsi/module/config.tf) | 
+| config | Output configuration as encoded JSON | [module.landing_zone.config](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/main/patterns/vsi/module/config.tf) |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 

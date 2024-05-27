@@ -3,8 +3,8 @@
 ########################################################################################################################
 
 locals {
-  out = replace(file("./override.json"), "mz2o-2x16", var.machine_type)
-  image = replace(local.out,"ibm-zos-2-5-s390x-dev-test-wazi-7", var.image_name)
+  out   = replace(file("./override.json"), "mz2o-2x16", var.machine_type)
+  image = replace(local.out, "ibm-zos-2-5-s390x-dev-test-wazi-7", var.image_name)
 }
 
 ##############################################################################
@@ -13,13 +13,13 @@ locals {
 # Landing Zone
 ##############################################################################
 module "landing-zone" {
-  source                 = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
-  version                = "5.22.0"
-  prefix                 = var.prefix
-  region                 = var.region
-  ssh_public_key         = var.ssh_public_key
-  override               = var.override
-  override_json_string   = local.image
+  source               = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
+  version              = "5.22.0"
+  prefix               = var.prefix
+  region               = var.region
+  ssh_public_key       = var.ssh_public_key
+  override             = var.override
+  override_json_string = local.image
 }
 
 ########################################################################################################################
@@ -120,16 +120,16 @@ module "client_to_site_sg" {
   vpc_id                       = data.ibm_is_vpc.edge.id
   resource_group               = module.resource_group.resource_group_id
   security_group_name          = "client-to-site-sg"
-  security_group_rules         = [{
-                  direction = "inbound"
-                  name = "allow-ibm-inbound-1"
-                  remote = "0.0.0.0/0"
-                     udp = {
-                            port_max = 443
-                            port_min = 443
-                        }
+  security_group_rules = [{
+    direction = "inbound"
+    name      = "allow-ibm-inbound-1"
+    remote    = "0.0.0.0/0"
+    udp = {
+      port_max = 443
+      port_min = 443
+    }
   }]
-  target_ids                  = [module.client_to_site_vpn.vpn_server_id]
+  target_ids = [module.client_to_site_vpn.vpn_server_id]
 }
 
 data "ibm_is_subnet" "edge-vpn" {
@@ -147,18 +147,18 @@ data "ibm_is_vpc" "edge" {
 ########################################################################################################################
 
 data "ibm_is_security_group" "workload_wazi" {
-  name = "workload-waas-sg"
+  name       = "workload-waas-sg"
   depends_on = [module.landing-zone]
 }
 
 ########################################################################################################################
-# Security Group Rule for Wazi VSI 
+# Security Group Rule for Wazi VSI
 ########################################################################################################################
 
 resource "ibm_is_security_group_rule" "wazi_security_group_inbound" {
-  for_each = toset([for v in var.ports : tostring(v)])
-  group = data.ibm_is_security_group.workload_wazi.id
-  direction  = "inbound"
+  for_each  = toset([for v in var.ports : tostring(v)])
+  group     = data.ibm_is_security_group.workload_wazi.id
+  direction = "inbound"
   tcp {
     port_min = each.value
     port_max = each.value
@@ -170,18 +170,18 @@ resource "ibm_is_security_group_rule" "wazi_security_group_inbound" {
 ########################################################################################################################
 
 data "ibm_is_security_group" "workload_s2s" {
-  name = "site-to-site-sg"
+  name       = "site-to-site-sg"
   depends_on = [module.landing-zone]
 }
 
 ########################################################################################################################
-# Security Group Rule for Site-to-site VPN 
+# Security Group Rule for Site-to-site VPN
 ########################################################################################################################
 
 resource "ibm_is_security_group_rule" "s2s_security_group_inbound" {
-  for_each = toset([for v in var.ports : tostring(v)])
-  group = data.ibm_is_security_group.workload_s2s.id
-  direction  = "inbound"
+  for_each  = toset([for v in var.ports : tostring(v)])
+  group     = data.ibm_is_security_group.workload_s2s.id
+  direction = "inbound"
   tcp {
     port_min = each.value
     port_max = each.value
@@ -216,6 +216,6 @@ resource "ibm_is_instance_volume_attachment" "example" {
 }
 
 data "ibm_is_instance" "wazi" {
-  name = "${var.prefix}-workload-server-001"
+  name       = "${var.prefix}-workload-server-001"
   depends_on = [module.landing-zone]
 }
