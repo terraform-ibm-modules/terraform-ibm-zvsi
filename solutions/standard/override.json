@@ -117,7 +117,32 @@
    "transit_gateway_global": false,
    "security_groups": [
       {
-         "name": "vpe-workload-sg",
+         "name": "vpe-workload-zone-1-sg",
+         "vpc_name": "workload",
+         "resource_group": "slz-workload-rg",
+         "rules": [
+            {
+               "direction": "inbound",
+               "name": "allow-ibm-inbound",
+               "source": "0.0.0.0/0",
+               "tcp": {
+                  "port_max": 22,
+                  "port_min": 22
+               }
+            },
+            {
+               "direction": "outbound",
+               "name": "allow-all-outbound",
+               "source": "0.0.0.0/0",
+               "tcp": {
+                  "port_max": 22,
+                  "port_min": 22
+               }
+            }
+         ]
+      },
+      {
+         "name": "vpe-workload-zone-2-sg",
          "vpc_name": "workload",
          "resource_group": "slz-workload-rg",
          "rules": [
@@ -240,9 +265,9 @@
             {
                "name": "workload",
                "subnets": [
-                  "vpe-zone-1"
-               ],
-               "security_group_name": "vpe-workload-sg"
+                  "vpe-zone-1",
+                  "vpe-zone-2"
+               ]
             }
          ]
       }
@@ -305,6 +330,33 @@
          "clean_default_sg_acl": false,
          "flow_logs_bucket_name": null,
          "network_acls": [
+            {
+               "add_cluster_rules": false,
+               "name": "management-acl",
+               "rules": [
+                   {
+                       "action": "allow",
+                       "destination": "10.0.0.0/8",
+                       "direction": "inbound",
+                       "name": "allow-ibm-inbound",
+                       "source": "161.26.0.0/16"
+                   },
+                   {
+                       "action": "allow",
+                       "destination": "10.0.0.0/8",
+                       "direction": "inbound",
+                       "name": "allow-all-network-inbound",
+                       "source": "10.0.0.0/8"
+                   },
+                   {
+                       "action": "allow",
+                       "destination": "0.0.0.0/0",
+                       "direction": "outbound",
+                       "name": "allow-all-outbound",
+                       "source": "0.0.0.0/0"
+                   }
+               ]
+            },
             {
                "add_cluster_rules": false,
                "name": "bastion-subnet-acl",
@@ -509,6 +561,24 @@
                   "cidr": "10.10.30.0/24",
                   "name": "vpe-zone-1",
                   "public_gateway": false
+               },
+               {
+                  "acl_name": "management-acl",
+                  "cidr": "10.10.40.0/24",
+                  "name": "client-to-site",
+                  "public_gateway": false
+               },
+               {
+                  "acl_name": "management-acl",
+                  "cidr": "10.10.50.0/24",
+                  "name": "bastion",
+                  "public_gateway": false
+               },
+               {
+                  "acl_name": "management-acl",
+                  "cidr": "10.10.60.0/24",
+                  "name": "vpe",
+                  "public_gateway": false
                }
             ],
             "zone-2": [],
@@ -566,6 +636,33 @@
          "clean_default_sg_acl": false,
          "flow_logs_bucket_name": null,
          "network_acls": [
+            {
+               "add_cluster_rules": false,
+               "name": "workload-acl",
+               "rules": [
+                   {
+                       "action": "allow",
+                       "destination": "10.0.0.0/8",
+                       "direction": "inbound",
+                       "name": "allow-ibm-inbound",
+                       "source": "161.26.0.0/16"
+                   },
+                   {
+                       "action": "allow",
+                       "destination": "10.0.0.0/8",
+                       "direction": "inbound",
+                       "name": "allow-all-network-inbound",
+                       "source": "10.0.0.0/8"
+                   },
+                   {
+                       "action": "allow",
+                       "destination": "0.0.0.0/0",
+                       "direction": "outbound",
+                       "name": "allow-all-outbound",
+                       "source": "0.0.0.0/0"
+                   }
+               ]
+            },
             {
                "add_cluster_rules": false,
                "name": "waas-subnet-acl",
@@ -638,7 +735,7 @@
             },
             {
                "add_cluster_rules": false,
-               "name": "vpe-subnet-acl",
+               "name": "vpe-subnet-zone-1-acl",
                "rules": [
                   {
                      "action": "allow",
@@ -689,6 +786,33 @@
                      "source": "0.0.0.0/0"
                   }
                ]
+            },
+            {
+               "add_cluster_rules": false,
+               "name": "vpe-subnet-zone-2-acl",
+               "rules": [
+                  {
+                     "action": "allow",
+                     "destination": "10.0.0.0/8",
+                     "direction": "inbound",
+                     "name": "allow-ibm-inbound",
+                     "source": "161.26.0.0/16"
+                  },
+                  {
+                     "action": "allow",
+                     "destination": "10.0.0.0/8",
+                     "direction": "inbound",
+                     "name": "allow-all-network-inbound",
+                     "source": "10.0.0.0/8"
+                  },
+                  {
+                     "action": "allow",
+                     "destination": "0.0.0.0/0",
+                     "direction": "outbound",
+                     "name": "allow-all-outbound",
+                     "source": "0.0.0.0/0"
+                  }
+               ]
             }
          ],
          "prefix": "workload",
@@ -702,19 +826,50 @@
                   "public_gateway": false
                },
                {
-                  "acl_name": "vpe-subnet-acl",
+                  "acl_name": "vpe-subnet-zone-1-acl",
                   "cidr": "10.40.20.0/24",
                   "name": "vpe-zone-1",
                   "public_gateway": false
                },
                {
-                  "acl_name": "site-to-site-subnet-acl",
+                  "acl_name": "workload-acl",
                   "cidr": "10.40.30.0/24",
-                  "name": "vpn-zone-1",
+                  "name": "waas",
+                  "public_gateway": false
+               },
+               {
+                  "acl_name": "workload-acl",
+                  "cidr": "10.40.40.0/24",
+                  "name": "vpe-z1",
                   "public_gateway": false
                }
             ],
-            "zone-2": [],
+            "zone-2": [
+               {
+                  "acl_name": "site-to-site-subnet-acl",
+                  "cidr": "10.50.10.0/24",
+                  "name": "vpn-zone-2",
+                  "public_gateway": false
+               },
+               {
+                  "acl_name": "vpe-subnet-zone-2-acl",
+                  "cidr": "10.50.20.0/24",
+                  "name": "vpe-zone-2",
+                  "public_gateway": false
+               },
+               {
+                  "acl_name": "workload-acl",
+                  "cidr": "10.50.30.0/24",
+                  "name": "site-to-site",
+                  "public_gateway": false
+               },
+               {
+                  "acl_name": "workload-acl",
+                  "cidr": "10.50.40.0/24",
+                  "name": "vpe-z2",
+                  "public_gateway": false
+               }
+            ],
             "zone-3": []
          },
          "use_public_gateways": {
@@ -734,7 +889,7 @@
          "name": "gateway-workload",
          "connections": [],
          "resource_group": "slz-workload-rg",
-         "subnet_name": "vpn-zone-1",
+         "subnet_name": "vpn-zone-2",
          "vpc_name": "workload"
       }
    ],
