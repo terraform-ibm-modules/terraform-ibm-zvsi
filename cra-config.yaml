@@ -1,11 +1,13 @@
 # More info about this file at https://github.com/terraform-ibm-modules/common-pipeline-assets/blob/main/.github/workflows/terraform-test-pipeline.md#cra-config-yaml
 version: "v1"
 CRA_TARGETS:
-  - CRA_TARGET: "examples/default" # Target directory for CRA scan. If not provided, the CRA Scan will not be run.
+  - CRA_TARGET: "solutions/standard" # Target directory for CRA scan. If not provided, the CRA Scan will not be run.
     CRA_IGNORE_RULES_FILE: "cra-tf-validate-ignore-rules.json" # CRA Ignore file to use. If not provided, it checks the repo root directory for `cra-tf-validate-ignore-rules.json`
     PROFILE_ID: "bfacb71d-4b84-41ac-9825-e8a3a3eb7405" # SCC profile ID (currently set to IBM Cloud Framework for Financial Services 1.6.0 profile).
     # SCC_INSTANCE_ID: "" # The SCC instance ID to use to download profile for CRA scan. If not provided, a default global value will be used.
     # SCC_REGION: "" # The IBM Cloud region that the SCC instance is in. If not provided, a default global value will be used.
-    # CRA_ENVIRONMENT_VARIABLES:  # An optional map of environment variables for CRA, where the key is the variable name and value is the value. Useful for providing TF_VARs.
-    #   TF_VAR_sample: "sample value"
-    #   TF_VAR_other:  "another value"
+    CRA_ENVIRONMENT_VARIABLES:  
+      TF_VAR_region: "eu-de"
+      TF_VAR_cert_common_name: "zvsi_da_cert"
+      TF_VAR_prefix: "zvsi_da"
+      TF_VAR_ssh_public_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCySQ9Oe9YYAV5HX9sshmhrCyTEKxL6KvqKalqNTI3YW8/oqFX/i0anEYfYzP0hxbzfiKcrbJDlzK56nn7De3wJVqhATJPGJ7iduY8fp2OLag61AK0aU3h5TcCPd7Q4Dngg+P7Bp5CGSLhhNCx8BltFo/1MH+f9Uz8S/bCMBEghQByM1ndzioemAXHK8JPvTobgO1/O1AgBy5AmCZVS2v9NlD/U+7IQuxkiPE6wRNgO4CogxeohMdlJcnN8ygVpYZaVP17KTLIXhEo7Jwa5rlGYgsk+Si/3kat6ax9x3A8hQWmV9LPk/tD3nNeLnlog159+dve70RW+Q6nf3OWKtYlFNbWqOwdaI6yEMldaA7OeX60gHEvtrvlZ9V/Bf9JzyASZC2f3zIZT52MpN51r8/S3aQ1PDMUQ56Cw8LbcsO4CAdPAgKxcap8tp+933K6LgOn7pe1dgo8vpCAZyr8b0E8BXsQFUHU9vCjDUR6i+AWY0Fen8TLjxFnaUBSa9qazdIU= akshaykaushik@AKSHAYs-MacBook-Pro.local"
