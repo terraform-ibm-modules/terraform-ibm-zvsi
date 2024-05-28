@@ -1,0 +1,1 @@
+{"ibmcloud_api_key": $VALIDATION_APIKEY, "region": "eu-de", "cert_common_name": "zvsi_da_test","prefix": $PREFIX, "ssh_public_key": $SSH_PUB_KEY}
