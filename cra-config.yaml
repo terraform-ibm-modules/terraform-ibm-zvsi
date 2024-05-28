@@ -8,6 +8,6 @@ CRA_TARGETS:
     # SCC_REGION: "" # The IBM Cloud region that the SCC instance is in. If not provided, a default global value will be used.
     CRA_ENVIRONMENT_VARIABLES:
       TF_VAR_region: "eu-de"
-      TF_VAR_cert_common_name: "zvsi_da_cert"
-      TF_VAR_prefix: "zvsi_da"
+      TF_VAR_cert_common_name: "zvsi-da-cert"
+      TF_VAR_prefix: "zvsi-da"
       TF_VAR_ssh_public_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCySQ9Oe9YYAV5HX9sshmhrCyTEKxL6KvqKalqNTI3YW8/oqFX/i0anEYfYzP0hxbzfiKcrbJDlzK56nn7De3wJVqhATJPGJ7iduY8fp2OLag61AK0aU3h5TcCPd7Q4Dngg+P7Bp5CGSLhhNCx8BltFo/1MH+f9Uz8S/bCMBEghQByM1ndzioemAXHK8JPvTobgO1/O1AgBy5AmCZVS2v9NlD/U+7IQuxkiPE6wRNgO4CogxeohMdlJcnN8ygVpYZaVP17KTLIXhEo7Jwa5rlGYgsk+Si/3kat6ax9x3A8hQWmV9LPk/tD3nNeLnlog159+dve70RW+Q6nf3OWKtYlFNbWqOwdaI6yEMldaA7OeX60gHEvtrvlZ9V/Bf9JzyASZC2f3zIZT52MpN51r8/S3aQ1PDMUQ56Cw8LbcsO4CAdPAgKxcap8tp+933K6LgOn7pe1dgo8vpCAZyr8b0E8BXsQFUHU9vCjDUR6i+AWY0Fen8TLjxFnaUBSa9qazdIU="
