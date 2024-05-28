@@ -58,7 +58,7 @@ resource "ibm_is_instance_volume_attachment" "vsi" {
   delete_volume_on_instance_delete   = true
   volume_name                        = each.value.volume_name
 
-  //User can configure timeouts
+  #User can configure timeouts
   timeouts {
     create = "15m"
     update = "15m"

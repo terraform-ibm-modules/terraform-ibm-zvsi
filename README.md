@@ -39,10 +39,7 @@ Two solutions are offered:
 
 <!-- BEGIN OVERVIEW HOOK -->
 ## Overview
-* [terraform-ibm-zvi](#terraform-ibm-zvsi)
-* [Variations](./solutions)
-    * [Quickstart](./solutions/quickstart)
-    * [Standard](./solutions/standard)
+* [terraform-ibm-zvsi](#terraform-ibm-zvsi)
 * [Contributing](#contributing)
 <!-- END OVERVIEW HOOK -->
 
@@ -71,68 +68,23 @@ You need the following permissions to run this module.
 
 | Name | Version |
 |------|---------|
-<<<<<<< HEAD
-| ibm | >= 1.56.1 |
-| terraform | >= 1.3, < 1.6 |
-=======
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0, <1.7.0 |
->>>>>>> main
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3, <1.7 |
 
 ### Modules
 
-| Name | Source | Version |
-|------|--------|---------|
-| client_to_site_vpn | [terraform-ibm-modules/terraform-ibm-client-to-site-vpn](https://github.com/terraform-ibm-modules/terraform-ibm-client-to-site-vpn) | 1.6.2 |
-| landing-zone | [terraform-ibm-modules/terraform-ibm-landing-zone/tree/main/patterns/vsi](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/tree/main/patterns/vsi) | 4.13.0 |
-| private_secret_engine | [terraform-ibm-modules/terraform-ibm-secrets-manager-private-cert-engine](https://github.com/terraform-ibm-modules/terraform-ibm-secrets-manager-private-cert-engine)| 1.1.1 |
-| resource_group | [terraform-ibm-modules/terraform-ibm-resource-group](https://github.com/terraform-ibm-modules/terraform-ibm-resource-group) | 1.0.6 |
-| secrets_manager | [terraform-ibm-modules/terraform-ibm-secrets-manager](https://github.com/terraform-ibm-modules/terraform-ibm-secrets-manager)| 1.1.0 |
-| secrets_manager_group | [terraform-ibm-modules/terraform-ibm-secrets-manager-secret-group](https://github.com/terraform-ibm-modules/terraform-ibm-secrets-manager-secret-group) | 1.0.1 |
-| secrets_manager_private_certificate | [terraform-ibm-modules/terraform-ibm-secrets-manager-private-cert](https://github.com/terraform-ibm-modules/terraform-ibm-secrets-manager-private-cert) | 1.0.2 |
+No modules.
 
 ### Resources
 
-| Name | Type | Variation |
-|------|------|-----------|
-| [ibm_is_security_group_rule](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_security_group_rule) | resource | quickstart, standard |
-| [ibm_is_subnet_reserved_ip](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_subnet_reserved_ip) | data source | standard |
-| [ibm_is_vpc_routing_table_route](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_vpc_routing_table_route) | data source | standard |
-| [time_sleep](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource | standard |
-
+No resources.
 
 ### Inputs
 
-| Name | Description | Type | Default | Required | Variation |
-|------|-------------|------|---------|:--------:|-----------|
-| [access_group_name] | Name of the IAM Access Group to create if var.create_policy is true | `string` | client-to-site-vpn-access-group | no | standard |
-| [cert_common_name] | Fully qualified domain name or host domain name for the private certificate to be created | `string` | n/a | no | standard |
-| [certificate_template_name] | Name of the Certificate Template to create for a private_cert secret engine. When var.existing_sm_instance_guid is true, then it has to be the existing template name that exists in the private cert engine | `string` | "my-template" | no | standard |
-| [create_policy] | Set to true to create a new access group (using the value of var.access_group_name) with a VPN Client role | `bool` | true | no | standard |
-| [ibmcloud_api_key] | The IBM Cloud platform API key needed to deploy IAM enabled resources | `string` | unique | yes | quickstart, standard |
-| [image_name] | Valid image name for Wazi VSI | `string` | "ibm-zos-2-5-s390x-dev-test-wazi-7" | yes | quickstart, standard |
-| [intermediate_ca_name] | Name of the Intermediate CA to create for a private_cert secret engine. Only used when var.existing_sm_instance_guid is false | `string` | "intermediate-ca" | no | standard |
-| [machine_type] | Valid machine type such as "bz2-4x16", "bz2-8x32", "bz2-16x64", "cz2-8x16", "cz2-16x32", "mz2-2x16", "mz2-4x32", "mz2-8x64", "mz2-16x128" | `string` | "mz2-2x16" | yes | quickstart, standard |
-| [override] | Override default values with custom JSON template. This uses the file `override.json` to allow users to create a fully customized environment | `bool` | true | no | standard |
-| [override_json_string] | Override default values with custom JSON. Any value other than an empty string will override all other configuration changes | `string` | "" | no | quickstart, standard |
-| [ports] | List of ports for which inbound traffic will be allowed | `list(number)` | n/a | yes | quickstart, standard |
-| [prefix] | A unique identifier for resources | `string` | n/a | yes | quickstart, standard |
-| [region] | Region where VPC will be created | `string` | n/a | yes | quickstart, standard |
-| [resource_group] | Name of the resource group to use for this example. If not set, a resource group is created | `string` | null | no | standard |
-| [resource_tags] | Optional list of tags to be added to created resources | `string` | n/a | no | quickstart, standard |
-| [root_ca_common_name] | Fully qualified domain name or host domain name for the certificate to be created | `string` | "cloud.ibm.com" | no | standard |
-| [root_ca_max_ttl] | Maximum TTL value for the root CA | `string` | "8760h" | yes | standard |
-| [root_ca_name] | Name of the Root CA to create for a private_cert secret engine. Only used when var.existing_sm_instance_guid is false | `string` | "root-ca" | no | standard |
-| [sm_service_plan] | Type of service plan to use to provision Secrets Manager if not using an existing one | `string` | "standard" | no | standard |
-| [ssh_public_key] | A public SSH Key for VSI creation which does not already exist in the deployment region | `string` | unique | yes | quickstart, standard |
-| [vpn_client_access_group_users] | List of users in the Client to Site VPN Access Group | `list(string)` | [] | no | standard |
-
+No inputs.
 
 ### Outputs
 
-| Name | Description | Value |
-|------|-------------|-------|
-| config | Output configuration as encoded JSON | [module.landing_zone.config](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/main/patterns/vsi/module/config.tf) |
-
+No outputs.
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 

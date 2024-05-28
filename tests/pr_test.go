@@ -9,8 +9,6 @@ import (
 )
 
 // Use existing resource group
-const resourceGroup = "geretain-test-resources"
-const completeExampleDir = "examples/complete"
 const quickStartPatternTerraformDir = "solutions/quickstart"
 const standardPatternTerraformDir = "solutions/standard"
 

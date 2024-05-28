@@ -51,12 +51,6 @@ variable "image_name" {
   default     = "ibm-zos-3-1-s390x-dev-test-wazi-1"
 }
 
-variable "resource_tags" {
-  type        = list(string)
-  description = "Optional list of tags to be added to created resources"
-  default     = []
-}
-
 variable "ports" {
   description = "Enter the list of ports to open for Wazi VSI SG. For example : [992,10443]"
   type        = list(number)
