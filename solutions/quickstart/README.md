@@ -47,12 +47,22 @@ To view your current configuration, run the `terraform refresh` command.
 
 ### Resources
 
+<<<<<<< HEAD
 | Name | Type |
 |------|------|
 | [ibm_is_instance_volume_attachment.vsi](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_instance_volume_attachment) | resource |
 | [ibm_is_security_group_rule.workload_security_group_inbound](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_security_group_rule) | resource |
 | [ibm_is_instance.wazi](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/is_instance) | data source |
 | [ibm_is_security_group.workload](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/is_security_group) | data source |
+=======
+1. Export API Key
+    export TF_VAR_ibmcloud_api_key=""
+2. Run Terraform init
+3. Run Terraform apply
+4. Input value for additional storage.
+  ```var.data_volume_names
+  Enter the details of Data Volume creation
+>>>>>>> 082729b74eca7ee21d72e38abeb899516639614a
 
 ### Inputs
 

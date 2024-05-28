@@ -72,6 +72,7 @@ The `override.json` file does not need to contain all elements. For example,
 
 ### Resources
 
+<<<<<<< HEAD
 | Name | Type |
 |------|------|
 | [ibm_is_instance_volume_attachment.example](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.65.0/docs/resources/is_instance_volume_attachment) | resource |
@@ -83,6 +84,15 @@ The `override.json` file does not need to contain all elements. For example,
 | [ibm_is_security_group.workload_wazi](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.65.0/docs/data-sources/is_security_group) | data source |
 | [ibm_is_subnet.edge_vpn](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.65.0/docs/data-sources/is_subnet) | data source |
 | [ibm_is_vpc.edge](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.65.0/docs/data-sources/is_vpc) | data source |
+=======
+1. Export API Key
+    export TF_VAR_ibmcloud_api_key=""
+2. Run Terraform init
+3. Run Terraform apply -var-file=override.json
+4. Input value for additional storage.
+  ```var.data_volume_names
+  Enter the details of Data Volume creation
+>>>>>>> 082729b74eca7ee21d72e38abeb899516639614a
 
 ### Inputs
 

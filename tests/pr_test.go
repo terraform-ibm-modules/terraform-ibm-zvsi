@@ -9,6 +9,11 @@ import (
 )
 
 // Use existing resource group
+<<<<<<< HEAD
+=======
+// const resourceGroup = "geretain-test-resources"
+// const completeExampleDir = "examples/complete"
+>>>>>>> 082729b74eca7ee21d72e38abeb899516639614a
 const quickStartPatternTerraformDir = "solutions/quickstart"
 const standardPatternTerraformDir = "solutions/standard"
 
