@@ -66,9 +66,7 @@ You need the following permissions to run this module.
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ### Requirements
 
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3, <1.7 |
+No requirements.
 
 ### Modules
 
