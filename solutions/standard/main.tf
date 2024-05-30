@@ -78,7 +78,7 @@ module "secrets_manager_private_certificate" {
   depends_on             = [module.private_secret_engine]
   source                 = "terraform-ibm-modules/secrets-manager-private-cert/ibm"
   version                = "1.2.1"
-  cert_name              = "${var.prefix}-cts-vpn-private-cert"
+  cert_name              = "${var.prefix}-cts-vpn-private-cert-"
   cert_description       = "Private certificate"
   cert_template          = var.certificate_template_name
   cert_secrets_group_id  = module.secrets_manager_group.secret_group_id

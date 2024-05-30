@@ -66,19 +66,19 @@ variable "sm_service_plan" {
 variable "root_ca_name" {
   type        = string
   description = "Name of the Root CA to create for a private_cert secret engine. Only used when var.existing_sm_instance_guid is false"
-  default     = "root-ca"
+  default     = "root-ca-1"
 }
 
 variable "intermediate_ca_name" {
   type        = string
   description = "Name of the Intermediate CA to create for a private_cert secret engine. Only used when var.existing_sm_instance_guid is false"
-  default     = "intermediate-ca"
+  default     = "intermediate-ca-1"
 }
 
 variable "certificate_template_name" {
   type        = string
   description = "Name of the Certificate Template to create for a private_cert secret engine. When var.existing_sm_instance_guid is true, then it has to be the existing template name that exists in the private cert engine."
-  default     = "my-template"
+  default     = "my-template-1"
 }
 
 variable "create_policy" {
@@ -130,7 +130,7 @@ variable "root_ca_max_ttl" {
 variable "root_ca_common_name" {
   type        = string
   description = "Fully qualified domain name or host domain name for the certificate to be created"
-  default     = "cloud.ibm.com"
+  default     = "root-ca-da"
 }
 
 variable "cert_common_name" {
