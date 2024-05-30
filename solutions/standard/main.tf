@@ -4,7 +4,7 @@
 
 locals {
   out   = replace(file("./override.json"), "mz2o-2x16", var.machine_type)
-  image = replace(local.out, "ibm-zos-2-5-s390x-dev-test-wazi-7", var.image_name)
+  image = replace(local.out, "ibm-zos-3-1-s390x-dev-test-wazi-1", var.image_name)
 }
 
 ##############################################################################
