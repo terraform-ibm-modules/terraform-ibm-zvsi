@@ -58,7 +58,7 @@ func setupOptionsStandardPattern(t *testing.T, prefix_var string, region_var str
 		Testing:      t,
 		TerraformDir: dir,
 		TerraformVars: map[string]interface{}{
-			"ssh_key":          sshPublicKey,
+			"ssh_public_key":   sshPublicKey,
 			"prefix":           prefix_var,
 			"region":           region_var,
 			"cert_common_name": "standardtestcert",
