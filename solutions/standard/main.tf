@@ -159,6 +159,7 @@ resource "ibm_is_security_group_rule" "wazi_security_group_inbound" {
   for_each  = toset([for v in var.ports : tostring(v)])
   group     = data.ibm_is_security_group.workload_wazi.id
   direction = "inbound"
+  local     = "0.0.0.0/0"
   tcp {
     port_min = each.value
     port_max = each.value
@@ -182,6 +183,7 @@ resource "ibm_is_security_group_rule" "s2s_security_group_inbound" {
   for_each  = toset([for v in var.ports : tostring(v)])
   group     = data.ibm_is_security_group.workload_s2s.id
   direction = "inbound"
+  local     = "0.0.0.0/0"
   tcp {
     port_min = each.value
     port_max = each.value
