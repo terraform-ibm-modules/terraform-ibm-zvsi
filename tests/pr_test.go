@@ -1,45 +1,107 @@
-// Tests in this file are run in the PR pipeline
 package test
 
 import (
-	"testing"
-
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/common"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
+	"testing"
 )
 
 // Use existing resource group
-const resourceGroup = "geretain-test-resources"
-const defaultExampleTerraformDir = "examples/default"
+// const resourceGroup = "geretain-test-resources"
+// const completeExampleDir = "examples/complete"
+const quickStartPatternTerraformDir = "solutions/quickstart"
+const standardPatternTerraformDir = "solutions/standard"
 
-func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
-	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
-		Testing:       t,
-		TerraformDir:  dir,
-		Prefix:        prefix,
-		ResourceGroup: resourceGroup,
+func sshPublicKeyQuickstart(t *testing.T) string {
+	pubKey, keyErr := common.GenerateSshRsaPublicKey()
+
+	// if error producing key (very unexpected) fail test immediately
+	require.NoError(t, keyErr, "SSH Keygen failed, without public ssh key test cannot continue")
+
+	return pubKey
+}
+
+func sshPublicKeyStandard(t *testing.T) string {
+	pubKey, keyErr := common.GenerateSshRsaPublicKey()
+
+	// if error producing key (very unexpected) fail test immediately
+	require.NoError(t, keyErr, "SSH Keygen failed, without public ssh key test cannot continue")
+
+	return pubKey
+}
+
+func setupOptionsQuickStartPattern(t *testing.T, prefix_var string, region_var string, dir string) *testhelper.TestOptions {
+
+	sshPublicKey := sshPublicKeyQuickstart(t)
+
+	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
+		Testing:      t,
+		TerraformDir: dir,
+		//	Prefix:       prefix_var,
+		//	Region:       region_var,
+		TerraformVars: map[string]interface{}{
+			"ssh_key": sshPublicKey,
+			"prefix":  prefix_var,
+			"region":  region_var,
+		},
 	})
 	return options
 }
 
-func TestRunDefaultExample(t *testing.T) {
+func setupOptionsStandardPattern(t *testing.T, prefix_var string, region_var string, dir string) *testhelper.TestOptions {
+
+	sshPublicKey := sshPublicKeyStandard(t)
+
+	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
+		Testing:      t,
+		TerraformDir: dir,
+		TerraformVars: map[string]interface{}{
+			"ssh_public_key":   sshPublicKey,
+			"prefix":           prefix_var,
+			"region":           region_var,
+			"cert_common_name": "standardtestcert",
+		},
+	})
+	return options
+}
+
+func TestRunCompleteExampleQuickstart(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptions(t, "mod-template", defaultExampleTerraformDir)
+	options := setupOptionsQuickStartPattern(t, "quickstarttest", "br-sao", quickStartPatternTerraformDir)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
 }
 
-func TestRunUpgradeExample(t *testing.T) {
+func TestRunCompleteExampleStandard(t *testing.T) {
 	t.Parallel()
 
-	// TODO: Remove this line after the first merge to primary branch is complete to enable upgrade test
-	t.Skip("Skipping upgrade test until initial code is in primary branch")
+	options := setupOptionsStandardPattern(t, "standardtest", "br-sao", standardPatternTerraformDir)
 
-	options := setupOptions(t, "mod-template-upg", defaultExampleTerraformDir)
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
 
+func TestRunUpgradeExampleQuickstart(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsQuickStartPattern(t, "quickstarttest", "br-sao", quickStartPatternTerraformDir)
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected some output")
+	}
+}
+
+func TestRunUpgradeExampleStandard(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsStandardPattern(t, "standardtest", "br-sao", standardPatternTerraformDir)
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
 		assert.Nil(t, err, "This should not have errored")

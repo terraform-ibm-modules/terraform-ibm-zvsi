@@ -1,8 +1,8 @@
 ##############################################################################
-# Outputs
+# Output Variables
 ##############################################################################
 
-output "vpc_id" {
-  description = "ID of the existing VPC"
-  value       = data.ibm_is_vpc.example.id
+output "config" {
+  description = "Output configuration as encoded JSON"
+  value       = module.landing_zone.config
 }

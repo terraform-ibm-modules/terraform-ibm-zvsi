@@ -1,0 +1,233 @@
+{
+  "products": [
+    {
+      "name": "deploy-arch-ibm-wazi",
+      "label": "Wazi as a Service on VPC Landing zone",
+      "product_kind": "solution",
+      "tags": [
+        "virtualservers",
+        "ibm_created",
+        "target_terraform",
+        "terraform",
+        "solution"
+      ],
+      "keywords": [
+        "vpc",
+        "slz",
+        "IaC",
+        "infrastructure as code",
+        "terraform",
+        "solution",
+        "vsi",
+        "wazi virtual server instance"
+      ],
+      "short_description": "Creates a secure infrastructure with Wazi virtual servers to run your workloads on a VPC network",
+      "long_description": "The Wazi VSI on VPC landing zone provides secure and customizable compute resources for running your applications and services. It creates secure and compliant Virtual Server Instances (VSI) on top of an existing Virtual Private Cloud (VPC) network.",
+      "offering_icon_url": "https://globalcatalog.cloud.ibm.com/api/v1/1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc/artifacts/solution.svg",
+      "provider_name": "IBM",
+      "flavors": [
+        {
+          "label": "Standard",
+          "name": "standard",
+          "working_directory": "solutions/standard",
+          "compliance": {
+
+          },
+          "iam_permissions": [
+            {
+              "service_name": "iam-identity",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Operator"
+              ]
+            },
+            {
+              "service_name": "is.vpc",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Operator"
+              ]
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "cloud-object-storage"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "kms"
+            }
+          ],
+          "architecture": {
+            "descriptions": "",
+            "features": [
+              {
+                "title": "Seperate VPC for edge",
+                "description": "Yes"
+              },
+              {
+                "title": "Seperate VPC for Workloads",
+                "description": "Yes"
+              },
+              {
+                "title": "Virtual Server Instances for every subnet",
+                "description": "Yes"
+              },
+              {
+                "title": "Increases security with Key Management",
+                "description": "Yes"
+              },
+              {
+                "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
+                "description": "Yes"
+              },
+              {
+                "title": "Securely connects to multiple networks with a client-to-site/site-to-site virtual private network",
+                "description": "Yes"
+              },
+              {
+                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
+                "description": "Yes"
+              },
+              {
+                "title": "Uses an edge VPC for secure access through the public internet",
+                "description": "Yes"
+              },
+              {
+                "title": "Uses floating IP addresses for access through the public internet",
+                "description": "No"
+              }
+            ],
+            "diagrams": [
+              {
+                "diagram": {
+                  "caption": "Wazi as a service VSI on VPC Landing zone - Standard variation",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-zvsi/main/reference-architecture/Standard-variation.svg",
+                  "type": "image/svg+xml"
+            },
+            "description": "Standard Variation"
+           }
+           ]
+          },
+          "configuration": [
+            {
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "json_editor"
+              },
+              "key": "override_json_string"
+            },
+            {
+              "custom_config": {
+                "config_constraints": {
+                  "generationType": "2"
+                },
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "vpc_region"
+              },
+              "key": "region",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "install_type": "fullstack"
+        },
+        {
+          "label": "Quickstart",
+          "name": "quickstart",
+          "working_directory": "solutions/quickstart",
+          "compliance": {
+
+          },
+          "iam_permissions": [
+            {
+              "service_name": "is.vpc",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Operator"
+              ]
+            }
+          ],
+          "release_notes_url": "",
+          "architecture": {
+            "descriptions": "",
+            "features": [
+              {
+                "title": "Seperate VPC for edge",
+                "description": "No"
+              },
+              {
+                "title": "Seperate VPC for Workloads",
+                "description": "No"
+              },
+              {
+                "title": "Virtual Server Instances for every subnet",
+                "description": "No"
+              },
+              {
+                "title": "Increases security with Key Management",
+                "description": "No"
+              },
+              {
+                "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
+                "description": "No"
+              },
+              {
+                "title": "Securely connects to multiple networks with a client-to-site/site-to-site virtual private network",
+                "description": "No"
+              },
+              {
+                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
+                "description": "No"
+              },
+              {
+                "title": "Uses an edge VPC for secure access through the public internet",
+                "description": "No"
+              },
+              {
+                "title": "Uses floating IP addresses for access through the public internet",
+                "description": "Yes"
+              }
+            ],
+            "diagrams": [
+              {
+                "diagram": {
+              "caption": "Wazi as a service VSI on VPC Landing zone - QuickStart variation",
+              "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-zvsi/main/reference-architecture/QuickStart.svg",
+              "type": "image/svg+xml"
+            },
+            "description": "Quickstart variation"
+          }
+          ]
+          },
+          "configuration": [
+            {
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "json_editor"
+              },
+              "key": "override_json_string"
+            },
+            {
+              "custom_config": {
+                "config_constraints": {
+                  "generationType": "2"
+                },
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "vpc_region"
+              },
+              "key": "region",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "install_type": "fullstack"
+        }
+      ]
+    }
+  ]
+}
