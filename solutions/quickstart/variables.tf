@@ -26,12 +26,12 @@ variable "region" {
   }
 }
 
-variable "ssh_key" {
+variable "ssh_public_key" {
   description = "A public SSH Key for VSI creation which does not already exist in the deployment region. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended) - See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys."
   type        = string
   validation {
     error_message = "Public SSH Key must be a valid ssh rsa public key."
-    condition     = can(regex("ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?", var.ssh_key))
+    condition     = can(regex("ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?", var.ssh_public_key))
   }
 }
 
@@ -143,6 +143,12 @@ variable "override_json_string" {
    "transit_gateway_connections": [],
    "transit_gateway_resource_group": "",
    "virtual_private_endpoints": [],
+   "ssh_keys": [
+        {
+            "name": "slz-zvsi-ssh-key",
+            "public_key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC2SHQIQomwT+SfMsNx8hIZCPJGw96bVROvrqBmYlx+P45oUNltBZYVnXEFlcjPZrdQ/0e0ZdbZY1i2aakBP5qakW0AJ6wPmXQacZYdDlI0SkP6Th01m2YDUkIvQ23l0Ym4xV5ZsYcarmizj/cYqamC4SQxerc1F/eyNol3IcMIRTC5vvoXvZjVZSfN4o5bUp9D3rretO+rgbhkTtYPclrH9j0c0AkQkewu4InfCFKMfvJ1vbCtRw1FS8rKPV5RdPFbQ6AtEToFXdTDhfyPVAiNNfzF4Pustv7jv/fA3LgEaAE90q7xzJ8/e5dPfIL0F7TZ2slNpW/NQAZOb3hsX+M0JIGkKnOCWUNWH9dzBF5U/32JYojRxGbW3SCl1zGA02hT+A7IaRhZxyqTgEikm3xbxBqzo/cywXlxOOn2lm3AiyxzWUe7Dt+GvJKPWpMucSSS6YSE2fPuDNufDlT61eSRC/V18vyratDeFizO4dVOrE6PsipISKjJJKS5rYxxAac= root@akshay-x86"
+       }
+    ],
    "vpcs": [
       {
          "default_security_group_name": "workload-vpc-sg",
@@ -340,7 +346,7 @@ variable "override_json_string" {
             ]
          },
          "ssh_keys": [
-            "ssh-key"
+            "slz-zvsi-ssh-key"
          ],
          "subnet_names": [
             "vsi-zone-1"
