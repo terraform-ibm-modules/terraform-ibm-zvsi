@@ -1,1 +1,1 @@
-{"ibmcloud_api_key": $VALIDATION_APIKEY, "region": "eu-de", "prefix": $PREFIX, "ssh_key": $SSH_PUB_KEY}
+{"ibmcloud_api_key": $VALIDATION_APIKEY, "region": "eu-de", "prefix": $PREFIX, "ssh_public_key": $SSH_PUB_KEY}
