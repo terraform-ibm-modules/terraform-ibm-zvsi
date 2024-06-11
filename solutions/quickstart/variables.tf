@@ -143,12 +143,6 @@ variable "override_json_string" {
    "transit_gateway_connections": [],
    "transit_gateway_resource_group": "",
    "virtual_private_endpoints": [],
-   "ssh_keys": [
-        {
-            "name": "slz-zvsi-ssh-key",
-            "public_key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC2SHQIQomwT+SfMsNx8hIZCPJGw96bVROvrqBmYlx+P45oUNltBZYVnXEFlcjPZrdQ/0e0ZdbZY1i2aakBP5qakW0AJ6wPmXQacZYdDlI0SkP6Th01m2YDUkIvQ23l0Ym4xV5ZsYcarmizj/cYqamC4SQxerc1F/eyNol3IcMIRTC5vvoXvZjVZSfN4o5bUp9D3rretO+rgbhkTtYPclrH9j0c0AkQkewu4InfCFKMfvJ1vbCtRw1FS8rKPV5RdPFbQ6AtEToFXdTDhfyPVAiNNfzF4Pustv7jv/fA3LgEaAE90q7xzJ8/e5dPfIL0F7TZ2slNpW/NQAZOb3hsX+M0JIGkKnOCWUNWH9dzBF5U/32JYojRxGbW3SCl1zGA02hT+A7IaRhZxyqTgEikm3xbxBqzo/cywXlxOOn2lm3AiyxzWUe7Dt+GvJKPWpMucSSS6YSE2fPuDNufDlT61eSRC/V18vyratDeFizO4dVOrE6PsipISKjJJKS5rYxxAac= root@akshay-x86"
-       }
-    ],
    "vpcs": [
       {
          "default_security_group_name": "workload-vpc-sg",
@@ -346,7 +340,7 @@ variable "override_json_string" {
             ]
          },
          "ssh_keys": [
-            "slz-zvsi-ssh-key"
+            "ssh-key"
          ],
          "subnet_names": [
             "vsi-zone-1"
