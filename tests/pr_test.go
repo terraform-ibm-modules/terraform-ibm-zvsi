@@ -39,14 +39,15 @@ func setupOptionsQuickStartPattern(t *testing.T, prefix_var string, region_var s
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:      t,
 		TerraformDir: dir,
-		//	Prefix:       prefix_var,
-		//	Region:       region_var,
-		TerraformVars: map[string]interface{}{
-			"ssh_key": sshPublicKey,
-			"prefix":  prefix_var,
-			"region":  region_var,
-		},
+		Prefix:       prefix_var,
 	})
+
+	options.TerraformVars = map[string]interface{}{
+		"ssh_key": sshPublicKey,
+		"prefix":  options.Prefix,
+		"region":  region_var,
+	}
+
 	return options
 }
 
@@ -57,13 +58,16 @@ func setupOptionsStandardPattern(t *testing.T, prefix_var string, region_var str
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:      t,
 		TerraformDir: dir,
-		TerraformVars: map[string]interface{}{
-			"ssh_public_key":   sshPublicKey,
-			"prefix":           prefix_var,
-			"region":           region_var,
-			"cert_common_name": "standardtestcert",
-		},
+		Prefix:       prefix_var,
 	})
+
+	options.TerraformVars = map[string]interface{}{
+		"ssh_public_key":   sshPublicKey,
+		"prefix":           options.Prefix,
+		"region":           region_var,
+		"cert_common_name": "standardtestcert",
+	}
+
 	return options
 }
 
