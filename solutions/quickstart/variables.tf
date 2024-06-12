@@ -35,6 +35,16 @@ variable "ssh_public_key" {
   }
 }
 
+variable "ssh_key" {
+  description = "A public SSH Key for VSI creation which does not already exist in the deployment region. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended) - See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys."
+  type        = string
+  default     = null
+  validation {
+    error_message = "Public SSH Key must be a valid ssh rsa public key."
+    condition     = can(regex("ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?", var.ssh_key))
+  }
+}
+
 variable "machine_type" {
   type        = string
   description = "input machine type: valid values are: bz2-4x16, bz2-8x32, bz2-16x64, cz2-8x16, cz2-16x32, mz2-2x16, mz2-4x32, mz2-8x64, mz2-16x128"
