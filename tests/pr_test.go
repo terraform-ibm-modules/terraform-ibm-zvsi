@@ -74,7 +74,7 @@ func setupOptionsStandardPattern(t *testing.T, prefix_var string, region_var str
 func TestRunCompleteExampleQuickstart(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsQuickStartPattern(t, "quickstarttest", "br-sao", quickStartPatternTerraformDir)
+	options := setupOptionsQuickStartPattern(t, "qs", "br-sao", quickStartPatternTerraformDir)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -84,7 +84,7 @@ func TestRunCompleteExampleQuickstart(t *testing.T) {
 func TestRunCompleteExampleStandard(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsStandardPattern(t, "standardtest", "br-sao", standardPatternTerraformDir)
+	options := setupOptionsStandardPattern(t, "std", "br-sao", standardPatternTerraformDir)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
