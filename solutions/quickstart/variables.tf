@@ -136,7 +136,6 @@ variable "override_json_string" {
       {
          "create": true,
          "name": "slz-workload-rg",
-         "use_prefix": true
       }
    ],
    "security_groups": [],
