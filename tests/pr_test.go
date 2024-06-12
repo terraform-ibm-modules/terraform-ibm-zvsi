@@ -42,7 +42,7 @@ func setupOptionsQuickStartPattern(t *testing.T, prefix_var string, region_var s
 		//	Prefix:       prefix_var,
 		//	Region:       region_var,
 		TerraformVars: map[string]interface{}{
-			"ssh_public_key": sshPublicKey,
+			"ssh_key":        sshPublicKey,
 			"prefix":         prefix_var,
 			"region":         region_var,
 		},
