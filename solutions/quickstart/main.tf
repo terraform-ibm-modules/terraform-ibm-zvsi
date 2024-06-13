@@ -12,7 +12,7 @@ locals {
 
 module "landing_zone" {
   source               = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi-quickstart"
-  version              = "5.22.0"
+  version              = "5.22.1"
   ibmcloud_api_key     = var.ibmcloud_api_key
   prefix               = var.prefix
   region               = var.region
