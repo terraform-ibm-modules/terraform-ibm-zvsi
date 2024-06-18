@@ -70,7 +70,7 @@ func setupOptionsStandardPattern(t *testing.T, prefix_var string, region_var str
 func TestRunCompleteExampleQuickstart(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsQuickStartPattern(t, "quicktest-june", "br-sao", quickStartPatternTerraformDir)
+	options := setupOptionsQuickStartPattern(t, "quickjune", "br-sao", quickStartPatternTerraformDir)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -80,7 +80,7 @@ func TestRunCompleteExampleQuickstart(t *testing.T) {
 func TestRunCompleteExampleStandard(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsStandardPattern(t, "standtest-june", "br-sao", standardPatternTerraformDir)
+	options := setupOptionsStandardPattern(t, "standjune", "br-sao", standardPatternTerraformDir)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -90,7 +90,7 @@ func TestRunCompleteExampleStandard(t *testing.T) {
 func TestRunUpgradeExampleQuickstart(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsQuickStartPattern(t, "qs-upg-june", "br-sao", quickStartPatternTerraformDir)
+	options := setupOptionsQuickStartPattern(t, "qsjune", "br-sao", quickStartPatternTerraformDir)
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
 		assert.Nil(t, err, "This should not have errored")
@@ -101,7 +101,7 @@ func TestRunUpgradeExampleQuickstart(t *testing.T) {
 func TestRunUpgradeExampleStandard(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsStandardPattern(t, "std-upg-june", "br-sao", standardPatternTerraformDir)
+	options := setupOptionsStandardPattern(t, "stdjune", "br-sao", standardPatternTerraformDir)
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
 		assert.Nil(t, err, "This should not have errored")
