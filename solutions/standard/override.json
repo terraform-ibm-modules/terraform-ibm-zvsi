@@ -5,14 +5,14 @@
          "slz-appid-key"
       ],
       "name": "slz-appid",
-      "resource_group": "service-rg-Jun",
+      "resource_group": "rg-service-Jun",
       "use_appid": true,
       "use_data": false
    },
    "atracker": {
       "collector_bucket_name": "atracker-bucket",
       "receive_global_events": true,
-      "resource_group": "service-rg-Jun",
+      "resource_group": "rg-service-Jun",
       "add_route": true
    },
    "cos": [
@@ -38,7 +38,7 @@
          "name": "atracker-cos",
          "plan": "standard",
          "random_suffix": true,
-         "resource_group": "service-rg-Jun",
+         "resource_group": "rg-service-Jun",
          "use_data": false
       },
       {
@@ -65,7 +65,7 @@
          "name": "cos",
          "plan": "standard",
          "random_suffix": true,
-         "resource_group": "service-rg-Jun",
+         "resource_group": "rg-service-Jun",
          "use_data": false
       }
    ],
@@ -92,23 +92,23 @@
          }
       ],
       "name": "slz-kms",
-      "resource_group": "service-rg-Jun",
+      "resource_group": "rg-service-Jun",
       "use_hs_crypto": false
    },
    "resource_groups": [
       {
          "create": true,
-         "name": "service-rg-Jun",
+         "name": "rg-service-Jun",
          "use_prefix": true
       },
       {
          "create": true,
-         "name": "management-rg-Jun",
+         "name": "rg-management-Jun",
          "use_prefix": true
       },
       {
          "create": true,
-         "name": "workload-rg-Jun",
+         "name": "rg-workload-Jun",
          "use_prefix": true
       }
    ],
@@ -119,7 +119,7 @@
       {
          "name": "vpe-workload-zone-1-sg",
          "vpc_name": "workload",
-         "resource_group": "workload-rg-Jun",
+         "resource_group": "rg-workload-Jun",
          "rules": [
             {
                "direction": "inbound",
@@ -144,7 +144,7 @@
       {
          "name": "vpe-workload-zone-2-sg",
          "vpc_name": "workload",
-         "resource_group": "workload-rg-Jun",
+         "resource_group": "rg-workload-Jun",
          "rules": [
             {
                "direction": "inbound",
@@ -169,7 +169,7 @@
       {
          "name": "vpe-edge-sg",
          "vpc_name": "edge",
-         "resource_group": "management-rg-Jun",
+         "resource_group": "rg-management-Jun",
          "rules": [
             {
                "direction": "inbound",
@@ -194,7 +194,7 @@
       {
          "name": "site-to-site-sg",
          "vpc_name": "workload",
-         "resource_group": "workload-rg-Jun",
+         "resource_group": "rg-workload-Jun",
          "rules": [
             {
                "direction": "inbound",
@@ -248,12 +248,12 @@
       "edge",
       "workload"
    ],
-   "transit_gateway_resource_group": "service-rg-Jun",
+   "transit_gateway_resource_group": "rg-service-Jun",
    "virtual_private_endpoints": [
       {
          "service_name": "cos",
          "service_type": "cloud-object-storage",
-         "resource_group": "service-rg-Jun",
+         "resource_group": "rg-service-Jun",
          "vpcs": [
             {
                "name": "edge",
@@ -541,7 +541,7 @@
             }
          ],
          "prefix": "edge",
-         "resource_group": "management-rg-Jun",
+         "resource_group": "rg-management-Jun",
          "subnets": {
             "zone-1": [
                {
@@ -816,7 +816,7 @@
             }
          ],
          "prefix": "workload",
-         "resource_group": "workload-rg-Jun",
+         "resource_group": "rg-workload-Jun",
          "subnets": {
             "zone-1": [
                {
@@ -888,7 +888,7 @@
       {
          "name": "gateway-workload",
          "connections": [],
-         "resource_group": "workload-rg-Jun",
+         "resource_group": "rg-workload-Jun",
          "subnet_name": "vpn-zone-2",
          "vpc_name": "workload"
       }
@@ -899,7 +899,7 @@
          "image_name": "ibm-ubuntu-22-04-3-minimal-amd64-1",
          "machine_type": "cx2-2x4",
          "name": "bastion-vsi",
-         "resource_group": "management-rg-Jun",
+         "resource_group": "rg-management-Jun",
          "security_group": {
             "name": "bastion-security-group",
             "rules": [
@@ -1004,7 +1004,7 @@
          "image_name": "ibm-zos-3-1-s390x-dev-test-wazi-1",
          "machine_type": "mz2o-2x16",
          "name": "workload-server",
-         "resource_group": "workload-rg-Jun",
+         "resource_group": "rg-workload-Jun",
          "security_group": {
             "name": "workload-waas-sg",
             "rules": [
