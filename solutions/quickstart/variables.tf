@@ -135,8 +135,7 @@ variable "override_json_string" {
    "resource_groups": [
       {
          "create": true,
-         "name": "workload-rg",
-         "use_prefix": true
+         "name": "rg-workload-June"
       }
    ],
    "security_groups": [],
@@ -268,7 +267,7 @@ variable "override_json_string" {
             }
          ],
          "prefix": "workload",
-         "resource_group": "workload-rg",
+         "resource_group": "rg-workload-June",
          "subnets": {
             "zone-1": [
                {
@@ -300,7 +299,7 @@ variable "override_json_string" {
          "image_name": "ibm-zos-3-1-s390x-dev-test-wazi-1",
          "machine_type": "mz2o-2x16",
          "name": "workload-server",
-         "resource_group": "workload-rg",
+         "resource_group": "rg-workload-June",
          "security_group": {
             "name": "workload-sg",
             "rules": [
