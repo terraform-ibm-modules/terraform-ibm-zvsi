@@ -270,6 +270,45 @@
                ]
             }
          ]
+      },
+      {
+         "service_name": "resource-controller",
+         "service_type": "resource-controller",
+         "resource-group": "slz-service-rg",
+         "vpcs": [
+            {
+               "name": "workload",
+               "subnets": [                  
+                  "vpe-zone-2"
+               ]
+            }
+         ]
+      },
+      {
+         "service_name": "vpc",
+         "service_type": "iaas",
+         "resource-group": "slz-service-rg",
+         "vpcs": [
+            {
+               "name": "workload",
+               "subnets": [                  
+                  "vpe-zone-2"
+               ]
+            }
+         ]
+      },
+      {
+         "service_name": "account-management",
+         "service_type": "account-management",
+         "resource-group": "slz-service-rg",
+         "vpcs": [
+            {
+               "name": "workload",
+               "subnets": [                  
+                  "vpe-zone-2"
+               ]
+            }
+         ]
       }
    ],
    "secrets_manager": {
