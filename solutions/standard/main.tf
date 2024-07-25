@@ -15,9 +15,9 @@ locals {
 module "landing_zone" {
   source               = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
   version              = "5.22.0"
-  prefix               = "pkwaazi"
-  region               = "us-east"
-  ssh_public_key       = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDWMalt0l428a0yK/Tce3H5lwFBnw6U7lshLCHB4s+SuOXGHYvQxKWZXAOKZocp/nUjnflfbOF1Wa15NOBnNHI00HmmsoRGuG36o2nqjqyDonGeJZ5HJ1zDaqZ4ZGTSRdUd8zBGazN1pamL5coxmOE22bLnlPelqSz8zhA2mrJXJ85nuHl3tQIhcB6qBP+jpDMxQk7On2E3v4pUhpTH+M+fR4JFVlvMDj2oeHUzrVIkX9VlxClrZSMp6DClp+rGpHSMIGnUc6WFJSRuJx2/iQ4FSaPndE1cRNsg4u4M3K3yj4MwiP1auaBGbXtrsAubLOdm/OnQnapyDUc71f0YN6GkzbgidYHywA65xkkelHGfuCl68eg6S32tQeoRTBKTtu2J0QLv5mZ4WSw7r3/5HvGMBudYTU2ts4nwVHKI6pJXYDoQBRVBioss6W6+jmJrY/6UWTuetutJUzUij05/XiiGUhDsiGJAeaTDH0WBe4qBubpFp1sw0RaGoNq1GNM1UOk= pradeepkadiyala@pradeeps-mbp.lan" 
+  prefix               = var.prefix
+  region               = var.region
+  ssh_public_key       = var.ssh_public_key
   override_json_string = local.image
 }
 
