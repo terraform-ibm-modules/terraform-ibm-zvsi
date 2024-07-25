@@ -17,8 +17,7 @@ module "landing_zone" {
   version              = "5.22.0"
   prefix               = var.prefix
   region               = var.region
-  ssh_public_key       = var.ssh_public_key
-  override             = var.override
+  ssh_public_key       = var.ssh_public_key  
   override_json_string = local.image
 }
 
@@ -219,5 +218,43 @@ resource "ibm_is_instance_volume_attachment" "example" {
 
 data "ibm_is_instance" "wazi" {
   name       = "${var.prefix}-workload-server-001"
+  depends_on = [module.landing_zone]
+}
+
+
+########################################################################################################################
+# Additional Virtual Private Endpoints
+########################################################################################################################
+
+resource "ibm_is_virtual_endpoint_gateway" "vpe_res_ctrl" {
+  name = "vpe-resource-controller"
+  target {
+    name          = "resource-controller-${var.region}"
+    resource_type = "provider_cloud_service"
+  }
+  vpc = data.ibm_is_subnet.workload_vpe_zone2.vpc
+  ips {
+    subnet = ibm_is_subnet.workload_vpe_zone2.id
+    name   = "${var.prefix}-vpe-resource-ctrl-ip"
+  }
+  resource_group = data.ibm_is_subnet.workload_vpe_zone2.resource_group
+}
+
+resource "ibm_is_virtual_endpoint_gateway" "vpe_iaas" {
+  name = "vpe-iaas-vpc"
+  target {
+    crn           = "crn:v1:bluemix:public:is:${var.region}:::endpoint:${var.region}.private.iaas.cloud.ibm.com"
+    resource_type = "provider_cloud_service"
+  }
+  vpc = data.ibm_is_subnet.workload_vpe_zone2.vpc
+  ips {
+    subnet = ibm_is_subnet.workload_vpe_zone2.id
+    name   = "${var.prefix}-vpe-iaas-ip"
+  }
+  resource_group = data.ibm_is_subnet.workload_vpe_zone2.resource_group
+}
+
+data "ibm_is_subnet" "workload_vpe_zone2" {
+  name       = "${var.prefix}-workload-vpe-zone-2"
   depends_on = [module.landing_zone]
 }
