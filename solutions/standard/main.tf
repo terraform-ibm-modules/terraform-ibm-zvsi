@@ -18,6 +18,7 @@ module "landing_zone" {
   prefix               = var.prefix
   region               = var.region
   ssh_public_key       = var.ssh_public_key
+  override             = var.override
   override_json_string = local.image
 }
 
