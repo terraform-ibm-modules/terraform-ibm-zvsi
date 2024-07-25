@@ -270,7 +270,7 @@
                ]
             }
          ]
-      }      
+      }
    ],
    "secrets_manager": {
       "access_tags": [],
