@@ -93,16 +93,16 @@ Standard variation deploys infrastructure in an isolated network environment whe
 
 This pattern deploys the following infrastructure:
 
-A resource group for cloud services and for each VPC.
-Cloud Object Storage instances for flow logs and Activity Tracker.
-Encryption keys in a Key Protect instance.
-A edge and workload VPC connected by a transit gateway.
-All necessary networking rules to allow communication.
+- A resource group for cloud services and for each VPC.
+- Cloud Object Storage instances for flow logs and Activity Tracker.
+- Encryption keys in a Key Protect instance.
+- A edge and workload VPC connected by a transit gateway.
+- All necessary networking rules to allow communication.
 Virtual Private Endpoint (VPE) for Cloud Object Storage in each VPC.
-A client-to-site VPN gateway in the edge VPC.
-A jump server Bastion host VSI in the edge VPC without floating IP.
-A site-to-site VPN in the workload VPC.
-Wazi as a Service VSI in the workload VPC.
+- A client-to-site VPN gateway in the edge VPC.
+- A jump server Bastion host VSI in the edge VPC without floating IP.
+- A site-to-site VPN in the workload VPC.
+- Wazi as a Service VSI in the workload VPC.
 
 ## Architecture diagram
 {: #architecture-diagram}
