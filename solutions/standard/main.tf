@@ -227,32 +227,32 @@ data "ibm_is_instance" "wazi" {
 # Additional Virtual Private Endpoints
 ########################################################################################################################
 
-resource "ibm_is_virtual_endpoint_gateway" "vpe_res_ctrl" {
-  name = "vpe-resource-controller"
-  target {
-    name          = "resource-controller-${var.region}"
-    resource_type = "provider_cloud_service"
-  }
-  vpc = data.ibm_is_subnet.workload_vpe_zone2.vpc
-  ips {
-    subnet = data.ibm_is_subnet.workload_vpe_zone2.id
-    name   = "${var.prefix}-vpe-resource-ctrl-ip"
-  }
-  resource_group = data.ibm_is_subnet.workload_vpe_zone2.resource_group
-}
-
-resource "ibm_is_virtual_endpoint_gateway" "vpe_iaas" {
-  name = "vpe-iaas-vpc"
-  target {
-    crn           = "crn:v1:bluemix:public:is:${var.region}:::endpoint:${var.region}.private.iaas.cloud.ibm.com"
-    resource_type = "provider_cloud_service"
-  }
-  vpc = data.ibm_is_subnet.workload_vpe_zone2.vpc
-  ips {
-    subnet = data.ibm_is_subnet.workload_vpe_zone2.id
-    name   = "${var.prefix}-vpe-iaas-ip"
-  }
-  resource_group = data.ibm_is_subnet.workload_vpe_zone2.resource_group
+module "vpes" {
+  source = "terraform-ibm-modules/vpe-gateway/ibm"
+  version = "4.3.0"
+  region = "${var.region}"
+  prefix = "vpe"
+  vpc_name = "${var.prefix}-workload-vpc"
+  vpc_id =  data.ibm_is_subnet.workload_vpe_zone2.vpc
+  resource_group_id = data.ibm_is_subnet.workload_vpe_zone2.resource_group
+  subnet_zone_list = [
+    {
+      id = data.ibm_is_subnet.workload_vpe_zone2.id
+      name = "${var.prefix}-workload-vpe-zone-2"
+      zone = "zone-2"
+    }
+  ]
+  cloud_services = [
+    {
+      service_name = "resource-controller"
+    }
+  ]
+  cloud_service_by_crn = [
+    {
+      crn = "crn:v1:bluemix:public:is:${var.region}:::endpoint:${var.region}.private.iaas.cloud.ibm.com"
+    }
+  ]
+  service_endpoints = "private"
 }
 
 data "ibm_is_subnet" "workload_vpe_zone2" {
