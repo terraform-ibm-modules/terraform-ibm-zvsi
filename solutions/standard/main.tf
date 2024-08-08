@@ -221,3 +221,41 @@ data "ibm_is_instance" "wazi" {
   name       = "${var.prefix}-workload-server-001"
   depends_on = [module.landing_zone]
 }
+
+
+########################################################################################################################
+# Additional Virtual Private Endpoints
+########################################################################################################################
+
+module "vpes" {
+  source = "terraform-ibm-modules/vpe-gateway/ibm"
+  version = "4.3.0"
+  region = "${var.region}"
+  prefix = "vpe"
+  vpc_name = "${var.prefix}-workload-vpc"
+  vpc_id =  data.ibm_is_subnet.workload_vpe_zone2.vpc
+  resource_group_id = data.ibm_is_subnet.workload_vpe_zone2.resource_group
+  subnet_zone_list = [
+    {
+      id = data.ibm_is_subnet.workload_vpe_zone2.id
+      name = "${var.prefix}-workload-vpe-zone-2"
+      zone = "zone-2"
+    }
+  ]
+  cloud_services = [
+    {
+      service_name = "resource-controller"
+    }
+  ]
+  cloud_service_by_crn = [
+    {
+      crn = "crn:v1:bluemix:public:is:${var.region}:::endpoint:${var.region}.private.iaas.cloud.ibm.com"
+    }
+  ]
+  service_endpoints = "private"
+}
+
+data "ibm_is_subnet" "workload_vpe_zone2" {
+  name       = "${var.prefix}-workload-vpe-zone-2"
+  depends_on = [module.landing_zone]
+}

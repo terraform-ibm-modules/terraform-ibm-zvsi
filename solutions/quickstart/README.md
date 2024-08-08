@@ -1,6 +1,6 @@
 # Wazi as a service VSI on VPC Landing zone - QuickStart variation
 
-![Architecture diagram for the QuickStart variation of VSI on VPC landing zone](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-zvsi/main/reference-architecture/QuickStart.svg)
+![Architecture diagram for the QuickStart variation of VSI on VPC landing zone](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-zvsi/main/reference-architectures/QuickStart.svg)
 
 This pattern deploys the following infrastructure:
 
