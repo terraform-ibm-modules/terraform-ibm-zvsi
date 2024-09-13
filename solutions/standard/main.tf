@@ -29,8 +29,9 @@ module "landing_zone" {
 module "resource_group" {
   source  = "terraform-ibm-modules/resource-group/ibm"
   version = "1.1.6"
-  #   if an existing resource group is not set (null) create a new one using prefix
-  existing_resource_group_name = "${var.prefix}-slz-management-rg"
+  # NB This naming conventation must match what is used in the override.json
+  # TODO: Get the resource group from the landing_zone module output instead to ensure value is correct
+  existing_resource_group_name = "${var.prefix}-management-rg"
   depends_on                   = [module.landing_zone]
 }
 

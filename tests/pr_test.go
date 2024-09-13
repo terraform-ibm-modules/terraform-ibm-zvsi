@@ -94,7 +94,7 @@ func TestRunStandard(t *testing.T) {
 func TestRunUpgradeQuickstart(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsQuickStartPattern(t, "qsjune", "br-sao", quickStartPatternTerraformDir)
+	options := setupOptionsQuickStartPattern(t, "qsupg", "br-sao", quickStartPatternTerraformDir)
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
 		assert.Nil(t, err, "This should not have errored")
@@ -105,7 +105,7 @@ func TestRunUpgradeQuickstart(t *testing.T) {
 func TestRunUpgradeStandard(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsStandardPattern(t, "stdjune", "br-sao", standardPatternTerraformDir)
+	options := setupOptionsStandardPattern(t, "stdupg", "br-sao", standardPatternTerraformDir)
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
 		assert.Nil(t, err, "This should not have errored")
