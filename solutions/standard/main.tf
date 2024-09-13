@@ -31,7 +31,7 @@ module "resource_group" {
   version = "1.1.6"
   # NB This naming conventation must match what is used in the override.json
   # TODO: Get the resource group from the landing_zone module output instead to ensure value is correct
-  existing_resource_group_name = "${var.prefix}-management-rg"
+  existing_resource_group_name = "${var.prefix}-rg-management"
   depends_on                   = [module.landing_zone]
 }
 
