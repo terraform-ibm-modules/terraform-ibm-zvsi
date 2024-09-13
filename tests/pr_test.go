@@ -39,14 +39,15 @@ func setupOptionsQuickStartPattern(t *testing.T, prefix_var string, region_var s
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:      t,
 		TerraformDir: dir,
-		//	Prefix:       prefix_var,
-		//	Region:       region_var,
-		TerraformVars: map[string]interface{}{
-			"ssh_key": sshPublicKey,
-			"prefix":  prefix_var,
-			"region":  region_var,
-		},
+		Prefix:       prefix_var,
 	})
+
+	options.TerraformVars = map[string]interface{}{
+		"ssh_key": sshPublicKey,
+		"prefix":  options.Prefix,
+		"region":  region_var,
+	}
+
 	return options
 }
 
@@ -57,40 +58,43 @@ func setupOptionsStandardPattern(t *testing.T, prefix_var string, region_var str
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:      t,
 		TerraformDir: dir,
-		TerraformVars: map[string]interface{}{
-			"ssh_public_key":   sshPublicKey,
-			"prefix":           prefix_var,
-			"region":           region_var,
-			"cert_common_name": "standardtestcert",
-		},
+		Prefix:       prefix_var,
 	})
+
+	options.TerraformVars = map[string]interface{}{
+		"ssh_public_key":   sshPublicKey,
+		"prefix":           options.Prefix,
+		"region":           region_var,
+		"cert_common_name": "standardtestcert",
+	}
+
 	return options
 }
 
-func TestRunCompleteExampleQuickstart(t *testing.T) {
+func TestRunQuickstart(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsQuickStartPattern(t, "quickstarttest", "br-sao", quickStartPatternTerraformDir)
+	options := setupOptionsQuickStartPattern(t, "qs", "br-sao", quickStartPatternTerraformDir)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
 }
 
-func TestRunCompleteExampleStandard(t *testing.T) {
+func TestRunStandard(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsStandardPattern(t, "standardtest", "br-sao", standardPatternTerraformDir)
+	options := setupOptionsStandardPattern(t, "std", "br-sao", standardPatternTerraformDir)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
 }
 
-func TestRunUpgradeExampleQuickstart(t *testing.T) {
+func TestRunUpgradeQuickstart(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsQuickStartPattern(t, "qs-upg", "br-sao", quickStartPatternTerraformDir)
+	options := setupOptionsQuickStartPattern(t, "qsupg", "br-sao", quickStartPatternTerraformDir)
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
 		assert.Nil(t, err, "This should not have errored")
@@ -98,10 +102,10 @@ func TestRunUpgradeExampleQuickstart(t *testing.T) {
 	}
 }
 
-func TestRunUpgradeExampleStandard(t *testing.T) {
+func TestRunUpgradeStandard(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsStandardPattern(t, "std-upg", "br-sao", standardPatternTerraformDir)
+	options := setupOptionsStandardPattern(t, "stdupg", "br-sao", standardPatternTerraformDir)
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
 		assert.Nil(t, err, "This should not have errored")

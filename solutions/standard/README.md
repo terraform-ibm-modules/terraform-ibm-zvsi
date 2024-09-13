@@ -54,37 +54,37 @@ The `override.json` file does not need to contain all elements. For example,
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.66.0 |
-| <a name="requirement_time"></a> [time](#requirement\_time) | 0.11.2 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.69.2 |
+| <a name="requirement_time"></a> [time](#requirement\_time) | 0.12.1 |
 
 ### Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_client_to_site_sg"></a> [client\_to\_site\_sg](#module\_client\_to\_site\_sg) | terraform-ibm-modules/security-group/ibm | 2.6.1 |
-| <a name="module_client_to_site_vpn"></a> [client\_to\_site\_vpn](#module\_client\_to\_site\_vpn) | terraform-ibm-modules/client-to-site-vpn/ibm | 1.7.2 |
-| <a name="module_landing_zone"></a> [landing\_zone](#module\_landing\_zone) | terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module | 5.22.0 |
-| <a name="module_private_secret_engine"></a> [private\_secret\_engine](#module\_private\_secret\_engine) | terraform-ibm-modules/secrets-manager-private-cert-engine/ibm | 1.3.1 |
-| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | terraform-ibm-modules/resource-group/ibm | 1.1.5 |
-| <a name="module_secrets_manager"></a> [secrets\_manager](#module\_secrets\_manager) | terraform-ibm-modules/secrets-manager/ibm | 1.12.4 |
-| <a name="module_secrets_manager_group"></a> [secrets\_manager\_group](#module\_secrets\_manager\_group) | terraform-ibm-modules/secrets-manager-secret-group/ibm | 1.2.1 |
-| <a name="module_secrets_manager_private_certificate"></a> [secrets\_manager\_private\_certificate](#module\_secrets\_manager\_private\_certificate) | terraform-ibm-modules/secrets-manager-private-cert/ibm | 1.2.1 |
+| <a name="module_client_to_site_sg"></a> [client\_to\_site\_sg](#module\_client\_to\_site\_sg) | terraform-ibm-modules/security-group/ibm | 2.6.2 |
+| <a name="module_client_to_site_vpn"></a> [client\_to\_site\_vpn](#module\_client\_to\_site\_vpn) | terraform-ibm-modules/client-to-site-vpn/ibm | 1.7.18 |
+| <a name="module_landing_zone"></a> [landing\_zone](#module\_landing\_zone) | terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module | 5.31.2 |
+| <a name="module_private_secret_engine"></a> [private\_secret\_engine](#module\_private\_secret\_engine) | terraform-ibm-modules/secrets-manager-private-cert-engine/ibm | 1.3.2 |
+| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | terraform-ibm-modules/resource-group/ibm | 1.1.6 |
+| <a name="module_secrets_manager"></a> [secrets\_manager](#module\_secrets\_manager) | terraform-ibm-modules/secrets-manager/ibm | 1.18.0 |
+| <a name="module_secrets_manager_group"></a> [secrets\_manager\_group](#module\_secrets\_manager\_group) | terraform-ibm-modules/secrets-manager-secret-group/ibm | 1.2.2 |
+| <a name="module_secrets_manager_private_certificate"></a> [secrets\_manager\_private\_certificate](#module\_secrets\_manager\_private\_certificate) | terraform-ibm-modules/secrets-manager-private-cert/ibm | 1.3.1 |
 | <a name="module_vpes"></a> [vpes](#module\_vpes) | terraform-ibm-modules/vpe-gateway/ibm | 4.3.0 |
 
 ### Resources
 
 | Name | Type |
 |------|------|
-| [ibm_is_instance_volume_attachment.example](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.66.0/docs/resources/is_instance_volume_attachment) | resource |
-| [ibm_is_security_group_rule.s2s_security_group_inbound](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.66.0/docs/resources/is_security_group_rule) | resource |
-| [ibm_is_security_group_rule.wazi_security_group_inbound](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.66.0/docs/resources/is_security_group_rule) | resource |
-| [time_sleep.wait_for_security_group](https://registry.terraform.io/providers/hashicorp/time/0.11.2/docs/resources/sleep) | resource |
-| [ibm_is_instance.wazi](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.66.0/docs/data-sources/is_instance) | data source |
-| [ibm_is_security_group.workload_s2s](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.66.0/docs/data-sources/is_security_group) | data source |
-| [ibm_is_security_group.workload_wazi](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.66.0/docs/data-sources/is_security_group) | data source |
-| [ibm_is_subnet.edge_vpn](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.66.0/docs/data-sources/is_subnet) | data source |
-| [ibm_is_subnet.workload_vpe_zone2](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.66.0/docs/data-sources/is_subnet) | data source |
-| [ibm_is_vpc.edge](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.66.0/docs/data-sources/is_vpc) | data source |
+| [ibm_is_instance_volume_attachment.example](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.69.2/docs/resources/is_instance_volume_attachment) | resource |
+| [ibm_is_security_group_rule.s2s_security_group_inbound](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.69.2/docs/resources/is_security_group_rule) | resource |
+| [ibm_is_security_group_rule.wazi_security_group_inbound](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.69.2/docs/resources/is_security_group_rule) | resource |
+| [time_sleep.wait_for_security_group](https://registry.terraform.io/providers/hashicorp/time/0.12.1/docs/resources/sleep) | resource |
+| [ibm_is_instance.wazi](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.69.2/docs/data-sources/is_instance) | data source |
+| [ibm_is_security_group.workload_s2s](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.69.2/docs/data-sources/is_security_group) | data source |
+| [ibm_is_security_group.workload_wazi](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.69.2/docs/data-sources/is_security_group) | data source |
+| [ibm_is_subnet.edge_vpn](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.69.2/docs/data-sources/is_subnet) | data source |
+| [ibm_is_subnet.workload_vpe_zone2](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.69.2/docs/data-sources/is_subnet) | data source |
+| [ibm_is_vpc.edge](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.69.2/docs/data-sources/is_vpc) | data source |
 
 ### Inputs
 
