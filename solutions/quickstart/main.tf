@@ -11,12 +11,11 @@ locals {
 ##############################################################################
 
 module "landing_zone" {
-  source               = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi-quickstart"
-  version              = "5.22.0"
-  ibmcloud_api_key     = var.ibmcloud_api_key
+  source               = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
+  version              = "5.31.2"
   prefix               = var.prefix
   region               = var.region
-  ssh_key              = var.ssh_key
+  ssh_public_key       = var.ssh_key
   override_json_string = local.image
 }
 
@@ -37,7 +36,6 @@ resource "ibm_is_security_group_rule" "workload_security_group_inbound" {
   for_each  = toset([for v in var.ports : tostring(v)])
   group     = data.ibm_is_security_group.workload.id
   direction = "inbound"
-  local     = "0.0.0.0/0"
   tcp {
     port_min = each.value
     port_max = each.value
