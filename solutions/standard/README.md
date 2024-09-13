@@ -69,6 +69,7 @@ The `override.json` file does not need to contain all elements. For example,
 | <a name="module_secrets_manager"></a> [secrets\_manager](#module\_secrets\_manager) | terraform-ibm-modules/secrets-manager/ibm | 1.12.4 |
 | <a name="module_secrets_manager_group"></a> [secrets\_manager\_group](#module\_secrets\_manager\_group) | terraform-ibm-modules/secrets-manager-secret-group/ibm | 1.2.1 |
 | <a name="module_secrets_manager_private_certificate"></a> [secrets\_manager\_private\_certificate](#module\_secrets\_manager\_private\_certificate) | terraform-ibm-modules/secrets-manager-private-cert/ibm | 1.2.1 |
+| <a name="module_vpes"></a> [vpes](#module\_vpes) | terraform-ibm-modules/vpe-gateway/ibm | 4.3.0 |
 
 ### Resources
 
@@ -82,6 +83,7 @@ The `override.json` file does not need to contain all elements. For example,
 | [ibm_is_security_group.workload_s2s](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.66.0/docs/data-sources/is_security_group) | data source |
 | [ibm_is_security_group.workload_wazi](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.66.0/docs/data-sources/is_security_group) | data source |
 | [ibm_is_subnet.edge_vpn](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.66.0/docs/data-sources/is_subnet) | data source |
+| [ibm_is_subnet.workload_vpe_zone2](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.66.0/docs/data-sources/is_subnet) | data source |
 | [ibm_is_vpc.edge](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.66.0/docs/data-sources/is_vpc) | data source |
 
 ### Inputs

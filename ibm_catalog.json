@@ -103,7 +103,7 @@
               {
                 "diagram": {
                   "caption": "Wazi as a service VSI on VPC Landing zone - Standard variation",
-                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-zvsi/main/reference-architecture/Standard-variation.svg",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-zvsi/main/reference-architectures/Standard-variation.svg",
                   "type": "image/svg+xml"
             },
             "description": "Standard Variation"
@@ -195,7 +195,7 @@
               {
                 "diagram": {
               "caption": "Wazi as a service VSI on VPC Landing zone - QuickStart variation",
-              "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-zvsi/main/reference-architecture/QuickStart.svg",
+              "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-zvsi/main/reference-architectures/QuickStart.svg",
               "type": "image/svg+xml"
             },
             "description": "Quickstart variation"

@@ -128,7 +128,3 @@ The following table outlines the requirements that are addressed in this archite
 {: #components}
 
 The following table outlines the services used in the architecture for each aspect.
-
-
-
-
