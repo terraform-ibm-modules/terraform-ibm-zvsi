@@ -135,7 +135,7 @@ variable "override_json_string" {
    "resource_groups": [
       {
          "create": true,
-         "name": "workload-rg"
+         "name": "workload-rg",
          "use_prefix": true
       }
    ],

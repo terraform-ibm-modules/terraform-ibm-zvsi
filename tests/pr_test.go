@@ -71,7 +71,7 @@ func setupOptionsStandardPattern(t *testing.T, prefix_var string, region_var str
 	return options
 }
 
-func TestRunCompleteExampleQuickstart(t *testing.T) {
+func TestRunQuickstart(t *testing.T) {
 	t.Parallel()
 
 	options := setupOptionsQuickStartPattern(t, "qs", "br-sao", quickStartPatternTerraformDir)
@@ -81,7 +81,7 @@ func TestRunCompleteExampleQuickstart(t *testing.T) {
 	assert.NotNil(t, output, "Expected some output")
 }
 
-func TestRunCompleteExampleStandard(t *testing.T) {
+func TestRunStandard(t *testing.T) {
 	t.Parallel()
 
 	options := setupOptionsStandardPattern(t, "std", "br-sao", standardPatternTerraformDir)
@@ -91,7 +91,7 @@ func TestRunCompleteExampleStandard(t *testing.T) {
 	assert.NotNil(t, output, "Expected some output")
 }
 
-func TestRunUpgradeExampleQuickstart(t *testing.T) {
+func TestRunUpgradeQuickstart(t *testing.T) {
 	t.Parallel()
 
 	options := setupOptionsQuickStartPattern(t, "qsjune", "br-sao", quickStartPatternTerraformDir)
@@ -102,7 +102,7 @@ func TestRunUpgradeExampleQuickstart(t *testing.T) {
 	}
 }
 
-func TestRunUpgradeExampleStandard(t *testing.T) {
+func TestRunUpgradeStandard(t *testing.T) {
 	t.Parallel()
 
 	options := setupOptionsStandardPattern(t, "stdjune", "br-sao", standardPatternTerraformDir)
