@@ -14,7 +14,7 @@ locals {
 ##############################################################################
 module "landing_zone" {
   source               = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
-  version              = "5.31.2"
+  version              = "5.31.3"
   prefix               = var.prefix
   region               = var.region
   ssh_public_key       = var.ssh_public_key
@@ -42,7 +42,7 @@ module "resource_group" {
 # Create a new SM instance if not using an existing one
 module "secrets_manager" {
   source               = "terraform-ibm-modules/secrets-manager/ibm"
-  version              = "1.18.0"
+  version              = "1.18.3"
   resource_group_id    = module.resource_group.resource_group_id
   region               = var.region
   secrets_manager_name = "${var.prefix}-sm-instance"
@@ -100,7 +100,7 @@ resource "time_sleep" "wait_for_security_group" {
 
 module "client_to_site_vpn" {
   source                        = "terraform-ibm-modules/client-to-site-vpn/ibm"
-  version                       = "1.7.18"
+  version                       = "1.7.20"
   server_cert_crn               = module.secrets_manager_private_certificate.secret_crn
   vpn_gateway_name              = "${var.prefix}-c2s-vpn"
   resource_group_id             = module.resource_group.resource_group_id
