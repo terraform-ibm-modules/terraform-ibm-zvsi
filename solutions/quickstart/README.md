@@ -43,7 +43,7 @@ To view your current configuration, run the `terraform refresh` command.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_landing_zone"></a> [landing\_zone](#module\_landing\_zone) | terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module | 5.31.3 |
+| <a name="module_landing_zone"></a> [landing\_zone](#module\_landing\_zone) | terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module | 5.33.0 |
 
 ### Resources
 
