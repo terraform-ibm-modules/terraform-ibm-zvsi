@@ -14,7 +14,7 @@ locals {
 ##############################################################################
 module "landing_zone" {
   source               = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
-  version              = "5.31.3"
+  version              = "5.33.0"
   prefix               = var.prefix
   region               = var.region
   ssh_public_key       = var.ssh_public_key
@@ -64,7 +64,7 @@ module "secrets_manager_group" {
 module "private_secret_engine" {
   depends_on                = [module.secrets_manager]
   source                    = "terraform-ibm-modules/secrets-manager-private-cert-engine/ibm"
-  version                   = "1.3.2"
+  version                   = "1.3.3"
   secrets_manager_guid      = module.secrets_manager.secrets_manager_guid
   region                    = var.region
   root_ca_name              = var.root_ca_name
