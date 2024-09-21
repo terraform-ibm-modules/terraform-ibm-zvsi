@@ -14,7 +14,7 @@ locals {
 ##############################################################################
 module "landing_zone" {
   source               = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
-  version              = "5.33.0"
+  version              = "6.0.0"
   prefix               = var.prefix
   region               = var.region
   ssh_public_key       = var.ssh_public_key
