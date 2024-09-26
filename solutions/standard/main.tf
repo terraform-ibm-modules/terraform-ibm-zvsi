@@ -14,7 +14,7 @@ locals {
 ##############################################################################
 module "landing_zone" {
   source               = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
-  version              = "5.33.0"
+  version              = "6.0.1"
   prefix               = var.prefix
   region               = var.region
   ssh_public_key       = var.ssh_public_key
@@ -195,10 +195,6 @@ resource "ibm_is_security_group_rule" "s2s_security_group_inbound" {
 # Additional Data volumes for Wazi VSI (Optional)
 ########################################################################################################################
 
-########################################################################################################################
-# Additional Data volumes for Wazi VSI (Optional)
-########################################################################################################################
-
 resource "ibm_is_instance_volume_attachment" "example" {
   instance = data.ibm_is_instance.wazi.id
   for_each = { for example in var.data_volume_names : example.name => example }
@@ -219,6 +215,5 @@ resource "ibm_is_instance_volume_attachment" "example" {
 }
 
 data "ibm_is_instance" "wazi" {
-  name       = "${var.prefix}-workload-server-001"
-  depends_on = [module.landing_zone]
+  name = module.landing_zone.vsi_list[0].name
 }
