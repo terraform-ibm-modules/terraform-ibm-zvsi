@@ -14,7 +14,7 @@ locals {
 ##############################################################################
 module "landing_zone" {
   source               = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
-  version              = "6.0.1"
+  version              = "6.0.2"
   prefix               = var.prefix
   region               = var.region
   ssh_public_key       = var.ssh_public_key
@@ -42,7 +42,7 @@ module "resource_group" {
 # Create a new SM instance if not using an existing one
 module "secrets_manager" {
   source               = "terraform-ibm-modules/secrets-manager/ibm"
-  version              = "1.18.3"
+  version              = "1.18.6"
   resource_group_id    = module.resource_group.resource_group_id
   region               = var.region
   secrets_manager_name = "${var.prefix}-sm-instance"
