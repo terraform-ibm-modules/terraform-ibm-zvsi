@@ -14,7 +14,7 @@ locals {
 ##############################################################################
 module "landing_zone" {
   source               = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
-  version              = "6.0.3"
+  version              = "6.0.4"
   prefix               = var.prefix
   region               = var.region
   ssh_public_key       = var.ssh_public_key
@@ -100,7 +100,7 @@ resource "time_sleep" "wait_for_security_group" {
 
 module "client_to_site_vpn" {
   source                        = "terraform-ibm-modules/client-to-site-vpn/ibm"
-  version                       = "1.7.20"
+  version                       = "1.7.21"
   server_cert_crn               = module.secrets_manager_private_certificate.secret_crn
   vpn_gateway_name              = "${var.prefix}-c2s-vpn"
   resource_group_id             = module.resource_group.resource_group_id
