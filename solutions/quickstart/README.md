@@ -37,7 +37,7 @@ To view your current configuration, run the `terraform refresh` command.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.69.2 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.70.1 |
 
 ### Modules
 
@@ -49,10 +49,10 @@ To view your current configuration, run the `terraform refresh` command.
 
 | Name | Type |
 |------|------|
-| [ibm_is_instance_volume_attachment.vsi](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.69.2/docs/resources/is_instance_volume_attachment) | resource |
-| [ibm_is_security_group_rule.workload_security_group_inbound](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.69.2/docs/resources/is_security_group_rule) | resource |
-| [ibm_is_instance.wazi](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.69.2/docs/data-sources/is_instance) | data source |
-| [ibm_is_security_group.workload](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.69.2/docs/data-sources/is_security_group) | data source |
+| [ibm_is_instance_volume_attachment.vsi](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.70.1/docs/resources/is_instance_volume_attachment) | resource |
+| [ibm_is_security_group_rule.workload_security_group_inbound](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.70.1/docs/resources/is_security_group_rule) | resource |
+| [ibm_is_instance.wazi](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.70.1/docs/data-sources/is_instance) | data source |
+| [ibm_is_security_group.workload](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.70.1/docs/data-sources/is_security_group) | data source |
 
 ### Inputs
 
