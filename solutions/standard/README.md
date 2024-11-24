@@ -54,7 +54,7 @@ The `override.json` file does not need to contain all elements. For example,
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.70.1 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.71.2 |
 | <a name="requirement_time"></a> [time](#requirement\_time) | 0.12.1 |
 
 ### Modules
@@ -74,15 +74,15 @@ The `override.json` file does not need to contain all elements. For example,
 
 | Name | Type |
 |------|------|
-| [ibm_is_instance_volume_attachment.example](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.70.1/docs/resources/is_instance_volume_attachment) | resource |
-| [ibm_is_security_group_rule.s2s_security_group_inbound](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.70.1/docs/resources/is_security_group_rule) | resource |
-| [ibm_is_security_group_rule.wazi_security_group_inbound](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.70.1/docs/resources/is_security_group_rule) | resource |
+| [ibm_is_instance_volume_attachment.example](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.71.2/docs/resources/is_instance_volume_attachment) | resource |
+| [ibm_is_security_group_rule.s2s_security_group_inbound](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.71.2/docs/resources/is_security_group_rule) | resource |
+| [ibm_is_security_group_rule.wazi_security_group_inbound](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.71.2/docs/resources/is_security_group_rule) | resource |
 | [time_sleep.wait_for_security_group](https://registry.terraform.io/providers/hashicorp/time/0.12.1/docs/resources/sleep) | resource |
-| [ibm_is_instance.wazi](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.70.1/docs/data-sources/is_instance) | data source |
-| [ibm_is_security_group.workload_s2s](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.70.1/docs/data-sources/is_security_group) | data source |
-| [ibm_is_security_group.workload_wazi](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.70.1/docs/data-sources/is_security_group) | data source |
-| [ibm_is_subnet.edge_vpn](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.70.1/docs/data-sources/is_subnet) | data source |
-| [ibm_is_vpc.edge](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.70.1/docs/data-sources/is_vpc) | data source |
+| [ibm_is_instance.wazi](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.71.2/docs/data-sources/is_instance) | data source |
+| [ibm_is_security_group.workload_s2s](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.71.2/docs/data-sources/is_security_group) | data source |
+| [ibm_is_security_group.workload_wazi](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.71.2/docs/data-sources/is_security_group) | data source |
+| [ibm_is_subnet.edge_vpn](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.71.2/docs/data-sources/is_subnet) | data source |
+| [ibm_is_vpc.edge](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.71.2/docs/data-sources/is_vpc) | data source |
 
 ### Inputs
 
