@@ -100,7 +100,7 @@ resource "time_sleep" "wait_for_security_group" {
 
 module "client_to_site_vpn" {
   source                        = "terraform-ibm-modules/client-to-site-vpn/ibm"
-  version                       = "1.7.21"
+  version                       = "2.0.5"
   server_cert_crn               = module.secrets_manager_private_certificate.secret_crn
   vpn_gateway_name              = "${var.prefix}-c2s-vpn"
   resource_group_id             = module.resource_group.resource_group_id
