@@ -14,7 +14,7 @@ locals {
 ##############################################################################
 module "landing_zone" {
   source               = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
-  version              = "6.0.4"
+  version              = "6.6.3"
   prefix               = var.prefix
   region               = var.region
   ssh_public_key       = var.ssh_public_key
@@ -42,7 +42,7 @@ module "resource_group" {
 # Create a new SM instance if not using an existing one
 module "secrets_manager" {
   source               = "terraform-ibm-modules/secrets-manager/ibm"
-  version              = "1.18.6"
+  version              = "1.19.9"
   resource_group_id    = module.resource_group.resource_group_id
   region               = var.region
   secrets_manager_name = "${var.prefix}-sm-instance"
@@ -64,7 +64,7 @@ module "secrets_manager_group" {
 module "private_secret_engine" {
   depends_on                = [module.secrets_manager]
   source                    = "terraform-ibm-modules/secrets-manager-private-cert-engine/ibm"
-  version                   = "1.3.3"
+  version                   = "1.3.4"
   secrets_manager_guid      = module.secrets_manager.secrets_manager_guid
   region                    = var.region
   root_ca_name              = var.root_ca_name
@@ -78,7 +78,7 @@ module "private_secret_engine" {
 module "secrets_manager_private_certificate" {
   depends_on             = [module.private_secret_engine]
   source                 = "terraform-ibm-modules/secrets-manager-private-cert/ibm"
-  version                = "1.3.1"
+  version                = "1.3.2"
   cert_name              = "${var.prefix}-cts-vpn-private-cert"
   cert_description       = "Private certificate"
   cert_template          = var.certificate_template_name
