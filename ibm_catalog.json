@@ -31,7 +31,6 @@
           "name": "standard",
           "working_directory": "solutions/standard",
           "compliance": {
-
           },
           "iam_permissions": [
             {
@@ -140,7 +139,6 @@
           "name": "quickstart",
           "working_directory": "solutions/quickstart",
           "compliance": {
-
           },
           "iam_permissions": [
             {
