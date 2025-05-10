@@ -14,7 +14,7 @@ locals {
 ##############################################################################
 module "landing_zone" {
   source               = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
-  version              = "6.0.4"
+  version              = "6.8.1"
   prefix               = var.prefix
   region               = var.region
   ssh_public_key       = var.ssh_public_key
@@ -28,7 +28,7 @@ module "landing_zone" {
 
 module "resource_group" {
   source  = "terraform-ibm-modules/resource-group/ibm"
-  version = "1.1.6"
+  version = "1.2.0"
   # NB This naming conventation must match what is used in the override.json
   # TODO: Get the resource group from the landing_zone module output instead to ensure value is correct
   existing_resource_group_name = "${var.prefix}-rg-management"
@@ -42,7 +42,7 @@ module "resource_group" {
 # Create a new SM instance if not using an existing one
 module "secrets_manager" {
   source               = "terraform-ibm-modules/secrets-manager/ibm"
-  version              = "1.18.6"
+  version              = "1.26.4"
   resource_group_id    = module.resource_group.resource_group_id
   region               = var.region
   secrets_manager_name = "${var.prefix}-sm-instance"
@@ -53,7 +53,7 @@ module "secrets_manager" {
 # Create a secret group to place the certificate in
 module "secrets_manager_group" {
   source                   = "terraform-ibm-modules/secrets-manager-secret-group/ibm"
-  version                  = "1.2.2"
+  version                  = "1.3.5"
   region                   = var.region
   secrets_manager_guid     = module.secrets_manager.secrets_manager_guid
   secret_group_name        = "${var.prefix}-certs"
@@ -64,7 +64,7 @@ module "secrets_manager_group" {
 module "private_secret_engine" {
   depends_on                = [module.secrets_manager]
   source                    = "terraform-ibm-modules/secrets-manager-private-cert-engine/ibm"
-  version                   = "1.3.3"
+  version                   = "1.4.0"
   secrets_manager_guid      = module.secrets_manager.secrets_manager_guid
   region                    = var.region
   root_ca_name              = var.root_ca_name
@@ -78,7 +78,7 @@ module "private_secret_engine" {
 module "secrets_manager_private_certificate" {
   depends_on             = [module.private_secret_engine]
   source                 = "terraform-ibm-modules/secrets-manager-private-cert/ibm"
-  version                = "1.3.1"
+  version                = "1.3.3"
   cert_name              = "${var.prefix}-cts-vpn-private-cert"
   cert_description       = "Private certificate"
   cert_template          = var.certificate_template_name
@@ -100,7 +100,7 @@ resource "time_sleep" "wait_for_security_group" {
 
 module "client_to_site_vpn" {
   source                        = "terraform-ibm-modules/client-to-site-vpn/ibm"
-  version                       = "2.0.5"
+  version                       = "2.2.5"
   server_cert_crn               = module.secrets_manager_private_certificate.secret_crn
   vpn_gateway_name              = "${var.prefix}-c2s-vpn"
   resource_group_id             = module.resource_group.resource_group_id
@@ -116,7 +116,7 @@ module "client_to_site_vpn" {
 module "client_to_site_sg" {
   depends_on                   = [module.landing_zone]
   source                       = "terraform-ibm-modules/security-group/ibm"
-  version                      = "2.6.2"
+  version                      = "2.7.0"
   add_ibm_cloud_internal_rules = false
   vpc_id                       = data.ibm_is_vpc.edge.id
   resource_group               = module.resource_group.resource_group_id
