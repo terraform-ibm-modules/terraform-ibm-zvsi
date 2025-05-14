@@ -30,7 +30,6 @@
           "label": "Standard",
           "name": "standard",
           "working_directory": "solutions/standard",
-          "compliance": {},
           "iam_permissions": [
             {
               "service_name": "iam-identity",
@@ -136,7 +135,6 @@
           "label": "Quickstart",
           "name": "quickstart",
           "working_directory": "solutions/quickstart",
-          "compliance": {},
           "iam_permissions": [
             {
               "service_name": "is.vpc",
