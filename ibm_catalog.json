@@ -109,14 +109,6 @@
           "configuration": [
             {
               "custom_config": {
-                "grouping": "deployment",
-                "original_grouping": "deployment",
-                "type": "json_editor"
-              },
-              "key": "override_json_string"
-            },
-            {
-              "custom_config": {
                 "config_constraints": {
                   "generationType": "2"
                 },
@@ -127,6 +119,63 @@
               "key": "region",
               "required": true,
               "type": "string"
+            },
+            {
+              "key": "access_group_name"
+            },
+            {
+              "key": "cert_common_name"
+            },
+            {
+              "key": "certificate_template_name"
+            },
+            {
+              "key": "create_policy"
+            },
+            {
+              "key": "data_volume_names"
+            },
+            {
+              "key": "ibmcloud_api_key"
+            },
+            {
+              "key": "image_name"
+            },
+            {
+              "key": "intermediate_ca_name"
+            },
+            {
+              "key": "machine_type"
+            },
+            {
+              "key": "override"
+            },
+            {
+              "key": "ports"
+            },
+            {
+              "key": "prefix"
+            },
+            {
+              "key": "root_ca_common_name"
+            },
+            {
+              "key": "root_ca_max_ttl"
+            },
+            {
+              "key": "root_ca_name"
+            },
+            {
+              "key": "sm_service_plan"
+            },
+            {
+              "key": "ssh_public_key"
+            },
+            {
+              "key": "vpn_client_access_group_users"
+            },
+            {
+              "key": "vpn_server_routes"
             }
           ],
           "install_type": "fullstack"
@@ -215,6 +264,27 @@
               "key": "region",
               "required": true,
               "type": "string"
+            },
+            {
+              "key": "data_volume_names"
+            },
+            {
+              "key": "ibmcloud_api_key"
+            },
+            {
+              "key": "image_name"
+            },
+            {
+              "key": "machine_type"
+            },
+            {
+              "key": "ports"
+            },
+            {
+              "key": "prefix"
+            },
+            {
+              "key": "ssh_key"
             }
           ],
           "install_type": "fullstack"
