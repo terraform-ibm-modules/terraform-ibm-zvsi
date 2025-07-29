@@ -30,9 +30,7 @@
           "label": "Standard",
           "name": "standard",
           "working_directory": "solutions/standard",
-          "compliance": {
-
-          },
+          "compliance": {},
           "iam_permissions": [
             {
               "service_name": "iam-identity",
@@ -105,10 +103,10 @@
                   "caption": "Wazi as a service VSI on VPC Landing zone - Standard variation",
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-zvsi/main/reference-architecture/Standard-variation.svg",
                   "type": "image/svg+xml"
-            },
-            "description": "Standard Variation"
-           }
-           ]
+                },
+                "description": "Standard Variation"
+              }
+            ]
           },
           "configuration": [
             {
@@ -133,15 +131,14 @@
               "type": "string"
             }
           ],
-          "install_type": "fullstack"
+          "install_type": "fullstack",
+          "terraform_version": "1.10.5"
         },
         {
           "label": "Quickstart",
           "name": "quickstart",
           "working_directory": "solutions/quickstart",
-          "compliance": {
-
-          },
+          "compliance": {},
           "iam_permissions": [
             {
               "service_name": "is.vpc",
@@ -194,13 +191,13 @@
             "diagrams": [
               {
                 "diagram": {
-              "caption": "Wazi as a service VSI on VPC Landing zone - QuickStart variation",
-              "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-zvsi/main/reference-architecture/QuickStart.svg",
-              "type": "image/svg+xml"
-            },
-            "description": "Quickstart variation"
-          }
-          ]
+                  "caption": "Wazi as a service VSI on VPC Landing zone - QuickStart variation",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-zvsi/main/reference-architecture/QuickStart.svg",
+                  "type": "image/svg+xml"
+                },
+                "description": "Quickstart variation"
+              }
+            ]
           },
           "configuration": [
             {
@@ -225,7 +222,8 @@
               "type": "string"
             }
           ],
-          "install_type": "fullstack"
+          "install_type": "fullstack",
+          "terraform_version": "1.10.5"
         }
       ]
     }
