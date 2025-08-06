@@ -28,7 +28,7 @@ module "landing_zone" {
 
 module "resource_group" {
   source  = "terraform-ibm-modules/resource-group/ibm"
-  version = "1.1.6"
+  version = "1.3.0"
   # NB This naming conventation must match what is used in the override.json
   # TODO: Get the resource group from the landing_zone module output instead to ensure value is correct
   existing_resource_group_name = "${var.prefix}-rg-management"
