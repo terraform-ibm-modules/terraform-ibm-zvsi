@@ -1,7 +1,7 @@
 # Wazi as a service VSI on VPC Landing zone - Standard Variation
 
 
-![Architecture diagram for the Standard variation of VSI on VPC landing zone](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-zvsi/main/reference-architecture/Standard-variation.svg)
+![Architecture diagram for the Standard variation of VSI on VPC landing zone](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-zvsi/main/reference-architectures/Standard-variation.svg)
 
 This pattern deploys the following infrastructure:
 
