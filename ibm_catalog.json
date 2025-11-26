@@ -30,9 +30,6 @@
           "label": "Standard",
           "name": "standard",
           "working_directory": "solutions/standard",
-          "compliance": {
-
-          },
           "iam_permissions": [
             {
               "service_name": "iam-identity",
@@ -60,7 +57,6 @@
             }
           ],
           "architecture": {
-            "descriptions": "",
             "features": [
               {
                 "title": "Seperate VPC for edge",
@@ -105,20 +101,12 @@
                   "caption": "Wazi as a service VSI on VPC Landing zone - Standard variation",
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-zvsi/main/reference-architecture/Standard-variation.svg",
                   "type": "image/svg+xml"
-            },
-            "description": "Standard Variation"
-           }
-           ]
+                },
+                "description": "Standard Variation"
+              }
+            ]
           },
           "configuration": [
-            {
-              "custom_config": {
-                "grouping": "deployment",
-                "original_grouping": "deployment",
-                "type": "json_editor"
-              },
-              "key": "override_json_string"
-            },
             {
               "custom_config": {
                 "config_constraints": {
@@ -131,6 +119,63 @@
               "key": "region",
               "required": true,
               "type": "string"
+            },
+            {
+              "key": "access_group_name"
+            },
+            {
+              "key": "cert_common_name"
+            },
+            {
+              "key": "certificate_template_name"
+            },
+            {
+              "key": "create_policy"
+            },
+            {
+              "key": "data_volume_names"
+            },
+            {
+              "key": "ibmcloud_api_key"
+            },
+            {
+              "key": "image_name"
+            },
+            {
+              "key": "intermediate_ca_name"
+            },
+            {
+              "key": "machine_type"
+            },
+            {
+              "key": "override"
+            },
+            {
+              "key": "ports"
+            },
+            {
+              "key": "prefix"
+            },
+            {
+              "key": "root_ca_common_name"
+            },
+            {
+              "key": "root_ca_max_ttl"
+            },
+            {
+              "key": "root_ca_name"
+            },
+            {
+              "key": "sm_service_plan"
+            },
+            {
+              "key": "ssh_public_key"
+            },
+            {
+              "key": "vpn_client_access_group_users"
+            },
+            {
+              "key": "vpn_server_routes"
             }
           ],
           "install_type": "fullstack"
@@ -139,9 +184,6 @@
           "label": "Quickstart",
           "name": "quickstart",
           "working_directory": "solutions/quickstart",
-          "compliance": {
-
-          },
           "iam_permissions": [
             {
               "service_name": "is.vpc",
@@ -152,7 +194,6 @@
           ],
           "release_notes_url": "",
           "architecture": {
-            "descriptions": "",
             "features": [
               {
                 "title": "Seperate VPC for edge",
@@ -194,13 +235,13 @@
             "diagrams": [
               {
                 "diagram": {
-              "caption": "Wazi as a service VSI on VPC Landing zone - QuickStart variation",
-              "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-zvsi/main/reference-architecture/QuickStart.svg",
-              "type": "image/svg+xml"
-            },
-            "description": "Quickstart variation"
-          }
-          ]
+                  "caption": "Wazi as a service VSI on VPC Landing zone - QuickStart variation",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-zvsi/main/reference-architecture/QuickStart.svg",
+                  "type": "image/svg+xml"
+                },
+                "description": "Quickstart variation"
+              }
+            ]
           },
           "configuration": [
             {
@@ -223,6 +264,27 @@
               "key": "region",
               "required": true,
               "type": "string"
+            },
+            {
+              "key": "data_volume_names"
+            },
+            {
+              "key": "ibmcloud_api_key"
+            },
+            {
+              "key": "image_name"
+            },
+            {
+              "key": "machine_type"
+            },
+            {
+              "key": "ports"
+            },
+            {
+              "key": "prefix"
+            },
+            {
+              "key": "ssh_key"
             }
           ],
           "install_type": "fullstack"
